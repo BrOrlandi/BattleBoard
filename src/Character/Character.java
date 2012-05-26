@@ -110,6 +110,16 @@ public class Character {
 	public int getMaxHP(){
 		return mMaxHP;
 	}
+
+	
+	/**
+	 * 
+	 * @return os pontos de vida do personagem.
+	 */
+	public int getHP(){
+		return mHP;
+	}
+	
 	/**
 	 * Aumenta o HP do personagem não deixando o com mais que sua vida máxima.
 	 * @param hp pontos de vida que serão adicionados
