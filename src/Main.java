@@ -17,7 +17,7 @@ public class Main {
 		fighter1.setDexterity(30);
 		fighter1.setSpeed(20);
 		fighter1.setStrength(20);
-		Weapon weapon1 = new Weapon("Hands", 50.0, 20, 0, 10);
+		Weapon weapon1 = new Weapon("Hands", 50.0, 20, 10);
 		Armor armor1 = new Armor("Kevlar", 140.0, 20, 10);
 		fighter1.addItem(1,weapon1);
 		fighter1.addItem(2,armor1);
@@ -28,7 +28,7 @@ public class Main {
 		ranger1.setDexterity(30);
 		ranger1.setSpeed(25);
 		ranger1.setStrength(20);
-		Weapon weapon2 = new Weapon("MP-334", 100.0, 30, 0, 10);
+		Weapon weapon2 = new Weapon("MP-334", 100.0, 30, 10);
 		Armor armor2 = new Armor("Kevlar", 100.0, 20, 10);
 		ranger1.addItem(1,weapon2);
 		ranger1.addItem(2,armor2);
@@ -46,7 +46,7 @@ public class Main {
 		fighter2.setDexterity(20);
 		fighter2.setSpeed(20);
 		fighter2.setStrength(30);
-		Weapon weapon3 = new Weapon("Hands", 50.0, 10, 0, 10);
+		Weapon weapon3 = new Weapon("Hands", 50.0, 10, 10);
 		Armor armor3 = new Armor("Kevlar", 140.0, 5, 10);
 		fighter2.addItem(1,weapon3);
 		fighter2.addItem(2,armor3);
@@ -57,7 +57,7 @@ public class Main {
 		ranger2.setDexterity(30);
 		ranger2.setSpeed(30);
 		ranger2.setStrength(15);
-		Weapon weapon4 = new Weapon("MP-334", 120.0, 20, 0, 10);
+		Weapon weapon4 = new Weapon("MP-334", 120.0, 20, 10);
 		Armor armor4 = new Armor("Kevlar", 140.0, 15, 10);
 		ranger2.addItem(1,weapon4);
 		ranger2.addItem(2,armor4);

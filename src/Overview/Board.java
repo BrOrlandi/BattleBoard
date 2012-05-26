@@ -1,6 +1,9 @@
 package Overview;
 import java.util.*;
 
+/**
+ *  É um tabuleiro do jogo onde podem ocorrer batalhas entre times e seus personagens.
+ */
 public class Board {
 	
 	//Atributos

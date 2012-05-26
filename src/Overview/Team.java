@@ -2,6 +2,12 @@ package Overview;
 import java.util.*;
 import Character.Character; //JA EXISTE UMA CLASSE EM JAVA COM O NOME DE CHARACTER
 
+/**
+ * 
+ * Representa um time do jogo, possui seus personagens e sua cor.
+ * Possui informações de quantas vezes o time ganhou, perdeu ou empatou uma batalha.
+ *
+ */
 public class Team {
 	
 	//Atributos

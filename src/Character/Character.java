@@ -5,7 +5,10 @@ import javax.xml.bind.ValidationEvent;
 
 import Item.*;
 
-//JA EXISTE UMA CLASSE EM JAVA COM O NOME CHARACTER
+/**
+ * Esta classe representa um personagem do jogo.
+ *
+ */
 public class Character {
 	
 	//Atributos

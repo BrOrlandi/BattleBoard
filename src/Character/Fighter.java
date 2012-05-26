@@ -1,5 +1,11 @@
 package Character;
 
+/**
+ * 
+ * É um personagem especifico do jogo.
+ * Possui um atributo Power.
+ *
+ */
 public class Fighter extends Character {
 	
 	//atributos

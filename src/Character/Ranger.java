@@ -1,5 +1,11 @@
 package Character;
 
+/**
+ * 
+ * É um personagem específico do jogo.
+ * Possui o atributo Accuracy.
+ *
+ */
 public class Ranger extends Character{
 	
 	protected int mAccuracy; ///< Precisão do personagem Ranger

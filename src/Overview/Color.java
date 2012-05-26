@@ -1,9 +1,14 @@
 package Overview;
-
+/**
+ * 
+ * É uma enumeração que define a cor dos Times do jogo.
+ *
+ */
 public enum Color {	
-	BLUE, 
-	RED,
-	GREEN,
-	YELLOW,
-	WHITE,
+	Blue, 
+	Red,
+	Green,
+	Yellow,
+	White,
+	Black,
 }
