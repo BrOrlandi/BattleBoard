@@ -1,9 +1,14 @@
 package Item;
 
+/**
+ * É um item específico do jogo.
+ * Possui Pontos de Defesa e Flexibilidade.
+ */
 public class Armor extends Item{
 	
 	//Atritubos de Armadura
 	protected int mFlexibility;	///< Flexibilidade da Armadura
+	protected int mDefensePts;	///< Pontos de defesa do Item
 	
 	/**
 	 * Construtor da classe Armor
@@ -13,9 +18,21 @@ public class Armor extends Item{
 	 * @param flex Flexibilidade da armadura
 	 */
 	public Armor(String name, double price, int def, int flex) {
-		super(name, price, 0, def);
+		super(name, price);
 		mFlexibility = flex;
-		mAttackPts = 0;
+		
+		//pontos de defesa devem estar entre 1 e 30
+		if (def > 30)
+		{
+			mDefensePts = 30;
+		}else if (def < 1)
+		{
+			mDefensePts = 1;
+		}
+		else
+		{
+			mDefensePts = def;
+		}
 	}
 
 	//GETTERS
@@ -26,12 +43,19 @@ public class Armor extends Item{
 	public int getFlexibility(){
 		return mFlexibility;
 	}
+
+	/**
+	 * @return Pontos de defesa do item
+	 */
+	public int getDefensepts(){
+		return mDefensePts;
+	}
 	
 	/**
 	 * Sobreescrita para imprimir também a Flexibilidade da Armadura.
 	 */
 	public void print(){
-		System.out.print("Armor FLEX: " + mFlexibility+", ");
+		System.out.print("Armor DEF: "+ mDefensePts + ", FLEX: " + mFlexibility+", ");
 		super.print();
 	}
 }
