@@ -20,8 +20,8 @@ Decisões de Projeto:
 
 - o método giveItem() recebe como parametro a chave do item e também um Character que é o personagem que receberá o item. Retorna boolean, true se o item foi cedido com sucesso ou false caso o item não esteja no inventário.
 
-- foi feito uma sobrecarga do método addItem do personagem permitindo que o personagem receba um item doado por outro jogador. Neste caso a chave do item será o tamanho do iventário + 1.
+- foi feito uma sobrecarga do método addItem do personagem permitindo que o personagem receba um item doado por outro jogador sem que tenha que ser setada uma chave pelo outro jogador. Neste caso a chave do item será o tamanho do iventário + 1.
 
-- o método setConsumable() recebe um int como parametro, e seta um objeto do inventário, se ele é consumível, como item consumivel do personagem. Ou seja, o item consumível deve vir obrigatoriamente do inventário. Retorna true se foi setado com sucesso ou false no caso do objeto não estar no inventário ou não ser consumível.
+- o método setConsumable() recebe um inteiro, que é a chave do item, como parametro, e seta um objeto do inventário, se ele é consumível, como item consumivel do personagem. Ou seja, o item consumível deve vir obrigatoriamente do inventário. Retorna true se foi setado com sucesso ou false no caso do objeto não estar no inventário ou não ser consumível.
 
-- o método useConsumable() foi sobrecarregado na classe Character, ele pode ser usado sem parametros, o item consumível será aplicado ao próprio personagem,
+- o método useConsumable() foi sobrecarregado na classe Character, ele pode ser usado sem parametros, o item consumível será aplicado ao próprio personagem, e pode receber um Character como parametro, neste caso o consumível será aplicado ao outro personagem com verificação de distancia entre os jogadores.
