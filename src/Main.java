@@ -50,6 +50,8 @@ public class Main {
 		Armor armor3 = new Armor("KevlarC", 140.0, 5, 10);
 		fighter2.addItem(1,weapon3);
 		fighter2.addItem(2,armor3);
+		fighter2.addItem(3,new HealthPotion("HP+20 Potion",30.0,20));
+		fighter2.setConsumable(3);
 		
 		//Personagem e seus itens, time2
 		Ranger ranger2 = new Ranger("Boomer", 30);
@@ -61,6 +63,8 @@ public class Main {
 		Armor armor4 = new Armor("KevlarD", 140.0, 15, 10);
 		ranger2.addItem(1,weapon4);
 		ranger2.addItem(2,armor4);
+		ranger2.addItem(3,new HealthPotion("HP+50 Potion",30.0,50));
+		ranger2.setConsumable(3);
 		
 		//adicionando personagens ao time2
 		time2.addCharacter(fighter2);
@@ -82,6 +86,28 @@ public class Main {
 		fighter2.print();
 		System.out.println("------------------------");
 		fighter1.attackCharacter(fighter2);
+		fighter1.attackCharacter(fighter2);
+		fighter1.attackCharacter(fighter2);
+		System.out.println("------------------------");
+		fighter2.useConsumable();
+		System.out.println("------------------------");
+		System.out.println(fighter2);
+		System.out.println("------------------------");
+		fighter1.attackCharacter(fighter2);
+		fighter1.attackCharacter(fighter2);
+		fighter1.attackCharacter(fighter2);
+		System.out.println("------------------------");
+		ranger2.print();
+		System.out.println("------------------------");
+		System.out.println(fighter2);
+		System.out.println("------------------------");
+		ranger2.useConsumable(fighter2);
+		System.out.println("------------------------");
+		ranger2.print();
+		System.out.println("------------------------");
+		System.out.println(fighter2);
+		System.out.println("------------------------");
+		System.out.println(fighter2);
 		System.out.println("------------------------");
 		fighter2.print();
 		System.out.println("------------------------");
@@ -102,13 +128,17 @@ public class Main {
 		ranger1.print();
 
 		System.out.println("------------------------");
-		RevivePotion hpotion = new RevivePotion("HP++", 20.0, 10);
-		hpotion.print();
-		System.out.println(hpotion.consumableBy(ranger2));
-		System.out.println(hpotion.consumableBy(ranger1));
-		System.out.println(hpotion.consume(ranger1));
-		System.out.println(ranger1);
 		
+		
+		//testes das potions
+//		RevivePotion hpotion = new RevivePotion("HP++", 20.0, 10);
+//		hpotion.print();
+//		System.out.println(hpotion.consumableBy(ranger2));
+//		System.out.println(hpotion.consumableBy(ranger1));
+//		System.out.println(hpotion.consume(ranger1));
+//		System.out.println(ranger1);
+		
+		//testes da função random
 //		System.out.println((int)Character.rnd(-5, 5));
 //		System.out.println((int)Character.rnd(-5, 5));
 //		System.out.println((int)Character.rnd(-5, 5));

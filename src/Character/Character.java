@@ -240,8 +240,94 @@ public class Character {
 		mInventory.put(key, item);
 	}
 	
+	/**
+	 * É o método chamado quando um personagem doa um item a outro através do método giveItem.
+	 * @param item o item doado por outro personagem
+	 * @see giveItem
+	 */
+	public void addItem(Item item){
+		int key = mInventory.size()+1;
+		addItem(key, item);
+	}
+	
+	/**
+	 * Dropa um item do inventário.
+	 * @param key chave para o item no inventário.
+	 * @return null se o item não está no inventário ou o item que foi removido.
+	 */
 	public Item dropItem(int key){
 		return mInventory.remove(key);
+	}
+	
+	//TODO documentação
+	public boolean giveItem(int key, Character chr){
+		Item it = mInventory.remove(key);
+		if(it == null)
+		{
+			return false;
+		}
+		chr.addItem(it);
+		System.out.println(mAlias + " gives "+ it.getName()+ " to "+ chr.mAlias);
+		return true;
+	}
+	//TODO documentação
+	public boolean setConsumable(int key){
+		Item it = mInventory.get(key);
+		if(it == null)
+		{
+			System.out.println("Item not found on Inventory!");
+			return false;
+		}
+		if(it instanceof Consumable)
+		{
+			mConsumableItem = (Consumable) it;
+			System.out.println("Now "+ it.getName() + " can be consumed by "+mAlias);
+			mInventory.remove(key);
+			return true;
+		}
+		else
+		{
+			System.out.println(it.getName() + " is not consumable!");
+			return false;
+		}
+	}
+	
+	//TODO documentação
+	public boolean useConsumable(){
+		if(mConsumableItem == null)
+		{
+			return false;
+		}
+		if(mConsumableItem.consumableBy(this))
+		{
+			mConsumableItem.consume(this);
+			System.out.println(mAlias + " consumed a "+ ((Item)mConsumableItem).getName()+".");
+			mConsumableItem = null;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//TODO documentação
+	public boolean useConsumable(Character chr){
+		if(mConsumableItem == null)
+		{
+			return false;
+		}
+		//TODO verificar a distancia
+		if(mConsumableItem.consumableBy(chr))
+		{
+			mConsumableItem.consume(chr);
+			System.out.println(mAlias + " did "+ chr.mAlias+ " consume a "+ ((Item)mConsumableItem).getName()+".");
+			mConsumableItem = null;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**
