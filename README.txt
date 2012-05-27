@@ -24,3 +24,4 @@ Decisões de Projeto:
 
 - o método setConsumable() recebe um int como parametro, e seta um objeto do inventário, se ele é consumível, como item consumivel do personagem. Ou seja, o item consumível deve vir obrigatoriamente do inventário. Retorna true se foi setado com sucesso ou false no caso do objeto não estar no inventário ou não ser consumível.
 
+- o método useConsumable() foi sobrecarregado na classe Character, ele pode ser usado sem parametros, o item consumível será aplicado ao próprio personagem,
