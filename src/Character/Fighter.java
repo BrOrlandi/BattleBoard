@@ -39,7 +39,7 @@ public class Fighter extends Character {
 	 * @return Retorna pontos de Ataque levando em conta todos os itens no inventario do personagem.
 	 */
 	protected int getAttackPoints(){
-		return (int)((mStrength*0.6 + mDexterity*0.4 + mPower*0.1 + getInventoryAttack())*(mXP)/2);
+		return (int)(((mStrength*0.6 + mDexterity*0.4 + mPower*0.1 + getInventoryAttack())*(mXP))/2);
 	}
 	
 	/**
@@ -53,24 +53,26 @@ public class Fighter extends Character {
 	/**
 	 * Sobreescrita do método para atacar outro personagem, pois calcula uma chance de Erro do ataque.
 	 * @param victim Recebe o personagem que sera atacado
+	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
-	public void attackCharacter(Character victim){
+	public boolean attackCharacter(Character victim){
+		if(victim.getHP() == 0){
+			System.out.println(victim.getName() + " is dead!");
+			return false; // tentativa de atacar alguem q já está morto.
+		}
 		double chance = Math.random();
 		if (chance > (0.1)/(this.mXP))
 		{			
-			super.attackCharacter(victim);
+			return super.attackCharacter(victim);
 		}
 		else
 		{
 			System.out.println(getName() + " MISS " + victim.getName());
+			return true;
 		}
 	}
 	
-	/**
-	 * Sobreescrita do método print para imprimir também o Power do Fighter.
-	 */
-	public void print(){
-		System.out.println("Fighter, POW: "+ mPower);
-		super.print();
+	public String toString(){
+		return "Fighter, POW: "+ mPower+"\n"+super.toString();
 	}
 }

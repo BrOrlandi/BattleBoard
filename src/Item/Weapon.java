@@ -67,7 +67,10 @@ public class Weapon extends Item {
 	 * Sobreescrita para imprimir também o Alcance da Arma.
 	 */
 	public void print(){
-		System.out.print("Weapon ATK: "+ mAttackPts + ", RNG: " + mRange+", ");
-		super.print();
+		System.out.println(toString());
+	}
+	
+	public String toString(){
+		return "Weapon:"+ getName() + ", ATK: "+ mAttackPts + ", RNG: " + mRange+", Price: $" + getPrice();
 	}
 }

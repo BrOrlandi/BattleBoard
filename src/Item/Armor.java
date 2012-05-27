@@ -55,7 +55,10 @@ public class Armor extends Item{
 	 * Sobreescrita para imprimir também a Flexibilidade da Armadura.
 	 */
 	public void print(){
-		System.out.print("Armor DEF: "+ mDefensePts + ", FLEX: " + mFlexibility+", ");
-		super.print();
+		System.out.println(toString());
+	}
+	
+	public String toString(){
+		return "Armor:"+ getName() + ", DEF: "+ mDefensePts + ", FLEX: " + mFlexibility+", Price: $" + getPrice();
 	}
 }

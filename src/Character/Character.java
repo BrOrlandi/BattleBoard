@@ -22,6 +22,7 @@ public class Character {
 	protected int mConstitution;	///< Constituição do personagem
 	
 	private Map<Integer, Item> mInventory;		///< Inventário de itens do personagem.
+	private Consumable mConsumableItem;
 	
 	/**
 	 * Construtor que recebe o nome do personagem
@@ -37,7 +38,7 @@ public class Character {
 		mHP = 100;
 		mMaxHP = 100;
 		mXP = 1;
-		
+		mConsumableItem = null;
 	}//fim do construtor
 	
 	/**
@@ -67,12 +68,16 @@ public class Character {
 	/**
 	 * Método para atacar outro personagem.
 	 * @param victim Recebe o personagem que sera atacado
+	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
-	public void attackCharacter(Character victim){
+	public boolean attackCharacter(Character victim){
+		if(victim.mHP == 0){
+			System.out.println(victim.mAlias + " is dead!");
+			return false; // tentativa de atacar alguem q já está morto.
+		}
 		double chance = Math.random();
 		//Calculo do dano que o personagem sofrera
 		int dano =  ((getAttackPoints() - victim.getDefensePoints()) + (int)rnd(-5,5));
-
 		if (dano < 1)
 		{
 			dano = 1;
@@ -89,6 +94,11 @@ public class Character {
 			System.out.println(mAlias +" Attacks "+ victim.mAlias + " | Damage: " +dano);
 		}
 		victim.mHP -= dano; // finalmente diminui o HP da vitima.
+		if(victim.mHP <= 0){
+			System.out.println(victim.mAlias + " was killed by "+ mAlias+"!");
+			victim.mHP = 0;
+		}
+		return true;
 	}
 	
 	/**
@@ -230,21 +240,30 @@ public class Character {
 		mInventory.put(key, item);
 	}
 	
+	public Item dropItem(int key){
+		return mInventory.remove(key);
+	}
+	
 	/**
 	 * Imprime as características do personagem tais como: 
 	 * Nome, HP, Velocidade, Força, Destreza, Constituição e Força.
 	 * E imprime todos os itens que o personagem possui no seu inventário.
 	 */
 	public void print(){
-		System.out.println("Name: " + mAlias + " HP: "+mHP + " XP: "+mXP);
-		System.out.println("STR: " + mStrength + " SPD: " + mSpeed + " DEX: " + mDexterity + " CST: "+mConstitution);
-		System.out.println("Items:");
+		System.out.print(toString());
+		System.out.println(":");
 		Iterator<Item> it = mInventory.values().iterator();
 		while(it.hasNext())
 		{
 			Item itemTemp = it.next();
 			itemTemp.print();
 		}
+	}
+	
+	public String toString(){
+		return "Name: " + mAlias + " HP: "+mHP + " XP: "+mXP+"\n"+
+	"STR: " + mStrength + " SPD: " + mSpeed + " DEX: " + mDexterity + " CST: "+mConstitution+"\n" +
+		mInventory.size()+" items";
 	}
 	
 	/**

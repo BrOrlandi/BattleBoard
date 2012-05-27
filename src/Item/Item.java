@@ -55,6 +55,10 @@ public class Item {
 	}
 	
 	public void print(){
-		System.out.println(mName + ", Price: $" + mPrice);
+		System.out.println(toString());
+	}
+	
+	public String toString(){
+		return "Item: " + mName + ", Price: $" + mPrice;
 	}
 }
