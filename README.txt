@@ -25,3 +25,9 @@ Decisões de Projeto:
 - o método setConsumable() recebe um inteiro, que é a chave do item, como parametro, e seta um objeto do inventário, se ele é consumível, como item consumivel do personagem. Ou seja, o item consumível deve vir obrigatoriamente do inventário. Retorna true se foi setado com sucesso ou false no caso do objeto não estar no inventário ou não ser consumível.
 
 - o método useConsumable() foi sobrecarregado na classe Character, ele pode ser usado sem parametros, o item consumível será aplicado ao próprio personagem, e pode receber um Character como parametro, neste caso o consumível será aplicado ao outro personagem com verificação de distancia entre os jogadores.
+
+- método isDead() para a classe Character para verificar se o personagem está morto.
+
+* - a classe Character possui um atributo Color para identificar qual é a cor do personagem e assim identificar a qual time pertence.
+
+* - a classe Character possui um atributo boardPosition
