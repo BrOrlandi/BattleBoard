@@ -1,8 +1,6 @@
 package Character;
 import java.util.*;
 
-import javax.xml.bind.ValidationEvent;
-
 import Item.*;
 
 /**
@@ -259,10 +257,15 @@ public class Character {
 		return mInventory.remove(key);
 	}
 	
-	//TODO documentação
+	/**
+	 * Pega um item do inventário a partir de sua chave e doa para outro jogador.
+	 * @param key chave do item no inventário
+	 * @param chr jogador que receberá o item
+	 * @return true se o item foi cedido com sucesso.
+	 */
 	public boolean giveItem(int key, Character chr){
 		Item it = mInventory.remove(key);
-		if(it == null)
+		if(it == null || chr == null)
 		{
 			return false;
 		}
@@ -270,7 +273,13 @@ public class Character {
 		System.out.println(mAlias + " gives "+ it.getName()+ " to "+ chr.mAlias);
 		return true;
 	}
-	//TODO documentação
+	
+	/**
+	 * Seta o item consumível do personagem.
+	 * Este deve vir do próprio inventário.
+	 * @param key chave do item consumível no inventário.
+	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for consumível.
+	 */
 	public boolean setConsumable(int key){
 		Item it = mInventory.get(key);
 		if(it == null)
@@ -292,10 +301,14 @@ public class Character {
 		}
 	}
 	
-	//TODO documentação
+	/**
+	 * Usa o item consumível carregado pelo personagem.
+	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado ou não possui um item consumível.
+	 */
 	public boolean useConsumable(){
 		if(mConsumableItem == null)
 		{
+			System.out.println(mAlias + " does not have an consumable item selected.");
 			return false;
 		}
 		if(mConsumableItem.consumableBy(this))
@@ -310,7 +323,12 @@ public class Character {
 			return false;
 		}
 	}
-	//TODO documentação
+
+	/**
+	 * Usa o item consumível carregado pelo personagem em outro personagem desde que a distancia entre ele seja no máximo 2.
+	 * @param chr personagem no qual o consumível será aplicado.
+	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado, não possui um item consumível, ou ainda o personagem escolhido não pode usar o item.
+	 */
 	public boolean useConsumable(Character chr){
 		if(mConsumableItem == null)
 		{
@@ -339,9 +357,12 @@ public class Character {
 		System.out.print(toString());
 		System.out.println(":");
 		Iterator<Item> it = mInventory.values().iterator();
+		Iterator<Integer> it2 = mInventory.keySet().iterator();
 		while(it.hasNext())
 		{
 			Item itemTemp = it.next();
+			int x = it2.next();
+			System.out.print(x + ": ");
 			itemTemp.print();
 		}
 	}
@@ -360,6 +381,21 @@ public class Character {
 	 */
 	public static double rnd(int minimo, int maximo) {  
 		  return Math.random() * (maximo - minimo) + minimo;  
+	}
+	
+	/**
+	 * Verifica se o personagem está morto.
+	 * @return true se estiver morto.
+	 */
+	public boolean isDead(){
+		if(mHP == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 }//fim da classe Character
