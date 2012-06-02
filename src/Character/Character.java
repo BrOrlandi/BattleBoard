@@ -34,6 +34,8 @@ public class Character {
 		mDexterity = 0;
 		mConstitution = 0;
 		mHP = 100;
+		//TODO o mMaxHP não tem na especificação, e nao faz sentido, uma vez que
+		//a cada XP ganho o HP total deve aumentar em 30%
 		mMaxHP = 100;
 		mXP = 1;
 		mConsumableItem = null;
@@ -104,6 +106,7 @@ public class Character {
 	 * @param XP XP que sera adicionado
 	 */
 	public void addXP(int xp){
+		//TODO na especificação diz que quando um ponto de XP é ganho o HP aumenta em 30%
 		mXP += xp;
 		if (mXP > 100)
 		{

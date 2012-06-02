@@ -4,13 +4,15 @@ import java.util.*;
 /**
  *  Ã‰ um tabuleiro do jogo onde podem ocorrer batalhas entre times e seus personagens.
  */
+
+//TODO Editar classe board, é um set
 public class Board {
 	
 	//Atributos
 	private int mWidth;				///< Altura do tabuleiro	
 	private int mHeight;				///< Largura do tabuleiro
-	
-	private ArrayList<Team> mTeams; ///< Times no tabuleiro
+	private Set<BoardPosition> mPositions;
+	private Map<Color, Team> mTeams;
 	
 	/**
 	 *Construtor padrao de tabuleiro, altura e largura recebem 5 
@@ -19,7 +21,7 @@ public class Board {
 	{
 		mWidth = 5;
 		mHeight = 5;
-		mTeams = new ArrayList<Team>();
+		mTeams = new HashMap<Color, Team>();
 	}
 	
 	/**
@@ -31,7 +33,7 @@ public class Board {
 	{
 		mWidth = width;
 		mHeight = height;
-		mTeams = new ArrayList<Team>();
+		mTeams = new HashMap<Color, Team>();
 	}
 	
 	/**
@@ -40,17 +42,7 @@ public class Board {
 	 */
 	public void addTeam(Team team)
 	{
-		mTeams.add(team);
-	}
-	
-	/**
-	 * Remove time do jogo
-	 * @param team Time que sera removido
-	 * @return true se o time foi removido com sucesso. 
-	 */
-	public boolean removeTeam(Team team)
-	{
-		return mTeams.remove(team);
+		mTeams.put(team.getColor(), team);
 	}
 	
 	/**
@@ -60,16 +52,11 @@ public class Board {
 	 */
 	public boolean removeTeam(Color color)
 	{
-		Iterator<Team> it = mTeams.iterator();
-		while(it.hasNext())
+		if(mTeams.remove(color) == null)
 		{
-			Team t = it.next();
-			if(t.getColor() == color)
-			{
-				return mTeams.remove(t);
-			}
+			return false;
 		}
-		return false;
+		else return true;
 	}
 	
 	/**

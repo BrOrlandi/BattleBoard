@@ -1,4 +1,4 @@
-Esta é a pasta do projeto para o Eclipse.
+﻿Esta é a pasta do projeto para o Eclipse.
 
 Documentação:
 http://www.grad.icmc.usp.br/~brorlandi/battleboard/html/index.html
@@ -31,3 +31,4 @@ Decisões de Projeto:
 * - a classe Character possui um atributo Color para identificar qual é a cor do personagem e assim identificar a qual time pertence.
 
 * - a classe Character possui um atributo boardPosition
+
