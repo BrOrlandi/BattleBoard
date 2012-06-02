@@ -1,6 +1,8 @@
 package Overview;
 import java.util.*;
 
+import javax.swing.text.Position;
+
 /**
  *  É um tabuleiro do jogo onde podem ocorrer batalhas entre times e seus personagens.
  */
@@ -9,8 +11,8 @@ import java.util.*;
 public class Board {
 	
 	//Atributos
-	private int mWidth;				///< Altura do tabuleiro	
-	private int mHeight;				///< Largura do tabuleiro
+	private int mWidth;				///< Largura do tabuleiro	
+	private int mHeight;				///< Altura do tabuleiro
 	private Set<BoardPosition> mPositions;
 	private Map<Color, Team> mTeams;
 	
@@ -63,12 +65,22 @@ public class Board {
 	 * 
 	 * @param x Posicao x do personagem no tabuleiro
 	 * @param y Posicao y do personagem do tabuleiro
-	 * @param color	 Cor do time
-	 * @param index Personagem
+	 * @param character Personagem que sera inserido
 	 */
-	public void setCharacterPosition(int x, int y, Color color, int index)
+	public void setCharacterPosition(int x, int y, Character character)
 	{	
-		//TODO
+		BoardPosition bp = new BoardPosition(character, mWidth, x, y);
+		mPositions.add(bp);
+	}
+	
+	public Character getCharacter(int x, int y)
+	{
+	
+		Iterator it = mPositions.iterator();
+		while(it.hasNext())
+		{	
+			it.
+		}
 	}
 	
 }//fim da classe Board
