@@ -30,5 +30,13 @@ public class Pair<A, B> {
 	{
 		return second;
 	}
-
+	
+	public boolean equal(Pair pair)
+	{
+		if(this.first == pair.getFirst() && this.second == pair.getSecond())
+		{
+			return true;
+		}
+		else return false;
+	}
 }

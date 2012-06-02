@@ -1,5 +1,8 @@
 package Overview;
+
+import Character.Character;
 import java.util.*;
+
 
 import Utilities.Pair;
 
@@ -47,6 +50,11 @@ public class BoardPosition implements Comparable<BoardPosition>
 		this.y = y;
 		position = x*LarguraBoard + y;
 		
+	}
+	
+	public int getPos()
+	{
+		return position;
 	}
 	
 	/**

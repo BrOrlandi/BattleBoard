@@ -3,11 +3,13 @@ import java.util.*;
 
 import javax.swing.text.Position;
 
+import Character.Character;
+import Utilities.Pair;
+
 /**
  *  Ã‰ um tabuleiro do jogo onde podem ocorrer batalhas entre times e seus personagens.
  */
 
-//TODO Editar classe board, é um set
 public class Board {
 	
 	//Atributos
@@ -73,14 +75,25 @@ public class Board {
 		mPositions.add(bp);
 	}
 	
-	public Character getCharacter(int x, int y)
+	/**
+	 * 
+	 * @param pos Posicao do carater requerido
+	 * @return Caso nao encontre o character buscado, entao retorna null
+	 */
+	public Character getCharacter(int pos)
 	{
-	
-		Iterator it = mPositions.iterator();
-		while(it.hasNext())
+		Character character = null;
+		
+		Iterator<BoardPosition> it = mPositions.iterator();
+		while(it.hasNext() && pos < it.next().getPos())
 		{	
-			it.
+			if(pos == it.next().getPos())
+			{
+				character = it.next().getOccup();
+				return character;
+			}
 		}
+		return character;
 	}
 	
 }//fim da classe Board
