@@ -1,8 +1,6 @@
 package Overview;
 import java.util.*;
 
-import javax.swing.text.Position;
-
 import Character.Character;
 import Utilities.Pair;
 
@@ -70,11 +68,19 @@ public class Board {
 	 * @param x Posicao x do personagem no tabuleiro
 	 * @param y Posicao y do personagem do tabuleiro
 	 * @param character Personagem que sera inserido
+	 * @return false caso nao tenha sido inserido com sucesso (caso posicao especificada nao existir no tabuleiro)
 	 */
-	public void setCharacterPosition(int pos, Character character)
+	public boolean setCharacterPosition(int pos, Character character)
 	{	
-		BoardPosition bp = new BoardPosition(character, mWidth, pos);
-		mPositions.add(bp);
+		int y = pos/mWidth;
+		
+		if(y < mWidth)
+		{
+			BoardPosition bp = new BoardPosition(character, mWidth, pos);
+			mPositions.add(bp);
+			return true;
+		}
+		return false;
 	}
 	
 	/**

@@ -17,8 +17,8 @@ public class BoardPosition implements Comparable<BoardPosition>
 	
 	private int position; //posicao na matriz, usado para deixar o set em ordem
 	private int mod;  		//largura do tabuleiro, usado pra encontrar o pos a partir de X e Y
-	private int x, y;		//posicao real do personagem em uma matriz
-	
+	//private int x, y;		//posicao real do personagem em uma matriz
+	private Pair<Integer, Integer> XY;
 	//personagem que ocupa a posicao x, y
 	private Character occupied;
 	
@@ -30,15 +30,13 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 */
 	public BoardPosition(Character pCharacter, int larguraBoard, int pos)
 	{	
-		this.x = pos%larguraBoard;
-		this.y = pos/larguraBoard;
+		XY = new Pair<Integer, Integer>(pos%larguraBoard, pos/larguraBoard);
 		position = pos;
 		mod = larguraBoard;
 		
 		//Personagem que ocupa essa posicao
 		occupied = pCharacter;
-	}
-	
+	}	
 
 	/**
 	 * 
@@ -46,8 +44,8 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 */
 	public void setPos(int pos)
 	{
-		this.x = pos%mod;
-		this.y = pos/mod;
+		XY.setFirst(pos%mod);
+		XY.setSecond(pos/mod);
 		position = pos;
 		
 	}
@@ -63,8 +61,7 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 */
 	public Pair<Integer, Integer> getXY()
 	{		
-		Pair<Integer, Integer> pair = new Pair<Integer, Integer>(position/mod, position%mod);
-		return pair;
+		return XY;
 	}
 
 	/**

@@ -7,7 +7,8 @@ import Overview.*;
 public class Main {
 	
 	public static void main (String args[])
-	{
+	{	
+		
 		Team alpha = new Team("Alpha",Color.Red);
 		Team bravo = new Team("Bravo",Color.Blue);
 
@@ -136,13 +137,15 @@ public class Main {
 	    board.setCharacterPosition(3, r2);
 	    pline();
 	    
-	    System.out.println("TESTE RETORNA CHARACTER######");
+	    pline();
+	    System.out.println("TESTE RETORNA CHARACTER");
 	    System.out.println(board.getCharacter(0));
 	    System.out.println(board.getCharacter(1));
 	    System.out.println(board.getCharacter(2));
 	    System.out.println(board.getCharacter(3));
 	    
-	    System.out.println("TESTE RETORNA Pair<X, Y> ######");
+	    pline();
+	    System.out.println("TESTE RETORNA Pair<X, Y>");
 	    System.out.println(board.getCharacterXY(f1));
 	    System.out.println(board.getCharacterXY(f2));
 	    System.out.println(board.getCharacterXY(r1));

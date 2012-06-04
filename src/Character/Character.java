@@ -34,8 +34,6 @@ public class Character {
 		mDexterity = 0;
 		mConstitution = 0;
 		mHP = 100;
-		//TODO o mMaxHP não tem na especificação, e nao faz sentido, uma vez que
-		//a cada XP ganho o HP total deve aumentar em 30%
 		mMaxHP = 100;
 		mXP = 1;
 		mConsumableItem = null;
@@ -71,6 +69,9 @@ public class Character {
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
 	public boolean attackCharacter(Character victim){
+		
+		//TODO verificar distancia de ataque
+		
 		if(victim.mHP == 0){
 			System.out.println(victim.mAlias + " is dead!");
 			return false; // tentativa de atacar alguem q já está morto.
@@ -97,6 +98,7 @@ public class Character {
 		if(victim.mHP <= 0){
 			System.out.println(victim.mAlias + " was killed by "+ mAlias+"!");
 			victim.mHP = 0;
+			addXP(1);
 		}
 		return true;
 	}
@@ -106,12 +108,15 @@ public class Character {
 	 * @param XP XP que sera adicionado
 	 */
 	public void addXP(int xp){
-		//TODO na especificação diz que quando um ponto de XP é ganho o HP aumenta em 30%
+
 		mXP += xp;
+		mMaxHP = (int) (mMaxHP*1.3);
+		
 		if (mXP > 100)
 		{
 			mXP = 100;
 		}
+		
 	}
 	
 	/**
