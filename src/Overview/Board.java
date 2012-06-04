@@ -26,6 +26,7 @@ public class Board {
 		mWidth = 5;
 		mHeight = 5;
 		mTeams = new HashMap<Color, Team>();
+		mPositions = new TreeSet<BoardPosition>();
 	}
 	
 	/**
@@ -38,6 +39,7 @@ public class Board {
 		mWidth = width;
 		mHeight = height;
 		mTeams = new HashMap<Color, Team>();
+		mPositions = new TreeSet<BoardPosition>();
 	}
 	
 	/**
@@ -69,9 +71,9 @@ public class Board {
 	 * @param y Posicao y do personagem do tabuleiro
 	 * @param character Personagem que sera inserido
 	 */
-	public void setCharacterPosition(int x, int y, Character character)
+	public void setCharacterPosition(int pos, Character character)
 	{	
-		BoardPosition bp = new BoardPosition(character, mWidth, x, y);
+		BoardPosition bp = new BoardPosition(character, mWidth, pos);
 		mPositions.add(bp);
 	}
 	
@@ -81,19 +83,57 @@ public class Board {
 	 * @return Caso nao encontre o character buscado, entao retorna null
 	 */
 	public Character getCharacter(int pos)
-	{
+	{	
+		//character que sera retornado
 		Character character = null;
 		
 		Iterator<BoardPosition> it = mPositions.iterator();
-		while(it.hasNext() && pos < it.next().getPos())
+		//System.out.println("posAux: " + posAux);
+		BoardPosition boardPosition = null;
+		
+		int posAux = 0;
+		//enquato nao chegou ao fim e posAux é menor (pois set é ordenado)
+		while(it.hasNext() && posAux <= pos)
 		{	
-			if(pos == it.next().getPos())
-			{
-				character = it.next().getOccup();
+			
+			//Necessario criação de boardPosition, como com o iteradot nao é possivel
+			//pegar o elemento atual, apenas o proximo da lista entao não é possivel usar o
+			//iterador no "if", foi preciso criar um boardPosition para pegar a posicao do 
+			//personagem e comparar com a posicao desejada
+			boardPosition = it.next();
+			posAux = boardPosition.getPos();
+			
+			//System.out.println("PosAux: " + posAux);
+			if(pos == posAux)
+			{		
+				character = boardPosition.getOccup();
 				return character;
+			}	
+		}
+		
+		return character;
+	}
+	
+	/**
+	 * 
+	 * @param character Personagem que esta sendo buscado
+	 * @return Pair de posicao X e Y do personagem no tabuleiro (para calculo da distancia de ataque)
+	 */
+	public Pair<Integer, Integer> getCharacterXY(Character character)
+	{
+		Pair<Integer, Integer> XY = null;
+		BoardPosition boardPosition = null;
+		
+		Iterator<BoardPosition> it = mPositions.iterator();
+		while(it.hasNext())
+		{	
+			boardPosition = it.next();
+			if(boardPosition.getOccup() == character)
+			{
+				XY = boardPosition.getXY();
 			}
 		}
-		return character;
+		return XY;
 	}
 	
 }//fim da classe Board

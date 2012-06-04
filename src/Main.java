@@ -82,7 +82,7 @@ public class Main {
 	    r2.addItem(4, rp2);
 	    
 		
-	    Board board = new Board(10,10);
+	    Board board = new Board(2,2);
 	    board.addTeam(alpha);
 	    board.addTeam(bravo);
 
@@ -106,7 +106,8 @@ public class Main {
 	    r1.setConsumable(4);
 	    f2.setConsumable(3);
 	    r2.setConsumable(4);
-	    pline();
+	    pline();	    
+	    
 	    while(f1.getHP() > 50)
 	    {
 	    	r2.attackCharacter(f1);
@@ -122,14 +123,31 @@ public class Main {
 	    {
 	    	r2.attackCharacter(f1);
 	    }
-	    pline();
-	    System.out.println(f1);
-	    pline();
-	    r1.useConsumable(f1);
-	    pline();
-	    System.out.println(f1);
+//	    pline();
+//	    System.out.println(f1);
+//	    pline();
+//	    r1.useConsumable(f1);
+//	    pline();
+//	    System.out.println(f1);
 	    
-
+	    board.setCharacterPosition(0, f1);
+	    board.setCharacterPosition(1, f2);
+	    board.setCharacterPosition(2, r1);
+	    board.setCharacterPosition(3, r2);
+	    pline();
+	    
+	    System.out.println("TESTE RETORNA CHARACTER######");
+	    System.out.println(board.getCharacter(0));
+	    System.out.println(board.getCharacter(1));
+	    System.out.println(board.getCharacter(2));
+	    System.out.println(board.getCharacter(3));
+	    
+	    System.out.println("TESTE RETORNA Pair<X, Y> ######");
+	    System.out.println(board.getCharacterXY(f1));
+	    System.out.println(board.getCharacterXY(f2));
+	    System.out.println(board.getCharacterXY(r1));
+	    System.out.println(board.getCharacterXY(r2));
+	    pline();
 	    /*
 	    //Muita briga!
 	    pline();

@@ -39,4 +39,11 @@ public class Pair<A, B> {
 		}
 		else return false;
 	}
+	
+	@Override
+	public String toString()
+	{
+		
+		return "Pair<" + getFirst() + "," + getSecond() + ">";
+	}
 }

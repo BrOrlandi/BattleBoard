@@ -28,11 +28,11 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 * @param larguraBoard	Largura do tabuleiro (para calculo exato da posicao do personagem na matriz
 	 * @param pos Posicao na matriz
 	 */
-	public BoardPosition(Character pCharacter, int larguraBoard, int x, int y)
+	public BoardPosition(Character pCharacter, int larguraBoard, int pos)
 	{	
-		this.x = x;
-		this.y = y;
-		position = x*larguraBoard + y;
+		this.x = pos%larguraBoard;
+		this.y = pos/larguraBoard;
+		position = pos;
 		mod = larguraBoard;
 		
 		//Personagem que ocupa essa posicao
@@ -44,11 +44,11 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 * 
 	 * @param pos posicao na matriz do tabuleiro
 	 */
-	public void setXY(int x, int y, int LarguraBoard)
+	public void setPos(int pos)
 	{
-		this.x = x;
-		this.y = y;
-		position = x*LarguraBoard + y;
+		this.x = pos%mod;
+		this.y = pos/mod;
+		position = pos;
 		
 	}
 	
