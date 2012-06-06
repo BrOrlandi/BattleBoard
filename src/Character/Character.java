@@ -2,6 +2,8 @@ package Character;
 import java.util.*;
 
 import Item.*;
+import Overview.Board;
+import Utilities.Pair;
 
 /**
  * Esta classe representa um personagem do jogo.
@@ -68,10 +70,24 @@ public class Character {
 	 * @param victim Recebe o personagem que sera atacado
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
-	public boolean attackCharacter(Character victim){
+	public boolean attackCharacter(Character victim, Board board){
+		
+		//tentativa de ataque feita por alguem ou para alguem que esta fora do tabuleiro
+		if(board.getCharacterXY(victim) == null || board.getCharacterXY(this) == null)
+		{
+			return false;
+		}
 		
 		//TODO verificar distancia de ataque
+		Pair<Integer, Integer> attackerPosition = board.getCharacterXY(this);
+		Pair<Integer, Integer> victimPosition = board.getCharacterXY(victim);
 		
+		int distance = (int) Math.pow(attackerPosition.getFirst() - victimPosition.getFirst(), 2) + 
+				(int) Math.pow(attackerPosition.getSecond() - victimPosition.getSecond(), 2);
+		distance = (int) Math.sqrt(distance);
+		
+		System.out.println("Distancia: " + distance);
+				
 		if(victim.mHP == 0){
 			System.out.println(victim.mAlias + " is dead!");
 			return false; // tentativa de atacar alguem q já está morto.
@@ -337,12 +353,32 @@ public class Character {
 	 * @param chr personagem no qual o consumível será aplicado.
 	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado, não possui um item consumível, ou ainda o personagem escolhido não pode usar o item.
 	 */
-	public boolean useConsumable(Character chr){
+	public boolean useConsumable(Character chr, Board board){
+		
+		//tentativa de usar item feita por alguem ou para alguem que esta fora do tabuleiro
+		if(board.getCharacterXY(chr) == null || board.getCharacterXY(this) == null)
+		{
+			return false;
+		}
+		// verificar a distancia
+		Pair<Integer, Integer> attackerPosition = board.getCharacterXY(this);
+		Pair<Integer, Integer> victimPosition = board.getCharacterXY(chr);
+		
+		int distance = (int) Math.pow(attackerPosition.getFirst() - victimPosition.getFirst(), 2) + 
+				(int) Math.pow(attackerPosition.getSecond() - victimPosition.getSecond(), 2);
+		distance = (int) Math.sqrt(distance);
+		
+		// caso a distancia entre os personagens seja mario que 2, então nao pode usar item
+		if(distance > 2)
+		{
+			return false;
+		}
+		
 		if(mConsumableItem == null)
 		{
 			return false;
 		}
-		//TODO verificar a distancia
+
 		if(mConsumableItem.consumableBy(chr))
 		{
 			mConsumableItem.consume(chr);

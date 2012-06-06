@@ -1,5 +1,7 @@
 package Character;
 
+import Overview.Board;
+
 /**
  * 
  * É um personagem específico do jogo.
@@ -53,7 +55,8 @@ public class Ranger extends Character{
 	 * @param victim Recebe o personagem que sera atacado
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
-	public boolean attackCharacter(Character victim){
+	public boolean attackCharacter(Character victim, Board board){
+			
 		if(victim.getHP() == 0){
 			System.out.println(victim.getName() + " is dead!");
 			return false; // tentativa de atacar alguem q já está morto.
@@ -61,7 +64,7 @@ public class Ranger extends Character{
 		double chance = Math.random();
 		if (chance > (0.07)/(this.mXP))
 		{			
-			return super.attackCharacter(victim);
+			return super.attackCharacter(victim, board);
 		}
 		else
 		{

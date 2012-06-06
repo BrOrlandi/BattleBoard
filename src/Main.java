@@ -83,9 +83,11 @@ public class Main {
 	    r2.addItem(4, rp2);
 	    
 		
-	    Board board = new Board(2,2);
+	    Board board = new Board(4,4);
 	    board.addTeam(alpha);
 	    board.addTeam(bravo);
+	    
+
 
 	    pline();
 	    alpha.print();
@@ -93,14 +95,14 @@ public class Main {
 	    bravo.print();
 	    pline();
 
-	    f1.print();
-	    pline();
-	    r1.print();
-	    pline();
-	    f2.print();
-	    pline();
-	    r2.print();
-	    pline();
+//	    f1.print();
+//	    pline();
+//	    r1.print();
+//	    pline();
+//	    f2.print();
+//	    pline();
+//	    r2.print();
+//	    pline();
 	    
 	    pline();
 	    f1.setConsumable(3);
@@ -109,10 +111,19 @@ public class Main {
 	    r2.setConsumable(4);
 	    pline();	    
 	    
-	    while(f1.getHP() > 50)
-	    {
-	    	r2.attackCharacter(f1);
-	    }
+	    System.out.println(board.setCharacterPosition(0, f1));
+	    System.out.println(board.setCharacterPosition(1, f2));
+	    System.out.println(board.setCharacterPosition(2, r1));
+	    System.out.println(board.setCharacterPosition(3, r2));
+	    
+	    /**
+	     * 0 1 2 3 
+	     * 4 5 6 7
+	     * 8 9 10 11
+	     * 12 13 14 15
+	     */
+	    
+	    System.out.print("Se atacou: " +r2.attackCharacter(f1, board));
 	    pline();
 	    System.out.println(f1);
 	    pline();
@@ -120,21 +131,20 @@ public class Main {
 	    //f1.useConsumable();
 	    pline();
 	    System.out.println(f1);
+	    
 	    while(!f1.isDead())
 	    {
-	    	r2.attackCharacter(f1);
+	    	r2.attackCharacter(f1, board);
 	    }
-//	    pline();
-//	    System.out.println(f1);
-//	    pline();
-//	    r1.useConsumable(f1);
-//	    pline();
-//	    System.out.println(f1);
 	    
-	    board.setCharacterPosition(0, f1);
-	    board.setCharacterPosition(1, f2);
-	    board.setCharacterPosition(2, r1);
-	    board.setCharacterPosition(3, r2);
+	    pline();
+	    System.out.println(f1);
+	    pline();
+
+	    r1.useConsumable(f1, board);
+	    pline();
+	    System.out.println(f1);
+	    
 	    pline();
 	    
 	    pline();

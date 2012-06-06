@@ -74,7 +74,7 @@ public class Board {
 	{	
 		int y = pos/mWidth;
 		
-		if(y < mWidth)
+		if(y < mWidth && getCharacter(pos) == null)
 		{
 			BoardPosition bp = new BoardPosition(character, mWidth, pos);
 			mPositions.add(bp);
