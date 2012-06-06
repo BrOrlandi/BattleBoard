@@ -108,7 +108,16 @@ public class Main {
 	    f1.setConsumable(3);
 	    r1.setConsumable(4);
 	    f2.setConsumable(3);
+	    //testes de troca do item consumable com o inventário
+	    r2.print();
 	    r2.setConsumable(4);
+	    r2.print();
+	    r2.setConsumable(3);
+	    r2.print();
+	    r2.setConsumable(4);
+	    r2.print();
+	    r2.setConsumable(3);
+	    r2.setConsumable(3);
 	    pline();	    
 	    
 	    System.out.println(board.setCharacterPosition(0, f1));

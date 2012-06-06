@@ -23,6 +23,9 @@ public class Character {
 	
 	private Map<Integer, Item> mInventory;		///< Inventário de itens do personagem.
 	private Consumable mConsumableItem;
+	private Weapon mWeapon;
+	private Armor mArmor;
+	
 	
 	/**
 	 * Construtor que recebe o nome do personagem
@@ -39,6 +42,8 @@ public class Character {
 		mMaxHP = 100;
 		mXP = 1;
 		mConsumableItem = null;
+		mWeapon = null;
+		mArmor = null;
 	}//fim do construtor
 	
 	/**
@@ -92,6 +97,8 @@ public class Character {
 			System.out.println(victim.mAlias + " is dead!");
 			return false; // tentativa de atacar alguem q já está morto.
 		}
+		
+		
 		double chance = Math.random();
 		//Calculo do dano que o personagem sofrera
 		int dano =  ((getAttackPoints() - victim.getDefensePoints()) + (int)rnd(-5,5));
@@ -313,9 +320,17 @@ public class Character {
 		}
 		if(it instanceof Consumable)
 		{
+			Item i = (Item) mConsumableItem;
 			mConsumableItem = (Consumable) it;
 			System.out.println("Now "+ it.getName() + " can be consumed by "+mAlias);
 			mInventory.remove(key);
+			
+			//verificando se já tem consumable setado.
+			if(i != null)
+			{
+				this.addItem(i);
+				//item consumable anterior foi guardado no inventário ao trocar de item.
+			}
 			return true;
 		}
 		else
