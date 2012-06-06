@@ -27,7 +27,7 @@ public class BoardPosition implements Comparable<BoardPosition>
 	 */
 	public BoardPosition(Character pCharacter, int larguraBoard, int pos)
 	{	
-		XY = new Pair<Integer, Integer>(pos%larguraBoard, pos/larguraBoard);
+		XY = new Pair<Integer, Integer>(pos/larguraBoard, pos%larguraBoard);
 		position = pos;
 		mod = larguraBoard;
 		
