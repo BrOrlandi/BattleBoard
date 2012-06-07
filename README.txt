@@ -28,7 +28,18 @@ Decisões de Projeto:
 
 - método isDead() para a classe Character para verificar se o personagem está morto.
 
-* - a classe Character possui um atributo Color para identificar qual é a cor do personagem e assim identificar a qual time pertence.
+- A classe Character possui um atributo Weapon e Armor, ambos são a arma e a armadura que o personagem está usando em combate, o ataque dependerá do alcance desta arma e dos seus pontos de ataque, similarmente a defesa dependerá da armadura que o personagem estiver usando. Dessa forma os pontos de ataque não são mais calculados somando todos os items do inventário. Se o personagem não estiver usando arma ou armadura, seus pontos de ataque e defesa serão calculados apenas pelos seus atributos.
 
-* - a classe Character possui um atributo boardPosition
+- Ao setar um item consumível, ou arma, ou armadura, se o Character já possuir um item deste tipo setado, este item retorna ao inventário e o novo item, do inventário, é setado. Permitindo que o personagem troque de arma, consumivel e armadura sem perder estes itens.
 
+- O método attackCharacter recebe um Board onde ocorre o ataque. A partir do Board é possivel verificar a distancia entre os personagens e também se eles estão no Board, para permitir um ataque.
+
+- a classe Character possui um atributo Color para identificar qual é a cor do personagem e assim identificar a qual time pertence.
+
+- useConsumable() e giveItem() só podem ser aplicado entre personagens do mesmo time.
+
+- attackCharacter(), dropItem(), giveItem(), setConsumable(), setWeapon(), setArmor(), useConsumable(), são métodos que só podem ser realizados por Characters que estiverem vivos.
+
+- toString() do Character também informa se o personagem está morto.
+
+- giveItem() retorna um inteiro que representa a chave do item no inventário do personagem que recebeu o item, ou retorna um número negativo caso não tenha cedido o item com sucesso.

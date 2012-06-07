@@ -4,6 +4,13 @@ import Character.*;
 import Item.*;
 import Overview.*;
 
+/** @mainpage Decisões de projeto.
+* @section intro_sec Alterações das especificações originais do projeto:
+* Tais decisões foram tomadas visando solucionar questões de acesso aos dados de classes diferentes. E também quanto à futuras funcionalidades a serem implementadas.
+* @subsection sub 1.
+* Alteramos...
+*/
+
 public class Main {
 	
 	public static void main (String args[])
@@ -12,6 +19,11 @@ public class Main {
 		Team alpha = new Team("Alpha",Color.Red);
 		Team bravo = new Team("Bravo",Color.Blue);
 
+		Fighter h1 = new Fighter("Hero Fighter",80);
+		h1.setConstitution(10);
+		h1.setStrength(30);
+		h1.setDexterity(50);
+		h1.setSpeed(10);
 		Fighter f1 = new Fighter("Fighter 1",50);
 		f1.setConstitution(30);
 		f1.setDexterity(30);
@@ -22,6 +34,12 @@ public class Main {
 	    r1.setSpeed(40);
 	    r1.setDexterity(10);
 	    r1.setConstitution(10);
+
+		Ranger h2 = new Ranger("Hero Ranger",80);
+		h2.setConstitution(20);
+		h2.setStrength(20);
+		h2.setDexterity(50);
+		h2.setSpeed(10);
 		Fighter f2 = new Fighter("Fighter 2",40);
 		f2.setConstitution(10);
 		f2.setDexterity(10);
@@ -32,9 +50,11 @@ public class Main {
 	    r2.setSpeed(20);
 	    r2.setDexterity(30);
 	    r2.setConstitution(30);
-		
+
+	    alpha.addCharacter(h1);
 	    alpha.addCharacter(f1);
 	    alpha.addCharacter(r1);
+	    bravo.addCharacter(h2);
 	    bravo.addCharacter(f2);
 	    bravo.addCharacter(r2);
 		
@@ -45,312 +65,209 @@ public class Main {
 	    Weapon w2 = new Weapon("Iron Spear",70.0, 25,3);
 	    Weapon w3 = new Weapon("Bow",50.0, 20,10);
 	    Weapon w4 = new Weapon("Silver Axe",200.0, 40,2);
+	    
+	    Weapon w5 = new Weapon("Silver Sword",200.0, 50,2);
+	    Weapon w6 = new Weapon("Silver Spear",180.0, 40,3);
+	    Weapon w7 = new Weapon("Long Bow",90.0, 30,10);
+	    Weapon w8 = new Weapon("Golden Axe",300.0, 70,2);
+
 	    Armor a1 = new Armor("Bronze Armor", 150.0, 15, 5);
 	    Armor a2 = new Armor("Iron Armor", 90.0, 10, 2);
 	    Armor a3 = new Armor("Wooden Shield", 50.0, 5, 10);
 	    Armor a4 = new Armor("Bronze Shield", 120.0, 10, 12);
+	    
+	    Armor a5 = new Armor("Silver Armor", 200.0, 22, 8);
+	    Armor a6 = new Armor("Golden Armor", 260.0, 30, 7);
+	    Armor a7 = new Armor("Black Shield", 100.0, 20, 10);
+	    Armor a8 = new Armor("Silver Shield", 120.0, 23, 12);
+	    
 	    Item i1 = new Item("Medal of Luck",30.0);
 	    Item i2 = new Item("Gold Bar",50.0);
+	    
 	    HealthPotion hp1 = new HealthPotion("HP+30", 30.0, 30);
 	    HealthPotion hp2 = new HealthPotion("HP+20", 20.0, 20);
 	    HealthPotion hp3 = new HealthPotion("HP+20", 20.0, 20);
 	    HealthPotion hp4 = new HealthPotion("HP+40", 40.0, 40);
+	    HealthPotion hp5 = new HealthPotion("HP+60", 60.0, 60);
+	    HealthPotion hp6 = new HealthPotion("HP+60", 60.0, 60);
 	    RevivePotion rp1 = new RevivePotion("Full Revive", 200.0, 100);
 	    RevivePotion rp2 = new RevivePotion("Half Revive", 100.0, 50);
 	    RevivePotion rp3 = new RevivePotion("Undead Potion", 20.0, 30);
 	    RevivePotion rp4 = new RevivePotion("Undead Potion", 20.0, 30);
+	    RevivePotion rp5 = new RevivePotion("Hero Revive", 300.0, 200);
+	    RevivePotion rp6 = new RevivePotion("Hero Revive", 300.0, 200);
 
+	    h1.addItem(1,w5);
+	    h1.addItem(2,a5);
+	    h1.addItem(3,i1);
+	    h1.addItem(4,hp5);
+	    h1.addItem(5,rp5);
+	    h1.setWeapon(1);
+	    h1.setArmor(2);
+	    h1.setConsumable(4);
+	    pline();
+	    
 	    f1.addItem(1,w1);
 	    f1.addItem(2,a1);
 	    f1.addItem(3,hp1);
 	    f1.addItem(4,rp3);
-	    f1.addItem(5,i1);
+	    f1.addItem(5, a7);
+	    f1.setWeapon(1);
+	    f1.setArmor(2);
+	    f1.setConsumable(3);
+	    pline();
 	    
 	    r1.addItem(1,w2);
 	    r1.addItem(2,a2);
 	    r1.addItem(3,hp2);
 	    r1.addItem(4,rp1);
+	    r1.addItem(5, w6);
+	    r1.setWeapon(1);
+	    r1.setArmor(2);
+	    r1.setConsumable(4);
+	    pline();
+	    
+	    h2.addItem(1, w7);
+	    h2.addItem(2, a8);
+	    h2.addItem(3,i2);
+	    h2.addItem(4,hp6);
+	    h2.addItem(5,rp6);
+	    h2.setWeapon(1);
+	    h2.setArmor(2);
+	    h2.setConsumable(4);
+	    pline();
 
 	    f2.addItem(1,w3);
 	    f2.addItem(2,a3);
 	    f2.addItem(3,hp3);
 	    f2.addItem(4,rp4);
-	    f2.addItem(5,i2);
-
+	    f2.addItem(5, w8);
+	    f2.setWeapon(1);
+	    f2.setArmor(2);
+	    f2.setConsumable(3);
+	    pline();
+	    
 	    r2.addItem(1, w4);
 	    r2.addItem(2, a4);
 	    r2.addItem(3, hp4);
 	    r2.addItem(4, rp2);
+	    r2.addItem(5, a6);
+	    r2.setWeapon(1);
+	    r2.setArmor(2);
+	    r2.setConsumable(4);
+	    pline();
 	    
-		
+	    
 	    Board board = new Board(4,4);
 	    board.addTeam(alpha);
 	    board.addTeam(bravo);
 	    
-
 
 	    pline();
 	    alpha.print();
 	    pline();
 	    bravo.print();
 	    pline();
-
-//	    f1.print();
-//	    pline();
-//	    r1.print();
-//	    pline();
-//	    f2.print();
-//	    pline();
-//	    r2.print();
-//	    pline();
 	    
 	    pline();
-	    f1.setConsumable(3);
-	    r1.setConsumable(4);
-	    f2.setConsumable(3);
-	    //testes de troca do item consumable com o inventário
-	    r2.print();
-	    r2.setConsumable(4);
-	    r2.print();
-	    r2.setConsumable(3);
-	    r2.print();
-	    r2.setConsumable(4);
-	    r2.print();
-	    r2.setConsumable(3);
-	    r2.setConsumable(3);
 	    pline();	    
-	    
-	    System.out.println(board.setCharacterPosition(0, f1));
-	    System.out.println(board.setCharacterPosition(1, f2));
-	    System.out.println(board.setCharacterPosition(2, r1));
-	    System.out.println(board.setCharacterPosition(3, r2));
-	    
+
+	    h1.print();
+	    f1.print();
+	    r1.print();
+	    h2.print();
+	    f2.print();
+	    r2.print();
+
 	    /**
-	     * 0 1 2 3 
-	     * 4 5 6 7
-	     * 8 9 10 11
-	     * 12 13 14 15
+	     * Posições do tabuleiro:
+	     *  	0 	1 	2 	3 
+	     * 0|	f1		r1	h1
+	     * 1|	
+	     * 2|	r2		h2
+	     * 3|				f2
 	     */
+	    board.setCharacterPosition(0,3, h1);
+	    board.setCharacterPosition(0,0, f1);
+	    board.setCharacterPosition(0,2, r1);
+	    board.setCharacterPosition(2,2, h2);
+	    board.setCharacterPosition(3,3, f2);
+	    board.setCharacterPosition(2,0, r2);
+
+	    pline();
+	    System.out.println("Todos tentam atacar os inimigos = 9 ataques.");
+	    pline();
+	    h1.attackCharacter(h2, board);
+	    h1.attackCharacter(f2, board);
+	    h1.attackCharacter(r2, board);
+
+	    f1.attackCharacter(h2, board);
+	    f1.attackCharacter(f2, board);
+	    f1.attackCharacter(r2, board);
+
+	    r1.attackCharacter(h2, board);
+	    r1.attackCharacter(f2, board);
+	    r1.attackCharacter(r2, board);
+
+	    h2.attackCharacter(h1, board);
+	    h2.attackCharacter(f1, board);
+	    h2.attackCharacter(r1, board);
+
+	    f2.attackCharacter(h1, board);
+	    f2.attackCharacter(f1, board);
+	    f2.attackCharacter(r1, board);
+
+	    r2.attackCharacter(h1, board);
+	    r2.attackCharacter(f1, board);
+	    r2.attackCharacter(r1, board);
 	    
-	    System.out.print("Se atacou: " +r2.attackCharacter(f1, board));
 	    pline();
-	    System.out.println(f1);
+	    System.out.println("|||| Hero Fighter atacará Hero Ranger até a morte: ||||");
+	    while(!h2.isDead() && h1.attackCharacter(h2, board));
+	    System.out.println("|||| Hero Fighter ganhou XP por matar e agora será mais forte ||||");
 	    pline();
-	    f1.useConsumable();
-	    //f1.useConsumable();
+	    System.out.println("|||| Ranger 2 usa uma poção para reviver Hero Ranger ||||");
+	    r2.useConsumable(h2, board);
+	    h2.useConsumable();
 	    pline();
-	    System.out.println(f1);
-	    
-	    while(!f1.isDead())
+	    System.out.println("|||| Hero Ranger não possui armas fortes para combater Hero Fighter ||||");
+	    h2.print();
+	    int w = f2.giveItem(5, h2);
+	    int a = r2.giveItem(5, h2);
+	    h2.setWeapon(w);
+	    h2.setArmor(a);
+	    pline();
+	    System.out.println("|||| Fighter 2 e Ranger 2, companheiros de Hero Ranger lhe deram itens mais fortes  ||||");
+	    pline();
+	    h2.attackCharacter(h1, board);
+	    h1.useConsumable();
+	    while(!h1.isDead() && h2.attackCharacter(h1, board));
+	    pline();
+	    System.out.println("|||| Hero Ranger se vingou de Hero Fighter  ||||");
+	    pline();
+	    System.out.println("|||| Rangers e Fighters continuam lutando entre si  ||||");
+	    while(!alpha.allDead() && !bravo.allDead())
 	    {
-	    	r2.attackCharacter(f1, board);
+		    f1.attackCharacter(f2, board);
+		    f1.attackCharacter(r2, board);
+
+		    r1.attackCharacter(f2, board);
+		    r1.attackCharacter(r2, board);
+
+		    f2.attackCharacter(f1, board);
+		    f2.attackCharacter(r1, board);
+
+		    r2.attackCharacter(f1, board);
+		    r2.attackCharacter(r1, board);
+		    pline();
 	    }
-	    
-	    pline();
-	    System.out.println(f1);
-	    pline();
-
-	    r1.useConsumable(f1, board);
-	    pline();
-	    System.out.println(f1);
-	    
-	    pline();
-	    
-	    pline();
-	    System.out.println("TESTE RETORNA CHARACTER");
-	    System.out.println(board.getCharacter(0));
-	    System.out.println(board.getCharacter(1));
-	    System.out.println(board.getCharacter(2));
-	    System.out.println(board.getCharacter(3));
-	    
-	    pline();
-	    System.out.println("TESTE RETORNA Pair<X, Y>");
-	    System.out.println(board.getCharacterXY(f1));
-	    System.out.println(board.getCharacterXY(f2));
-	    System.out.println(board.getCharacterXY(r1));
-	    System.out.println(board.getCharacterXY(r2));
-	    pline();
-	    /*
-	    //Muita briga!
-	    pline();
-	    f1.attackCharacter(f2);
-	    f1.attackCharacter(r2);
-	    r1.attackCharacter(f2);
-	    r1.attackCharacter(r2);
-	    f2.attackCharacter(f1);
-	    f2.attackCharacter(r1);
-	    r2.attackCharacter(f1);
-	    r2.attackCharacter(r1);
-	    pline();
-	    f1.attackCharacter(f2);
-	    f1.attackCharacter(r2);
-	    r1.attackCharacter(f2);
-	    r1.attackCharacter(r2);
-	    f2.attackCharacter(f1);
-	    f2.attackCharacter(r1);
-	    r2.attackCharacter(f1);
-	    r2.attackCharacter(r1);
-	    pline();
-	    f1.attackCharacter(f2);
-	    f1.attackCharacter(r2);
-	    r1.attackCharacter(f2);
-	    r1.attackCharacter(r2);
-	    f2.attackCharacter(f1);
-	    f2.attackCharacter(r1);
-	    r2.attackCharacter(f1);
-	    r2.attackCharacter(r1);
-	    pline();
-	    f1.attackCharacter(f2);
-	    f1.attackCharacter(r2);
-	    r1.attackCharacter(f2);
-	    r1.attackCharacter(r2);
-	    f2.attackCharacter(f1);
-	    f2.attackCharacter(r1);
-	    r2.attackCharacter(f1);
-	    r2.attackCharacter(r1);
-	    pline();
-	    //*/
+	    System.out.println("|||| A batalha acabou!  ||||");
+	    System.out.println("|||| Alpha Team:  ||||");
+	    System.out.println(alpha.getResults());
+	    System.out.println("|||| Bravo Team:  ||||");
+	    System.out.println(bravo.getResults());
 	    
 	    
-	    
-		/**
-		//time 1
-		Team time1 = new Team("Humans", Color.Blue);
-		
-		//Personagem e seus itens, time 1
-		Fighter fighter1 = new Fighter("Lee Adama", 50);
-		fighter1.setConstitution(30);
-		fighter1.setDexterity(30);
-		fighter1.setSpeed(20);
-		fighter1.setStrength(20);
-		Weapon weapon1 = new Weapon("HandsA", 50.0, 20, 10);
-		Armor armor1 = new Armor("KevlarA", 140.0, 20, 10);
-		fighter1.addItem(1,weapon1);
-		fighter1.addItem(2,armor1);
-		
-		//Personagem e seus itens, time1
-		Ranger ranger1 = new Ranger("Starbuck", 60);
-		ranger1.setConstitution(25);
-		ranger1.setDexterity(30);
-		ranger1.setSpeed(25);
-		ranger1.setStrength(20);
-		Weapon weapon2 = new Weapon("MP-334A", 100.0, 30, 10);
-		Armor armor2 = new Armor("KevlarB", 100.0, 20, 10);
-		ranger1.addItem(1,weapon2);
-		ranger1.addItem(2,armor2);
-		
-		//adicionando personagens ao time1
-		time1.addCharacter(fighter1);
-		time1.addCharacter(ranger1);
-			
-		//time2
-		Team time2 = new Team("Cylons", Color.Red);
-		
-		//Personagem e seus itens, time2
-		Fighter fighter2 = new Fighter("Toaster", 20);
-		fighter2.setConstitution(30);
-		fighter2.setDexterity(20);
-		fighter2.setSpeed(20);
-		fighter2.setStrength(30);
-		Weapon weapon3 = new Weapon("HandsB", 50.0, 10, 10);
-		Armor armor3 = new Armor("KevlarC", 140.0, 5, 10);
-		fighter2.addItem(1,weapon3);
-		fighter2.addItem(2,armor3);
-		fighter2.addItem(3,new HealthPotion("HP+20 Potion",30.0,20));
-		fighter2.setConsumable(3);
-		
-		//Personagem e seus itens, time2
-		Ranger ranger2 = new Ranger("Boomer", 30);
-		ranger2.setConstitution(25);
-		ranger2.setDexterity(30);
-		ranger2.setSpeed(30);
-		ranger2.setStrength(15);
-		Weapon weapon4 = new Weapon("MP-334B", 120.0, 40, 10);
-		Armor armor4 = new Armor("KevlarD", 140.0, 15, 10);
-		ranger2.addItem(1,weapon4);
-		ranger2.addItem(2,armor4);
-		ranger2.addItem(3,new HealthPotion("HP+50 Potion",30.0,50));
-		ranger2.setConsumable(3);
-		
-		//adicionando personagens ao time2
-		time2.addCharacter(fighter2);
-		time2.addCharacter(ranger2);
-		
-		//Declarando tabuleiro
-		Board Galactica = new Board(100, 100);
-		
-		//adicionando times ao tabuleiro
-		Galactica.addTeam(time1);
-		Galactica.addTeam(time2);
-		
-		time1.print();
-		System.out.println("------------------------");
-		time2.print();
-		System.out.println("------------------------");
-		//fighter1 ataca fighter2
-		fighter1.print();
-		fighter2.print();
-		System.out.println("------------------------");
-		fighter1.attackCharacter(fighter2);
-		fighter1.attackCharacter(fighter2);
-		fighter1.attackCharacter(fighter2);
-		System.out.println("------------------------");
-		fighter2.useConsumable();
-		System.out.println("------------------------");
-		System.out.println(fighter2);
-		System.out.println("------------------------");
-		fighter1.attackCharacter(fighter2);
-		fighter1.attackCharacter(fighter2);
-		fighter1.attackCharacter(fighter2);
-		System.out.println("------------------------");
-		ranger2.print();
-		System.out.println("------------------------");
-		System.out.println(fighter2);
-		System.out.println("------------------------");
-		ranger2.useConsumable(fighter2);
-		ranger2.useConsumable(fighter2);
-		System.out.println("------------------------");
-		ranger2.print();
-		System.out.println("------------------------");
-		System.out.println(fighter2);
-		System.out.println("------------------------");
-		System.out.println(fighter2);
-		System.out.println("------------------------");
-		fighter2.print();
-		System.out.println("------------------------");
-		
-		//ranger2 ataca ranger1
-		ranger1.print();
-		ranger2.print();
-		System.out.println("------------------------");
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		ranger2.attackCharacter(ranger1);
-		System.out.println("------------------------");
-		ranger1.print();
-
-		System.out.println("------------------------");
-	//*/	
-		
-		//testes das potions
-//		RevivePotion hpotion = new RevivePotion("HP++", 20.0, 10);
-//		hpotion.print();
-//		System.out.println(hpotion.consumableBy(ranger2));
-//		System.out.println(hpotion.consumableBy(ranger1));
-//		System.out.println(hpotion.consume(ranger1));
-//		System.out.println(ranger1);
-		
-		//testes da função random
-//		System.out.println((int)Character.rnd(-5, 5));
-//		System.out.println((int)Character.rnd(-5, 5));
-//		System.out.println((int)Character.rnd(-5, 5));
-//		System.out.println((int)Character.rnd(-5, 5));
-		
 	}
 	
 	public static void pline(){

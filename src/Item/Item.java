@@ -1,4 +1,8 @@
 package Item;
+/**
+ * @package Item
+ * Representações de Itens do jogo e suas características e especialidades.
+ */
 
 /**
  * 

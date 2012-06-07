@@ -39,7 +39,12 @@ public class Ranger extends Character{
 	 * @see mAccuracy
 	 */
 	protected int getAttackPoints(){
-		return (int)((mStrength*0.5 + mDexterity*0.5 + mAccuracy*0.1 + getInventoryAttack())*(mXP)/2);
+		//return (int)((mStrength*0.5 + mDexterity*0.5 + mAccuracy*0.1 + getInventoryAttack())*(mXP)/2);
+		if(mWeapon == null)
+		{
+			return (int)((mStrength*0.5 + mDexterity*0.5 + mAccuracy*0.1)*(mXP)/2);
+		}
+		return (int)((mStrength*0.5 + mDexterity*0.5 + mAccuracy*0.1 + mWeapon.getAttackpts())*(mXP)/2);
 	}
 	
 	/**
@@ -47,12 +52,18 @@ public class Ranger extends Character{
 	 * @return Retorna pontos de Defesa levando em conta todos os itens no inventario do personagem.
 	 */
 	protected int getDefensePoints(){	
-		return (int)((mConstitution*0.5 + mDexterity*0.2 + mSpeed*0.3 + getInventoryDefense())*(mXP)/6);
+		//return (int)((mConstitution*0.5 + mDexterity*0.2 + mSpeed*0.3 + getInventoryDefense())*(mXP)/6);
+		if(mArmor == null)
+		{
+			return (int)((mConstitution*0.5 + mDexterity*0.2 + mSpeed*0.3)*(mXP)/6);
+		}
+		return (int)((mConstitution*0.5 + mDexterity*0.2 + mSpeed*0.3 + mArmor.getDefensepts())*(mXP)/6);
 	}
 	
 	/**
 	 * Sobreescrita do método para atacar outro personagem, pois calcula uma chance de Erro do ataque.
-	 * @param victim Recebe o personagem que sera atacado
+	 * @param victim Recebe o personagem que sera atacado.
+	 * @param board Recebe o tabuleiro onde ocorre a batalha.
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
 	public boolean attackCharacter(Character victim, Board board){

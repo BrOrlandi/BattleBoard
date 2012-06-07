@@ -1,49 +1,65 @@
 package Utilities;
 
+/**
+ * @package Utilities
+ * Pacote com classes úteis para o funcionamento do projeto.
+ */
+
 public class Pair<A, B> {
 	
-	private A first;
-	private B second;
+	private A mFirst; ///< primeiro elemento do par.
+	private B mSecond; ///< segundo elemento do par.
 	
+	/**
+	 * Construtor do par de valores.
+	 * @param first primeiro valor do par.
+	 * @param second segundo valor do par.
+	 */
 	public Pair(A first, B second)
 	{
-		this.first = first;
-		this.second = second;
+		mFirst = first;
+		mSecond = second;
 	}
 	
+	/**
+	 * Seta o primeiro valor do par.
+	 * @param first primeiro valor do par.
+	 */
 	public void setFirst(A first)
 	{
-		this.first = first;
+		mFirst = first;
 	}
-	
+
+	/**
+	 * Seta o segundo valor do par.
+	 * @param second segundo valor do par.
+	 */
 	public void setSecond(B second)
 	{
-		this.second = second;
+		mSecond = second;
 	}
 	
+	/**
+	 * Pega o primeiro valor do par
+	 * @return o primeiro valor do par
+	 */
 	public A getFirst()
 	{
-		return first;
+		return mFirst;
 	}
-	
+
+	/**
+	 * Pega o segundo valor do par
+	 * @return o segundo valor do par
+	 */
 	public B getSecond()
 	{
-		return second;
-	}
-	
-	public boolean equal(Pair<?, ?> pair)
-	{
-		if(this.first == pair.getFirst() && this.second == pair.getSecond())
-		{
-			return true;
-		}
-		else return false;
+		return mSecond;
 	}
 	
 	@Override
 	public String toString()
 	{
-		
-		return "Pair<" + getFirst() + "," + getSecond() + ">";
+		return "(" + getFirst() + "," + getSecond() + ")";
 	}
 }

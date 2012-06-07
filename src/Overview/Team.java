@@ -17,7 +17,7 @@ public class Team {
 	private int mLose;		///< Numero de derrotas do time
 	private int mDraw;		///< Numero de empates do time
 	
-	private ArrayList<Character> mCharacters; //Lista de personagens do time
+	private ArrayList<Character> mCharacters; ///< Lista de personagens do time
 	
 	/**
 	 * Construtor do time
@@ -54,7 +54,7 @@ public class Team {
 	 * @return String com os resultados do time no formato (Wins: 0, Draws: 0, Defeats: 0)
 	 */
 	public String getResults(){
-		String result = "Wins: " + mWin + ", Draws: " + mDraw + ",d Defeats: " +  mLose;
+		String result = "Wins: " + mWin + ", Draws: " + mDraw + ", Defeats: " +  mLose;
 		return result;
 	}
 	
@@ -83,6 +83,7 @@ public class Team {
 	 */
 	public void victory(){
 		mWin++;
+		System.out.println(mName + " Team won the battle!");
 	}
 
 	/**
@@ -90,6 +91,7 @@ public class Team {
 	 */
 	public void defeat(){
 		mLose++;
+		System.out.println(mName + " Team was defeated!");
 	}
 
 	/**
@@ -97,6 +99,7 @@ public class Team {
 	 */
 	public void draw(){
 		mDraw++;
+		System.out.println(mName + " Team drew!");
 	}
 	//
 	
@@ -105,6 +108,7 @@ public class Team {
 	 * @param chr Personagem que sera adicionado ao time
 	 */
 	public void addCharacter(Character chr){
+		chr.setColor(mColor);
 		mCharacters.add(chr);
 	}
 	
@@ -115,6 +119,7 @@ public class Team {
 	 */
 	public boolean removeCharacter(Character chr)
 	{
+		chr.setColor(null);
 		return mCharacters.remove(chr);
 	}
 	
@@ -125,7 +130,25 @@ public class Team {
 	 */
 	public void removeCharacter(int index)
 	{
-		mCharacters.remove(index);
+		Character chr = mCharacters.remove(index);
+		chr.setColor(null);
+	}
+	
+	/**
+	 * Método para verificar se todos os personagens de um time foram mortos. Podendo assim dar a vitória para o outro time.
+	 * @return true se todos estão mortos ou false se ainda há personagens vivos.
+	 * @see attackCharacter
+	 */
+	public boolean allDead(){
+		Iterator<Character> it = mCharacters.iterator();
+		while(it.hasNext()){
+			Character c = it.next();
+			if(!c.isDead())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

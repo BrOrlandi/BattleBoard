@@ -7,84 +7,80 @@ public class BoardPosition implements Comparable<BoardPosition>
 {
 	/**
 	 * Matriz e suas posicoes
-	 * 
+	 * Exemplo:
 	 * 0 1 2
 	 * 3 4 5
+	 * 
+	 * Posição (1,2) = 5 -> x*largura + y.
 	 */
 	
-	private int position; //posicao na matriz, usado para deixar o set em ordem
-	private int mod;  		//largura do tabuleiro, usado pra encontrar o pos a partir de X e Y
-	//private int x, y;		//posicao real do personagem em uma matriz
-	private Pair<Integer, Integer> XY;
+	private int mPosition; 	///< Posicao na matriz, usado para comparação na ordenação do Set
+	private int mMod;  		///< Largura do tabuleiro, usado pra encontrar o pos a partir de X e Y
+	private Pair<Integer, Integer> mXY; ///< Coordenadas X e Y do personagem no Tabuleiro.
 	//personagem que ocupa a posicao x, y
-	private Character occupied;
+	private Character mOccupied; ///< Personagem que ocupa esta posição.
 	
 	/**
-	 * 
+	 * Construtor de BoardPosition
 	 * @param pCharacter Character que ocupara a posicao
 	 * @param larguraBoard	Largura do tabuleiro (para calculo exato da posicao do personagem na matriz
-	 * @param pos Posicao na matriz
+	 * @param x linha do tabuleiro.
+	 * @param y coluna do tabuleiro.
 	 */
-	public BoardPosition(Character pCharacter, int larguraBoard, int pos)
-	{	
-		XY = new Pair<Integer, Integer>(pos/larguraBoard, pos%larguraBoard);
-		position = pos;
-		mod = larguraBoard;
-		
+	public BoardPosition(Character pCharacter, int larguraBoard, int x, int y){	
+		mXY = new Pair<Integer, Integer>(x, y);
+		mPosition = x*larguraBoard + y;
+		mMod = larguraBoard;
+		//System.out.println("["+x+","+y+"]pos = "+mPosition);
 		//Personagem que ocupa essa posicao
-		occupied = pCharacter;
+		mOccupied = pCharacter;
 	}	
+	
+	/**
+	 * É usado para encontrar o personagem no tabuleiro, dada sua posição.
+	 * @return o inteiro corresponde a posição ordenada no tabuleiro.
+	 */
+	public int getPos(){
+		return mPosition;
+	}
+
 
 	/**
-	 * 
-	 * @param pos posicao na matriz do tabuleiro
+	 * Seta uma nova posição.
+	 * @param x linha do tabuleiro.
+	 * @param y coluna do tabuleiro.
 	 */
-	public void setPos(int pos)
-	{
-		XY.setFirst(pos%mod);
-		XY.setSecond(pos/mod);
-		position = pos;
+	public void setXY(int x, int y){
+		mXY.setFirst(x);
+		mXY.setSecond(y);
+		mPosition = x*mMod + y;
 		
 	}
 	
-	public int getPos()
-	{
-		return position;
-	}
-	
 	/**
 	 * 
-	 * @return pair de <Integer, Integer> com posicao X e Y
+	 * @return par de coordenadas X e Y que correspondem a posição no tabuleiro.
 	 */
-	public Pair<Integer, Integer> getXY()
-	{		
-		return XY;
+	public Pair<Integer, Integer> getXY(){
+		return mXY;
 	}
 
 	/**
 	 * 
-	 * @return Caracter que ocupa a posicao deste boardposition
+	 * @return Caracter que ocupa a posicao desta BoardPosition
 	 */
-	public Character getOccup()
-	{
-		return occupied;
+	public Character getOccup(){
+		return mOccupied;
 	}
 	
 	@Override
+	/**
+	 * Método de comparação de BoardPosition.
+	 * É usado na Board para ordenar um conjunto de posições ocupadas.
+	 * @see Board
+	 */
 	public int compareTo(BoardPosition o) {
-		final int BEFORE = -1;
-		final int AFTER = 1;
-		final int EQUAL = 0;
-		
-		if(this.position > o.position)
-		{
-			return AFTER;
-		}
-		if(this.position < o.position)
-		{
-			return BEFORE;
-		}
-		else return EQUAL;	 
+		return mPosition - o.mPosition;
 	}
 	
 }

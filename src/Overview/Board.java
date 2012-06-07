@@ -5,6 +5,11 @@ import Character.Character;
 import Utilities.Pair;
 
 /**
+ * @package Overview
+ * Incorporam os outros pacotes para o jogo funcionar em um tabuleiro onde os personagens est√£o divididos em times.
+ */
+
+/**
  *  √â um tabuleiro do jogo onde podem ocorrer batalhas entre times e seus personagens.
  */
 
@@ -19,8 +24,7 @@ public class Board {
 	/**
 	 *Construtor padrao de tabuleiro, altura e largura recebem 5 
 	 */
-	public Board()
-	{
+	public Board(){
 		mWidth = 5;
 		mHeight = 5;
 		mTeams = new HashMap<Color, Team>();
@@ -32,8 +36,7 @@ public class Board {
 	 * @param width	 Altura do tabuleiro
 	 * @param height	Largura do tabuleiro
 	 */
-	public Board(int width, int height)
-	{
+	public Board(int width, int height){
 		mWidth = width;
 		mHeight = height;
 		mTeams = new HashMap<Color, Team>();
@@ -44,9 +47,17 @@ public class Board {
 	 * Adiciona time ao jogo.
 	 * @param team Time que sera adicionao ao jogo
 	 */
-	public void addTeam(Team team)
-	{
+	public void addTeam(Team team){
 		mTeams.put(team.getColor(), team);
+	}
+	
+	/**
+	 * Permite obter o time corresponde a uma cor no tabuleiro
+	 * @param c cor do time que est√° buscando
+	 * @return o time se este existe e est√° no tabuleiro.
+	 */
+	public Team getTeam(Color c){
+		return mTeams.get(c);
 	}
 	
 	/**
@@ -70,26 +81,23 @@ public class Board {
 	 * @param character Personagem que sera inserido
 	 * @return false caso nao tenha sido inserido com sucesso (caso posicao especificada nao existir no tabuleiro)
 	 */
-	public boolean setCharacterPosition(int pos, Character character)
-	{	
-		int y = pos/mWidth;
-		
-		if(y < mWidth && getCharacter(pos) == null)
+	public boolean setCharacterPosition(int x, int y, Character character){
+		if(x < mWidth && y < mHeight)
 		{
-			BoardPosition bp = new BoardPosition(character, mWidth, pos);
-			mPositions.add(bp);
-			return true;
+			BoardPosition bp = new BoardPosition(character, mWidth, x,y);
+
+			return mPositions.add(bp);
 		}
 		return false;
 	}
 	
 	/**
-	 * 
-	 * @param pos Posicao do carater requerido
-	 * @return Caso nao encontre o character buscado, entao retorna null
+	 * @param x linha do personagem requerido.
+	 * @param y coluna do personagem requerido.
+	 * @return Caso nao encontre o character buscado, entao retorna null.
 	 */
-	public Character getCharacter(int pos)
-	{	
+	public Character getCharacter(int x, int y){	
+		int pos = x*mWidth + y;
 		//character que sera retornado
 		Character character = null;
 		
@@ -98,12 +106,12 @@ public class Board {
 		BoardPosition boardPosition = null;
 		
 		int posAux = 0;
-		//enquato nao chegou ao fim e posAux È menor (pois set È ordenado)
+		//enquato nao chegou ao fim e posAux ÔøΩ menor (pois set ÔøΩ ordenado)
 		while(it.hasNext() && posAux <= pos)
 		{	
 			
-			//Necessario criaÁ„o de boardPosition, como com o iteradot nao È possivel
-			//pegar o elemento atual, apenas o proximo da lista entao n„o È possivel usar o
+			//Necessario criaÔøΩÔøΩo de boardPosition, como com o iteradot nao ÔøΩ possivel
+			//pegar o elemento atual, apenas o proximo da lista entao nÔøΩo ÔøΩ possivel usar o
 			//iterador no "if", foi preciso criar um boardPosition para pegar a posicao do 
 			//personagem e comparar com a posicao desejada
 			boardPosition = it.next();
@@ -121,7 +129,6 @@ public class Board {
 	}
 	
 	/**
-	 * 
 	 * @param character Personagem que esta sendo buscado
 	 * @return Pair de posicao X e Y do personagem no tabuleiro (para calculo da distancia de ataque)
 	 */
@@ -140,6 +147,30 @@ public class Board {
 			}
 		}
 		return XY;
+	}
+	
+	/**
+	 * Permite checar a distancia a distancia entre dois personagens no tabuleiro.
+	 * @param c1 o primeiro personagem.
+	 * @param c2 o segundo personagem.
+	 * @return a distancia ou um n√∫mero negativo se um dos personagens n√£o estiver no tabuleiro.
+	 */
+	public int getDistance(Character c1, Character c2){
+		Pair<Integer, Integer> c1Pos = getCharacterXY(c1);
+		Pair<Integer, Integer> c2Pos = getCharacterXY(c2);
+		
+		//se algum dos personagens n√£o est√° no tabuleiro.
+		if(c1Pos == null || c2Pos == null)
+		{
+			return -1;
+		}
+		
+		int distance = (int)Math.pow(c1Pos.getFirst() - c2Pos.getFirst(), 2) + 
+				(int)Math.pow(c1Pos.getSecond() - c2Pos.getSecond(), 2);
+		distance = (int)Math.sqrt(distance);
+		
+		//System.out.println("Distancia: " + distance);
+		return distance;
 	}
 	
 }//fim da classe Board
