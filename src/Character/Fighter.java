@@ -69,10 +69,12 @@ public class Fighter extends Character {
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
 	 */
 	public boolean attackCharacter(Character victim, Board board){
-		if(victim.getHP() == 0){
-			System.out.println(victim.getName() + " is dead!");
-			return false; // tentativa de atacar alguem q já está morto.
+		if(isDead())
+		{
+			System.out.println(getName() + " is dead and can't attack.");
+			return false;
 		}
+		
 		double chance = Math.random();
 		if (chance > (0.1)/(this.mXP))
 		{			
@@ -80,7 +82,7 @@ public class Fighter extends Character {
 		}
 		else
 		{
-			System.out.println(getName() + " MISS " + victim.getName());
+			System.out.println(getName() + " MISS!");
 			return true;
 		}
 	}

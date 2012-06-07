@@ -68,10 +68,12 @@ public class Ranger extends Character{
 	 */
 	public boolean attackCharacter(Character victim, Board board){
 			
-		if(victim.getHP() == 0){
-			System.out.println(victim.getName() + " is dead!");
-			return false; // tentativa de atacar alguem q já está morto.
+		if(isDead())
+		{
+			System.out.println(getName() + " is dead and can't attack.");
+			return false;
 		}
+		
 		double chance = Math.random();
 		if (chance > (0.07)/(this.mXP))
 		{			
@@ -79,7 +81,7 @@ public class Ranger extends Character{
 		}
 		else
 		{
-			System.out.println(getName() + " MISS " + victim.getName());
+			System.out.println(getName() + " MISS!");
 			return true;
 		}
 	}
