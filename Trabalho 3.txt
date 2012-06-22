@@ -1,0 +1,5 @@
+- Novas Classes de controle do modelo e decisão de adicionar ao modelo ou não.
+    - Classe Player: contém um time(este contem a pontuação do jogador, wins, loses...), dinheiro e nome.
+    - Classe Game: permite criar jogadores e colocar times a eles, será a classe de controle do jogo.
+    - Classe ItemsStore: loja de itens para os jogadores comprarem os itens com o dinheiro. Atributos: lista de itens, nome da loja, mensagem de introdução à loja. (mais algo?)
+    
