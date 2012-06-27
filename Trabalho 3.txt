@@ -1,5 +1,7 @@
 - Novas Classes de controle do modelo e decisão de adicionar ao modelo ou não.
-    - Classe Player: contém um time(este contem a pontuação do jogador, wins, loses...), dinheiro e nome.
+    - Classe Player: contém um time(este contem a pontuação do jogador, wins, loses...), dinheiro, nome.
     - Classe Game: permite criar jogadores e colocar times a eles, será a classe de controle do jogo.
-    - Classe ItemsStore: loja de itens para os jogadores comprarem os itens com o dinheiro. Atributos: lista de itens, nome da loja, mensagem de introdução à loja. (mais algo?)
+  V  - Classe ItemStore: loja de itens para os jogadores comprarem os itens com o dinheiro. Atributos: lista de itens, nome da loja, mensagem de introdução à loja. (mais algo?)
+    
+    Exceptions: O modelo não irá mais imprimir mensagens de erro nem de sucesso. No caso de erro serão lançados exceptions que deverão ser tratadas onde os métodos serão chamados(classe Game).
     
