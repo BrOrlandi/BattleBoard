@@ -3,10 +3,7 @@ package Game;
 import Overview.Color;
 import Overview.Team;
 
-/**
- * @package Game
- * Classes gerais que irão manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
- */
+
 
 /**
  * 
