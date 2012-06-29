@@ -24,19 +24,19 @@ public class ItemStore {
 		mItems = new ArrayList<Item>();
 	}
 
-	public String getmName() {
+	public String getName() {
 		return mName;
 	}
 	
-	public void setmName(String name) {
+	public void setName(String name) {
 		mName = name;
 	}
 
-	public String getmDescription() {
+	public String getDescription() {
 		return mDescription;
 	}
 
-	public void setmDescription(String desc) {
+	public void setDescription(String desc) {
 		mDescription = desc;
 	}
 	

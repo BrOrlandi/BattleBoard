@@ -5,3 +5,37 @@
     
     Exceptions: O modelo não irá mais imprimir mensagens de erro nem de sucesso. No caso de erro serão lançados exceptions que deverão ser tratadas onde os métodos serão chamados(classe Game).
     
+    Erros possíveis:
+    
+    ataque:
+    Personagem está morto(o que ataca, o que esta sendo atacado, .(exception guardar o personagem).
+    Personagens do mesmo time.
+    Personagem fora do alcance.
+    
+    addItem:
+    Já existe item na posição do inventário.
+    
+    dropItem:
+    Personagem está morto.
+    
+    giveItem:
+    Personagem está morto.
+    Personagens não são do mesmo time.
+    
+    setItem(weapon,armor,consumable):
+    Personagem morto.
+    Item não encontrado no inventário.
+    Item não consumível, arma, armadura.
+    
+    useConsumable:
+    Personagem está morto.
+    Item consumable não setado.
+    Personagem não pode consumir item consumable.
+    -
+    Personagem fora do alcance.
+    Personagem não pode consumir item consumable.
+    
+    
+    
+    
+    

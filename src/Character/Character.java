@@ -5,7 +5,6 @@ import Item.*;
 import Overview.Board;
 import Overview.Color;
 import Overview.Team;
-import Utilities.Pair;
 
 /**
  * @package Character
@@ -350,7 +349,7 @@ public class Character {
 		{
 			System.out.println(mAlias + " is dead and can't drop an item.");
 			return null;
-		}		
+		}
 		return mInventory.remove(key);
 	}
 	
