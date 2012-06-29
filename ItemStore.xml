@@ -1,6 +1,5 @@
 <Item.ItemStore>
   <mName>Loja de Items</mName>
-  <mDescription>Bem-vind o a loja de itens!</mDescription>
   <mItems>
     <Item.Armor>
       <mName>Black Shield</mName>

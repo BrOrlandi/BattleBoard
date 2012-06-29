@@ -1,18 +1,15 @@
-import java.io.IOException;
+
 
 import Item.*;
 import Utilities.XML;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.XStreamException;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import junit.framework.TestCase;
 
 
 public class testXmlTest extends TestCase {
 	public void test() {
-		ItemStore is = new ItemStore("Loja de Items", "Bem-vind o a loja de itens!");
+		ItemStore is = new ItemStore("Loja de Items");
 		
 		//Items
 	    Weapon w1 = new Weapon("Iron Sword",100.0, 30,2);
