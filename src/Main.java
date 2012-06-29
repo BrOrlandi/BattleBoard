@@ -215,14 +215,6 @@ public class Main {
 	    f2.print();
 	    r2.print();
 
-	    /**
-	     * Posições do tabuleiro:
-	     *  	0 	1 	2 	3 
-	     * 0|	f1		r1	h1
-	     * 1|	
-	     * 2|	r2		h2
-	     * 3|				f2
-	     */
 	    board.setCharacterPosition(0,3, h1);
 	    board.setCharacterPosition(0,0, f1);
 	    board.setCharacterPosition(0,2, r1);
@@ -305,7 +297,7 @@ public class Main {
 	    
 	    
 	}
-	
+	//*/
 	public static void pline(){
 		System.out.println("------------------------------------------------------");
 	}

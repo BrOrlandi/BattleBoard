@@ -69,7 +69,7 @@ public class Game {
 	public void startGame() throws IOException{
 		if(mItemStore == null)
 		{
-			throw new IOException("Item Store not found! Create one on the main menu.");
+			throw new IOException("Item Store not found! Create a store on the main menu.");
 		}
 	}
 	
