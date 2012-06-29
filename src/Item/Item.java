@@ -9,7 +9,7 @@ package Item;
  * Representa um item do jogo que pode ser carregado pelos personagens.
  *
  */
-public class Item {
+public class Item implements Comparable<Item>{
 	
 	//Atributos 
 	private String mName;		///< Nome do item
@@ -64,5 +64,39 @@ public class Item {
 	
 	public String toString(){
 		return "Item: " + mName + ", Price: $" + mPrice;
+	}
+
+
+	@Override
+	public int compareTo(Item o) {
+		int compare = 0;
+		
+		if(this instanceof Armor)
+			compare -= 5;
+		else if(this instanceof Weapon)
+			compare -= 4;
+		else if(this instanceof HealthPotion)
+			compare -= 3;
+		else if(this instanceof RevivePotion)
+			compare -= 2;
+		else
+			compare -= 1;
+		
+		if(o instanceof Armor)
+			compare += 5;
+		else if(o instanceof Weapon)
+			compare += 4;
+		else if(o instanceof HealthPotion)
+			compare += 3;
+		else if(o instanceof RevivePotion)
+			compare += 2;
+		else
+			compare += 1;
+		if(compare == 0)
+			compare += this.mName.compareTo(o.mName);
+
+		//System.out.println(this.mName + " compare to " + o.mName + " = " + compare);
+		
+		return compare;
 	}
 }
