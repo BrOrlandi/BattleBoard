@@ -2,6 +2,9 @@ package Item;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * 
@@ -11,7 +14,7 @@ import java.util.Iterator;
 public class ItemStore {
 	private String mName; ///< Nome da Loja
 	private String mDescription; ///< Descrição da Loja
-	private ArrayList<Item> mItems; ///< Lista de Itens na loja.
+	private SortedSet<Item> mItems; ///< Lista de Itens na loja.
 	
 	/**
 	 * Construtor de ItemStore
@@ -21,7 +24,7 @@ public class ItemStore {
 	public ItemStore(String name, String desc){
 		mName = name;
 		mDescription = desc;
-		mItems = new ArrayList<Item>();
+		mItems = new TreeSet<Item>();
 	}
 
 	public String getName() {
@@ -51,11 +54,11 @@ public class ItemStore {
 	
 	/**
 	 * Remove um item da loja, deve ser usado quando um jogador comprar o item.
-	 * @param pos posição do item na lista.
-	 * @return o item que foi removido.
+	 * @param item referencia do item a ser removido.
+	 * @return true se foi removido com sucesso.
 	 */
-	public Item removeItem(int pos){
-		return mItems.remove(pos);
+	public boolean removeItem(Item item){
+		return mItems.remove(item);
 	}
 	
 	/**
