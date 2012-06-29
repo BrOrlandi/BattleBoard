@@ -1,0 +1,150 @@
+<Item.ItemStore>
+  <mName>Loja de Items</mName>
+  <mDescription>Bem-vind o a loja de itens!</mDescription>
+  <mItems>
+    <Item.Armor>
+      <mName>Black Shield</mName>
+      <mPrice>100.0</mPrice>
+      <mFlexibility>10</mFlexibility>
+      <mDefensePts>20</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Bronze Armor</mName>
+      <mPrice>150.0</mPrice>
+      <mFlexibility>5</mFlexibility>
+      <mDefensePts>15</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Bronze Shield</mName>
+      <mPrice>120.0</mPrice>
+      <mFlexibility>12</mFlexibility>
+      <mDefensePts>10</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Golden Armor</mName>
+      <mPrice>260.0</mPrice>
+      <mFlexibility>7</mFlexibility>
+      <mDefensePts>30</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Iron Armor</mName>
+      <mPrice>90.0</mPrice>
+      <mFlexibility>2</mFlexibility>
+      <mDefensePts>10</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Silver Armor</mName>
+      <mPrice>200.0</mPrice>
+      <mFlexibility>8</mFlexibility>
+      <mDefensePts>22</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Silver Shield</mName>
+      <mPrice>120.0</mPrice>
+      <mFlexibility>12</mFlexibility>
+      <mDefensePts>23</mDefensePts>
+    </Item.Armor>
+    <Item.Armor>
+      <mName>Wooden Shield</mName>
+      <mPrice>50.0</mPrice>
+      <mFlexibility>10</mFlexibility>
+      <mDefensePts>5</mDefensePts>
+    </Item.Armor>
+    <Item.Weapon>
+      <mName>Bow</mName>
+      <mPrice>50.0</mPrice>
+      <mRange>10</mRange>
+      <mAttackPts>20</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Golden Axe</mName>
+      <mPrice>300.0</mPrice>
+      <mRange>2</mRange>
+      <mAttackPts>50</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Iron Spear</mName>
+      <mPrice>70.0</mPrice>
+      <mRange>3</mRange>
+      <mAttackPts>25</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Iron Sword</mName>
+      <mPrice>100.0</mPrice>
+      <mRange>2</mRange>
+      <mAttackPts>30</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Long Bow</mName>
+      <mPrice>90.0</mPrice>
+      <mRange>10</mRange>
+      <mAttackPts>30</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Silver Axe</mName>
+      <mPrice>200.0</mPrice>
+      <mRange>2</mRange>
+      <mAttackPts>40</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Silver Spear</mName>
+      <mPrice>180.0</mPrice>
+      <mRange>3</mRange>
+      <mAttackPts>40</mAttackPts>
+    </Item.Weapon>
+    <Item.Weapon>
+      <mName>Silver Sword</mName>
+      <mPrice>200.0</mPrice>
+      <mRange>2</mRange>
+      <mAttackPts>50</mAttackPts>
+    </Item.Weapon>
+    <Item.HealthPotion>
+      <mName>HP+20</mName>
+      <mPrice>20.0</mPrice>
+      <mRestorePts>20</mRestorePts>
+    </Item.HealthPotion>
+    <Item.HealthPotion>
+      <mName>HP+30</mName>
+      <mPrice>30.0</mPrice>
+      <mRestorePts>30</mRestorePts>
+    </Item.HealthPotion>
+    <Item.HealthPotion>
+      <mName>HP+40</mName>
+      <mPrice>40.0</mPrice>
+      <mRestorePts>40</mRestorePts>
+    </Item.HealthPotion>
+    <Item.HealthPotion>
+      <mName>HP+60</mName>
+      <mPrice>60.0</mPrice>
+      <mRestorePts>60</mRestorePts>
+    </Item.HealthPotion>
+    <Item.RevivePotion>
+      <mName>Full Revive</mName>
+      <mPrice>200.0</mPrice>
+      <mRevivePts>100</mRevivePts>
+    </Item.RevivePotion>
+    <Item.RevivePotion>
+      <mName>Half Revive</mName>
+      <mPrice>100.0</mPrice>
+      <mRevivePts>50</mRevivePts>
+    </Item.RevivePotion>
+    <Item.RevivePotion>
+      <mName>Hero Revive</mName>
+      <mPrice>300.0</mPrice>
+      <mRevivePts>200</mRevivePts>
+    </Item.RevivePotion>
+    <Item.RevivePotion>
+      <mName>Undead Potion</mName>
+      <mPrice>20.0</mPrice>
+      <mRevivePts>30</mRevivePts>
+    </Item.RevivePotion>
+    <Item.Item>
+      <mName>Gold Bar</mName>
+      <mPrice>50.0</mPrice>
+    </Item.Item>
+    <Item.Item>
+      <mName>Medal of Luck</mName>
+      <mPrice>30.0</mPrice>
+    </Item.Item>
+  </mItems>
+</Item.ItemStore>
