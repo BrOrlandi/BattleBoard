@@ -1,8 +1,6 @@
 package Item;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -13,17 +11,14 @@ import java.util.TreeSet;
  */
 public class ItemStore {
 	private String mName; ///< Nome da Loja
-	private String mDescription; ///< Descrição da Loja
 	private SortedSet<Item> mItems; ///< Lista de Itens na loja.
 	
 	/**
 	 * Construtor de ItemStore
 	 * @param name Nome da loja
-	 * @param desc Descrição da loja
 	 */
-	public ItemStore(String name, String desc){
+	public ItemStore(String name){
 		mName = name;
-		mDescription = desc;
 		mItems = new TreeSet<Item>();
 	}
 
@@ -33,14 +28,6 @@ public class ItemStore {
 	
 	public void setName(String name) {
 		mName = name;
-	}
-
-	public String getDescription() {
-		return mDescription;
-	}
-
-	public void setDescription(String desc) {
-		mDescription = desc;
 	}
 	
 	/**
