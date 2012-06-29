@@ -106,25 +106,18 @@ public class Board {
 		BoardPosition boardPosition = null;
 		
 		int posAux = 0;
-		//enquato nao chegou ao fim e posAux � menor (pois set � ordenado)
-		while(it.hasNext() && posAux <= pos)
+		//enquato nao chegou ao fim e posAux é menor (pois set é ordenado)
+		while(it.hasNext() && posAux < pos)
 		{	
-			
-			//Necessario cria��o de boardPosition, como com o iteradot nao � possivel
-			//pegar o elemento atual, apenas o proximo da lista entao n�o � possivel usar o
-			//iterador no "if", foi preciso criar um boardPosition para pegar a posicao do 
-			//personagem e comparar com a posicao desejada
 			boardPosition = it.next();
-			posAux = boardPosition.getPos();
-			
-			//System.out.println("PosAux: " + posAux);
-			if(pos == posAux)
-			{		
-				character = boardPosition.getOccup();
-				return character;
-			}	
 		}
+		posAux = boardPosition.getPos();
 		
+		//System.out.println("PosAux: " + posAux);
+		if(pos == posAux)
+		{		
+			character = boardPosition.getOccup();
+		}	
 		return character;
 	}
 	
