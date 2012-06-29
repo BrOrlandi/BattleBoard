@@ -18,8 +18,8 @@ public class Board {
 	//Atributos
 	private int mWidth;				///< Largura do tabuleiro	
 	private int mHeight;				///< Altura do tabuleiro
-	private Set<BoardPosition> mPositions;
-	private Map<Color, Team> mTeams;
+	private Set<BoardPosition> mPositions; ///< Conjunto ordenado de BoardPositions com os personagens.
+	private Map<Color, Team> mTeams; ///< Mapa de times, a chave é a cor do time.
 	
 	/**
 	 *Construtor padrao de tabuleiro, altura e largura recebem 5 
