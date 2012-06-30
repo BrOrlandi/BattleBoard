@@ -1,11 +1,12 @@
 package BattleBoardExceptions;
+import Character.Character;
 /**
  * 
  * Exceção de personagem de time diferente.
  *
  */
-public class OpposingTeamCharacterException extends Exception{
-	public OpposingTeamCharacterException(String str){
-		super(str);
+public class OpposingTeamCharacterException extends CharacterException{
+	public OpposingTeamCharacterException(Character chr){
+		super(chr);
 	}
 }

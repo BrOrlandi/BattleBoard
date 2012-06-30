@@ -10,4 +10,6 @@ public class NotConsumableItem extends Exception{
 		super(str);
 	}
 
+	public NotConsumableItem() {}
+
 }

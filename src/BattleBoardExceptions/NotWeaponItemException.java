@@ -10,4 +10,6 @@ public class NotWeaponItemException extends Exception{
 		super(str);
 	}
 
+	public NotWeaponItemException() {}
+
 }
