@@ -60,6 +60,7 @@ public class Team {
 	
 	/**
 	 * Imprime o time e suas caracteristicas
+	 * @deprecated Com a interface gráfica o método não será mais utilizado.
 	 */
 	public void print(){
 		System.out.println(this.toString());
@@ -83,7 +84,7 @@ public class Team {
 	 */
 	public void victory(){
 		mWin++;
-		System.out.println(mName + " Team won the battle!");
+		//System.out.println(mName + " Team won the battle!");
 	}
 
 	/**
@@ -91,7 +92,7 @@ public class Team {
 	 */
 	public void defeat(){
 		mLose++;
-		System.out.println(mName + " Team was defeated!");
+		//System.out.println(mName + " Team was defeated!");
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class Team {
 	 */
 	public void draw(){
 		mDraw++;
-		System.out.println(mName + " Team drew!");
+		//System.out.println(mName + " Team drew!");
 	}
 	//
 	
