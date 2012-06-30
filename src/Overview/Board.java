@@ -1,6 +1,7 @@
 package Overview;
 import java.util.*;
 
+import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.Character;
 import Utilities.Pair;
 
@@ -80,8 +81,13 @@ public class Board {
 	 * @param y Posicao y do personagem do tabuleiro
 	 * @param character Personagem que sera inserido
 	 * @return false caso nao tenha sido inserido com sucesso (caso posicao especificada nao existir no tabuleiro)
+	 * @throws OccupiedBoardPositionException 
 	 */
-	public boolean setCharacterPosition(int x, int y, Character character){
+	public boolean setCharacterPosition(int x, int y, Character character) throws OccupiedBoardPositionException{
+		if(getCharacter(x, y) != null)
+		{
+			throw new OccupiedBoardPositionException();
+		}
 		if(x < mWidth && y < mHeight)
 		{
 			BoardPosition bp = new BoardPosition(character, mWidth, x,y);
