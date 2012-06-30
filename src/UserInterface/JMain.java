@@ -70,9 +70,9 @@ public class JMain extends JFrame {
 		panel.add(exitButton);
 		
 		/**LABEL*/
-		JLabel lblFeitoPorBruno = new JLabel("Feito por Bruno Orlandi e Vinicius Lovato");
-		lblFeitoPorBruno.setBounds(147, 261, 248, 14);
-		panel.add(lblFeitoPorBruno);
+		JLabel Names = new JLabel("Feito por Bruno Orlandi e Vinicius Lovato");
+		Names.setBounds(147, 261, 248, 14);
+		panel.add(Names);
 		
 		//Painel que contem a imagem
 		String path = System.getProperty("user.dir")+"/";
@@ -115,8 +115,10 @@ public class JMain extends JFrame {
 		//listener do botao de jogar
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Board board = new Board();
-				board.setVisible(true);
+				JTeamEditor teamEditor =  new JTeamEditor();
+				teamEditor.setVisible(true);
+				//Board board = new Board();
+				//board.setVisible(true);
 			}
 		});
 

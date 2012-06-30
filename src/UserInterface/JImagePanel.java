@@ -47,5 +47,5 @@ public class JImagePanel extends JPanel
         Graphics2D g2d = (Graphics2D)g.create();  
         g2d.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);  
         g2d.dispose();          
-    }      
+    }    
 }  
