@@ -1,6 +1,16 @@
 package Character;
 import java.util.*;
 
+import BattleBoardExceptions.CharacterCanNotConsumeItemException;
+import BattleBoardExceptions.CharacterFromSameTeamException;
+import BattleBoardExceptions.DeadCharacterException;
+import BattleBoardExceptions.InventoryOccupiedPositionException;
+import BattleBoardExceptions.ItemNotFoundException;
+import BattleBoardExceptions.NotArmorItemException;
+import BattleBoardExceptions.NotConsumableItem;
+import BattleBoardExceptions.NotWeaponItemException;
+import BattleBoardExceptions.OpposingTeamCharacterException;
+import BattleBoardExceptions.OutOfRangeCharacterException;
 import Item.*;
 import Overview.Board;
 import Overview.Color;
@@ -93,36 +103,45 @@ public class Character {
 	 * @param victim Recebe o personagem que sera atacado.
 	 * @param board Recebe o tabuleiro onde ocorre a batalha.
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta ou não está no tabuleiro, ou a distancia não é suficiente para o ataque.
+	 * @throws DeadCharacterException 
+	 * @throws CharacterFromSameTeamException 
+	 * @throws OutOfRangeCharacterException 
 	 */
-	public boolean attackCharacter(Character victim, Board board){
+	public boolean attackCharacter(Character victim, Board board) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException{
 		
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't attack.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't attack.");
+			throw new DeadCharacterException(this);
 		}
-		
 		if(this.mColor == victim.mColor){
-			System.out.println(mAlias + " and " + victim.mAlias + " are friends!");
-			return false;
+			//System.out.println(mAlias + " and " + victim.mAlias + " are friends!");
+			throw new CharacterFromSameTeamException(victim);
 		}
 		
-		if(victim.mHP == 0){
-			System.out.println(victim.mAlias + " is dead!");
-			return false; // tentativa de atacar alguem q já está morto.
+		if(victim.isDead()){
+			// tentativa de atacar alguem q já está morto.
+			//System.out.println(victim.mAlias + " is dead!");
+			throw new DeadCharacterException(victim);
 		}
 		
 		int distance = board.getDistance(this, victim);
-		if(mWeapon != null && distance > mWeapon.getRange())
+		int range;
+		if(mWeapon != null)
+			range = mWeapon.getRange();
+		else
+			range = 2;
+		if(distance > range)
 		{
-			System.out.println(mAlias+" with "+mWeapon.getName()+" can't reach "+victim.mAlias+".\tDistance: "+distance+" WeaponRange: "+mWeapon.getRange());
-			return false;
+			//System.out.println(mAlias+" with "+mWeapon.getName()+" can't reach "+victim.mAlias+".\tDistance: "+distance+" WeaponRange: "+mWeapon.getRange());
+			//return false;
+			throw new OutOfRangeCharacterException(victim,range);
 		}
-		if(mWeapon == null && distance > 2)
-		{
-			System.out.println(mAlias+" you are too far from "+victim.mAlias+" to attack with your hands.");
-			return false;
-		}
+//		if(mWeapon == null && distance > 2)
+//		{
+//			//System.out.println(mAlias+" you are too far from "+victim.mAlias+" to attack with your hands.");
+//			return false;
+//		}
 
 		
 		double chance = Math.random();
@@ -307,14 +326,16 @@ public class Character {
 	 * Adiciona um item ao inventário do personagem.
 	 * @param key numero inteiro que é a chave do item no inventário.
 	 * @param item item a ser adicionado ao inventário.
-	 * @return false se a posição do inventário já estiver ocupada ou true se foi adicionado com sucesso.
+	 * @return true se foi adicionado com sucesso.
+	 * @throws InventoryOccupiedPositionException 
 	 */
-	public boolean addItem(int key, Item item){
+	public boolean addItem(int key, Item item) throws InventoryOccupiedPositionException{
 		Item it = mInventory.get(key);
 		if(it != null)
 		{
-			System.out.println(mAlias+" already has an item in this position.");
-			return false;
+			//System.out.println(mAlias+" already has an item in this position.");
+			//return false;
+			throw new InventoryOccupiedPositionException();
 		}
 		mInventory.put(key, item);
 		return true;
@@ -335,7 +356,11 @@ public class Character {
 			key++;
 			a = mInventory.get(key);
 		}while(a != null);
-		addItem(key,item);
+		try{
+			addItem(key,item);
+		}catch(InventoryOccupiedPositionException e){
+			e.printStackTrace();
+		}
 		return key;
 	}
 	
@@ -343,12 +368,14 @@ public class Character {
 	 * Dropa um item do inventário.
 	 * @param key chave para o item no inventário.
 	 * @return null se o item não está no inventário ou o item que foi removido.
+	 * @throws DeadCharacterException 
 	 */
-	public Item dropItem(int key){
+	public Item dropItem(int key) throws DeadCharacterException{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't drop an item.");
-			return null;
+			//System.out.println(mAlias + " is dead and can't drop an item.");
+			//return null;
+			throw new DeadCharacterException(this);
 		}
 		return mInventory.remove(key);
 	}
@@ -358,17 +385,21 @@ public class Character {
 	 * @param key chave do item no inventário
 	 * @param chr jogador que receberá o item
 	 * @return a chave para o item no inventário do outro personagem, ou um número negativo se falhou.
+	 * @throws DeadCharacterException 
+	 * @throws OpposingTeamCharacterException 
 	 */
-	public int giveItem(int key, Character chr){
+	public int giveItem(int key, Character chr) throws DeadCharacterException, OpposingTeamCharacterException{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't give an item.");
-			return -1;
+			//System.out.println(mAlias + " is dead and can't give an item.");
+			//return -1;
+			throw new DeadCharacterException(this);
 		}
 		if(mColor != chr.mColor)
 		{
-			System.out.println(mAlias + " and "+chr.mAlias + " aren't friends to give an item!");
-			return -1;
+			//System.out.println(mAlias + " and "+chr.mAlias + " aren't friends to give an item!");
+			//return -1;
+			throw new OpposingTeamCharacterException(chr);
 		}
 		Item it = mInventory.remove(key);
 		if(it == null || chr == null)
@@ -385,18 +416,23 @@ public class Character {
 	 * Este deve vir do próprio inventário.
 	 * @param key chave do item consumível no inventário.
 	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for consumível.
+	 * @throws DeadCharacterException 
+	 * @throws ItemNotFoundException 
+	 * @throws NotConsumableItem 
 	 */
-	public boolean setConsumable(int key){
+	public boolean setConsumable(int key) throws DeadCharacterException, ItemNotFoundException, NotConsumableItem{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't set a consumable.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't set a consumable.");
+			//return false;
+			throw new DeadCharacterException(this);
 		}
 		Item it = mInventory.get(key);
 		if(it == null)
 		{
-			System.out.println("Item not found on Inventory!");
-			return false;
+			//System.out.println("Item not found on Inventory!");
+			//return false;
+			throw new ItemNotFoundException();
 		}
 		if(it instanceof Consumable)
 		{
@@ -415,8 +451,9 @@ public class Character {
 		}
 		else
 		{
-			System.out.println(it.getName() + " is not consumable!");
-			return false;
+			//System.out.println(it.getName() + " is not consumable!");
+			//return false;
+			throw new NotConsumableItem();
 		}
 	}
 
@@ -425,18 +462,23 @@ public class Character {
 	 * Esta deve vir do próprio inventário.
 	 * @param key chave do item arma no inventário.
 	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for uma arma.
+	 * @throws DeadCharacterException 
+	 * @throws ItemNotFoundException 
+	 * @throws NotWeaponItemException 
 	 */
-	public boolean setWeapon(int key){
+	public boolean setWeapon(int key) throws DeadCharacterException, ItemNotFoundException, NotWeaponItemException{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't set a weapon.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't set a weapon.");
+			//return false;
+			throw new DeadCharacterException(this);
 		}
 		Item it = mInventory.get(key);
 		if(it == null)
 		{
-			System.out.println("Item not found on Inventory!");
-			return false;
+			//System.out.println("Item not found on Inventory!");
+			//return false;
+			throw new ItemNotFoundException();
 		}
 		if(it instanceof Weapon)
 		{
@@ -455,8 +497,9 @@ public class Character {
 		}
 		else
 		{
-			System.out.println(it.getName() + " is not a Weapon!");
-			return false;
+			//System.out.println(it.getName() + " is not a Weapon!");
+			//return false;
+			throw new NotWeaponItemException();
 		}
 	}
 
@@ -465,18 +508,23 @@ public class Character {
 	 * Esta deve vir do próprio inventário.
 	 * @param key chave do item armadura no inventário.
 	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for uma armadura.
+	 * @throws DeadCharacterException 
+	 * @throws ItemNotFoundException 
+	 * @throws NotArmorItemException 
 	 */
-	public boolean setArmor(int key){
+	public boolean setArmor(int key) throws DeadCharacterException, ItemNotFoundException, NotArmorItemException{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't set an armor.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't set an armor.");
+			//return false;
+			throw new DeadCharacterException(this);
 		}
 		Item it = mInventory.get(key);
 		if(it == null)
 		{
-			System.out.println("Item not found on Inventory!");
-			return false;
+			//System.out.println("Item not found on Inventory!");
+			//return false;
+			throw new ItemNotFoundException();
 		}
 		if(it instanceof Armor)
 		{
@@ -495,30 +543,33 @@ public class Character {
 		}
 		else
 		{
-			System.out.println(it.getName() + " is not an Armor!");
-			return false;
+			//System.out.println(it.getName() + " is not an Armor!");
+			//return false;
+			throw new NotArmorItemException();
 		}
 	}
 
 	/**
 	 * Usa o item consumível carregado pelo personagem.
 	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado ou não possui um item consumível.
+	 * @throws DeadCharacterException 
+	 * @throws ItemNotFoundException 
 	 */
-	public boolean useConsumable(){
+	public boolean useConsumable() throws DeadCharacterException, ItemNotFoundException{
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't use an consumable.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't use an consumable.");
+			throw new DeadCharacterException(this);
 		}
 		if(mConsumableItem == null)
 		{
-			System.out.println(mAlias + " does not have an consumable item selected.");
-			return false;
+			//System.out.println(mAlias + " does not have an consumable item selected.");
+			throw new ItemNotFoundException();
 		}
 		if(mConsumableItem.consumableBy(this))
 		{
 			mConsumableItem.consume(this);
-			System.out.println(mAlias + " consumed a "+ ((Item)mConsumableItem).getName()+".");
+			//System.out.println(mAlias + " consumed a "+ ((Item)mConsumableItem).getName()+".");
 			mConsumableItem = null;
 			return true;
 		}
@@ -534,8 +585,13 @@ public class Character {
 	 * @param chr personagem no qual o consumível será aplicado.
 	 * @param board tabuleiro onde os personagens estão.
 	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado, não possui um item consumível, ou ainda o personagem escolhido não pode usar o item.
+	 * @throws CharacterCanNotConsumeItemException 
+	 * @throws DeadCharacterException 
+	 * @throws ItemNotFoundException 
+	 * @throws OpposingTeamCharacterException 
+	 * @throws OutOfRangeCharacterException 
 	 */
-	public boolean useConsumable(Character chr, Board board){
+	public boolean useConsumable(Character chr, Board board) throws CharacterCanNotConsumeItemException, DeadCharacterException, ItemNotFoundException, OpposingTeamCharacterException, OutOfRangeCharacterException{
 		if(this == chr)
 		{
 			return useConsumable();
@@ -543,19 +599,22 @@ public class Character {
 		
 		if(isDead())
 		{
-			System.out.println(mAlias + " is dead and can't use an consumable.");
-			return false;
+			//System.out.println(mAlias + " is dead and can't use an consumable.");
+			//return false;
+			throw new DeadCharacterException(this);
 		}
 		
 		if(mConsumableItem == null)
 		{
-			System.out.println(mAlias + " don't have a consumable item set.");
-			return false;
+			//System.out.println(mAlias + " don't have a consumable item set.");
+			//return false;
+			throw new ItemNotFoundException();
 		}
 		
 		if(this.mColor != chr.mColor){
-			System.out.println(mAlias + " and " + chr.mAlias + " aren't friends to use a consumable!");
-			return false;
+			//System.out.println(mAlias + " and " + chr.mAlias + " aren't friends to use a consumable!");
+			//return false;
+			throw new OpposingTeamCharacterException(chr);
 		}
 		
 		int distance = board.getDistance(this, chr);
@@ -563,8 +622,9 @@ public class Character {
 		// caso a distancia entre os personagens seja maior que 2, então não pode usar item
 		if(distance > 2)
 		{
-			System.out.println(mAlias + " are too far from "+chr.mAlias+", min distance to use this is 2.");;
-			return false;
+			//System.out.println(mAlias + " are too far from "+chr.mAlias+", min distance to use this is 2.");;
+			//return false;
+			throw new OutOfRangeCharacterException(chr, 2);
 		}
 
 		if(mConsumableItem.consumableBy(chr))
@@ -579,8 +639,9 @@ public class Character {
 		}
 		else
 		{
-			System.out.println(chr.mAlias + " can't consume a "+ ((Item)mConsumableItem).getName()+".");
-			return false;
+			//System.out.println(chr.mAlias + " can't consume a "+ ((Item)mConsumableItem).getName()+".");
+			//return false;
+			throw new CharacterCanNotConsumeItemException(chr);
 		}
 	}
 	
@@ -588,6 +649,7 @@ public class Character {
 	 * Imprime as características do personagem tais como: 
 	 * Nome, HP, Velocidade, Força, Destreza, Constituição e Força.
 	 * E imprime todos os itens que o personagem possui no seu inventário.
+	 * @deprecated Não deverá ser mais usado devido ao modo gráfico.
 	 */
 	public void print(){
 		System.out.println("------------------------------------------------------");
@@ -605,11 +667,31 @@ public class Character {
 		System.out.println("------------------------------------------------------");
 	}
 	
+	/**
+	 * Pega um array de string com os items e suas posições no inventário.
+	 * @return um array de string com os items.
+	 */
+	public String[] getItemsStringArray(){
+		String[] array = new String[mInventory.size()];
+		
+		Iterator<Item> it = mInventory.values().iterator();
+		Iterator<Integer> it2 = mInventory.keySet().iterator();
+		int i=0;
+		while(it.hasNext())
+		{
+			Item itemTemp = it.next();
+			int x = it2.next();
+			array[i] = x + ": "+ itemTemp.getName();
+			i++;
+		}
+		return array;
+	}
+	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		if(isDead())
 		{
-			sb.append("DEAD!\n");
+			sb.append("[+ DEAD +]\n");
 		}
 		sb.append("~={ "+ mAlias + " }=~\n HP: "+mHP + " XP: "+mXP+"\n"+
 				"STR: " + mStrength + " SPD: " + mSpeed + " DEX: " + mDexterity + " CST: "+mConstitution+"\n");

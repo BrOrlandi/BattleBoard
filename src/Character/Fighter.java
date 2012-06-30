@@ -1,5 +1,8 @@
 package Character;
 
+import BattleBoardExceptions.CharacterFromSameTeamException;
+import BattleBoardExceptions.DeadCharacterException;
+import BattleBoardExceptions.OutOfRangeCharacterException;
 import Overview.Board;
 
 /**
@@ -67,12 +70,16 @@ public class Fighter extends Character {
 	 * @param victim Recebe o personagem que sera atacado.
 	 * @param board Recebe o tabuleiro onde ocorre a batalha.
 	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
+	 * @throws OutOfRangeCharacterException 
+	 * @throws CharacterFromSameTeamException 
+	 * @throws DeadCharacterException 
 	 */
-	public boolean attackCharacter(Character victim, Board board){
+	public boolean attackCharacter(Character victim, Board board) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException{
 		if(isDead())
 		{
-			System.out.println(getName() + " is dead and can't attack.");
-			return false;
+			//System.out.println(getName() + " is dead and can't attack.");
+			//return false;
+			throw new DeadCharacterException(this);
 		}
 		
 		double chance = Math.random();
