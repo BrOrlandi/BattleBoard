@@ -13,6 +13,12 @@ public class OutOfRangeCharacterException extends CharacterException{
 		mRange = range;
 	}
 	
+	public OutOfRangeCharacterException(Character chr, int range,
+			String str) {
+		super(chr,str);
+		mRange = range;
+	}
+
 	public int getRange(){
 		return mRange;
 	}

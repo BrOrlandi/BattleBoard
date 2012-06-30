@@ -1,5 +1,6 @@
 //package main;
 
+import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.*;
 import Item.*;
 import Overview.*;
@@ -219,12 +220,16 @@ public class Main {
 	    f2.print();
 	    r2.print();
 
+	    try{
 	    board.setCharacterPosition(0,3, h1);
 	    board.setCharacterPosition(0,0, f1);
 	    board.setCharacterPosition(0,2, r1);
 	    board.setCharacterPosition(2,2, h2);
 	    board.setCharacterPosition(3,3, f2);
 	    board.setCharacterPosition(2,0, r2);
+	    }catch (OccupiedBoardPositionException e) {
+			System.out.println(e.getMessage());
+		}
 /**
 	    pline();
 	    System.out.println("Todos tentam atacar os inimigos = 9 ataques.");

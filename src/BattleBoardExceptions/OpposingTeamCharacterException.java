@@ -9,4 +9,8 @@ public class OpposingTeamCharacterException extends CharacterException{
 	public OpposingTeamCharacterException(Character chr){
 		super(chr);
 	}
+
+	public OpposingTeamCharacterException(Character chr, String str) {
+		super(chr,str);
+	}
 }

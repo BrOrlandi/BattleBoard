@@ -9,5 +9,9 @@ import Character.Character;
 public class DeadCharacterException extends CharacterException{
 	public DeadCharacterException(Character chr){
 		super(chr);
+	}
+
+	public DeadCharacterException(Character character, String string) {
+		super(character,string);
 	}	
 }

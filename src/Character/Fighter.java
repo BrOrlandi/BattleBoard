@@ -79,7 +79,7 @@ public class Fighter extends Character {
 		{
 			//System.out.println(getName() + " is dead and can't attack.");
 			//return false;
-			throw new DeadCharacterException(this);
+			throw new DeadCharacterException(this,getName() + " is dead and can't attack.");
 		}
 		
 		double chance = Math.random();

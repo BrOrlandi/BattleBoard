@@ -16,6 +16,11 @@ public class CharacterCanNotConsumeItemException extends CharacterException{
 		super(chr);
 	}
 
+	public CharacterCanNotConsumeItemException(Character chr,
+			String str) {
+		super(chr,str);
+	}
+
 	
 }
 

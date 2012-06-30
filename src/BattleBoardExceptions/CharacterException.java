@@ -22,14 +22,15 @@ public class CharacterException extends Exception{
 	}
 	
 	/**
-	 * Construtor que recebe uma String que vai para a Exception.
-	 * Pode ser recuperada pelo método getMessage().
-	 * @param str 
+	 * Construtor da exception
+	 * Recebe uma string que pode ser recuperada pelo método getMessage().
+	 * @param character um Character que causou a Exception
+	 * @param string uma mensagem.
 	 */
-	public CharacterException(String str) {
-		super(str);
+	public CharacterException(Character character, String string) {
+		super(string);
 	}
-	
+
 	/**
 	 * 
 	 * @return o Character que causou a exceção.

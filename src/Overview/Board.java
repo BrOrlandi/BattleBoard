@@ -84,9 +84,10 @@ public class Board {
 	 * @throws OccupiedBoardPositionException 
 	 */
 	public boolean setCharacterPosition(int x, int y, Character character) throws OccupiedBoardPositionException{
-		if(getCharacter(x, y) != null)
+		Character chr = getCharacter(x, y);
+		if(chr != null)
 		{
-			throw new OccupiedBoardPositionException();
+			throw new OccupiedBoardPositionException(chr,"Board position occupied by "+ chr.getName()+"!");
 		}
 		if(x < mWidth && y < mHeight)
 		{
@@ -116,11 +117,11 @@ public class Board {
 		while(it.hasNext() && posAux < pos)
 		{	
 			boardPosition = it.next();
+			posAux = boardPosition.getPos();
 		}
-		posAux = boardPosition.getPos();
-		
+
 		//System.out.println("PosAux: " + posAux);
-		if(pos == posAux)
+		if(pos == posAux && boardPosition != null)
 		{		
 			character = boardPosition.getOccup();
 		}	
