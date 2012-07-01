@@ -136,21 +136,27 @@ public class JCharacterEditor extends JFrame {
 
 		strenghtTextField = new JTextField("0");
 		strenghtTextField.setBounds(497, 106, 30, 20);
+		strenghtTextField.setEditable(false);
 		
 		dexterityTextField = new JTextField("0");
 		dexterityTextField.setBounds(497, 133, 30, 20);
+		dexterityTextField.setEditable(false);
 		
 		constitutionTextField = new JTextField("0");
 		constitutionTextField.setBounds(497, 160, 30, 20);
+		constitutionTextField.setEditable(false);
 		
 		speedTextField = new JTextField("0");
 		speedTextField.setBounds(497, 188, 30, 20);
+		speedTextField.setEditable(false);
 		
 		accuraryTextField = new JTextField("0");
 		accuraryTextField.setBounds(497, 246, 30, 20);
+		accuraryTextField.setEditable(false);
 		
 		powerTextField = new JTextField("0");
 		powerTextField.setBounds(497, 219, 30, 20);
+		powerTextField.setEditable(false);
 		
 		skillPointsTextField = new JTextField(String.valueOf(skillPointsLeft));
 		skillPointsTextField.setBounds(547, 287, 100, 20);
@@ -247,8 +253,6 @@ public class JCharacterEditor extends JFrame {
 		try {
 			imagePane = new JImagePanel(path+"fighter2.jpg");
 			selected = RANGER;
-			powerTextField.setEditable(true);
-			powerTextField.setEditable(true);
 			plusPower.setEnabled(true);
 
 			//Desabilidata campo do ranger e habilita de guerreiro
@@ -276,8 +280,6 @@ public class JCharacterEditor extends JFrame {
 				{
 					imagePane.setImage(path+"fighter2.jpg");
 					selected = FIGHTER;
-					powerTextField.setEditable(true);
-					powerTextField.setEditable(true);
 					plusPower.setEnabled(true);
 
 					//Desabilidata campo do ranger e habilita de guerreiro
