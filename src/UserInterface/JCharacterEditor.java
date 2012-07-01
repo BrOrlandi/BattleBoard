@@ -253,7 +253,9 @@ public class JCharacterEditor extends JFrame {
 		try {
 			imagePane = new JImagePanel(path+"fighter2.jpg");
 			selected = RANGER;
+	
 			plusPower.setEnabled(true);
+			minusPower.setEnabled(true);
 
 			//Desabilidata campo do ranger e habilita de guerreiro
 			plusAcurracy.setEnabled(false);
@@ -280,12 +282,13 @@ public class JCharacterEditor extends JFrame {
 				{
 					imagePane.setImage(path+"fighter2.jpg");
 					selected = FIGHTER;
+					
 					plusPower.setEnabled(true);
+					minusPower.setEnabled(true);
 
-					//Desabilidata campo do ranger e habilita de guerreiro
+					//Desabilidata botoes
 					plusAcurracy.setEnabled(false);
 					minusAcurracy.setEnabled(false);
-					accuraryTextField.setEditable(false);
 					
 					skillPointsLeft = skillPointsLeft + Integer.parseInt(accuraryTextField.getText());
 					accuraryTextField.setText("0");
@@ -308,12 +311,10 @@ public class JCharacterEditor extends JFrame {
 				{
 					imagePane.setImage(path+"ranger2.jpg");
 					selected = RANGER;
-					accuraryTextField.setEditable(true);
 					plusAcurracy.setEnabled(true);
 					minusAcurracy.setEnabled(true);
 					
-					//Desabilita caixa de texto do fighter
-					powerTextField.setEditable(false);
+					//Desabilita botoes
 					plusPower.setEnabled(false);
 					minusPower.setEnabled(false);
 
