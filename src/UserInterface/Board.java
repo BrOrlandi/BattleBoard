@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-public class Board extends JFrame{
+public class Board extends JDialog{
 	
 	JScrollPane scrollPane;
 	JImagePanel contentPane;
@@ -22,6 +22,7 @@ public class Board extends JFrame{
 	{	
 		setSize(new Dimension(800, 500));
 		setResizable(false);
+		setModal(true);
 		
 		String path = System.getProperty("user.dir")+"/";
 		path.replace(" ", "\\ ");

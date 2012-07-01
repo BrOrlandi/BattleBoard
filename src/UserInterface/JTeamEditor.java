@@ -4,6 +4,7 @@ package UserInterface;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -15,7 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 
-public class JTeamEditor extends JFrame {
+public class JTeamEditor extends JDialog {
 	
 	//Painel principal
 	private JPanel contentPane;
@@ -29,10 +30,11 @@ public class JTeamEditor extends JFrame {
 	public JTeamEditor() {
 		
 		//Algumas inicizalicaçoes
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		setModal(true);
 		
 		//Panel
 		contentPane = new JPanel();
