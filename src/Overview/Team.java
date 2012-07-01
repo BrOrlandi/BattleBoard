@@ -58,15 +58,10 @@ public class Team {
 		return result;
 	}
 	
-	/**
-	 * Imprime o time e suas caracteristicas
-	 * @deprecated Com a interface gráfica o método não será mais utilizado.
-	 */
-	public void print(){
-		System.out.println(this.toString());
-	}
-	
 	@Override
+	/**
+	 * @return String com as caracteristica do time(nome e cor e resultados) e cada personagem.
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Team: " + mName + ", Color: "+ mColor+ "\n");
@@ -152,5 +147,9 @@ public class Team {
 		return true;
 	}
 
+	public ArrayList<Character> getCharactersArrayList(){
+		Collections.shuffle(mCharacters);
+		return mCharacters;
+	}
 }
 

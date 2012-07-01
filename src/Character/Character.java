@@ -664,7 +664,7 @@ public class Character {
 			Item itemTemp = it.next();
 			int x = it2.next();
 			System.out.print(x + ": ");
-			itemTemp.print();
+			System.out.println(itemTemp);
 		}
 		System.out.println("------------------------------------------------------");
 	}

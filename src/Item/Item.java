@@ -58,10 +58,9 @@ public class Item implements Comparable<Item>{
 		return 0;
 	}
 	
-	public void print(){
-		System.out.println(toString());
-	}
-	
+	/**
+	 * @return String com o nome e preço do item.
+	 */
 	public String toString(){
 		return "Item: " + mName + ", Price: $" + mPrice;
 	}

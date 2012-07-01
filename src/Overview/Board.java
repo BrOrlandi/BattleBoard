@@ -109,7 +109,6 @@ public class Board {
 		Character character = null;
 		
 		Iterator<BoardPosition> it = mPositions.iterator();
-		//System.out.println("posAux: " + posAux);
 		BoardPosition boardPosition = null;
 		
 		int posAux = 0;
@@ -120,7 +119,6 @@ public class Board {
 			posAux = boardPosition.getPos();
 		}
 
-		//System.out.println("PosAux: " + posAux);
 		if(pos == posAux && boardPosition != null)
 		{		
 			character = boardPosition.getOccup();

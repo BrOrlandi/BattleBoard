@@ -58,12 +58,8 @@ public class RevivePotion extends Item implements Consumable{
 	}
 
 	/**
-	 * Sobreescrita para imprimir também os pontos de cura.
+	 * Sobreescrita para conter também os pontos de cura.
 	 */
-	public void print(){
-		System.out.println(toString());
-	}
-	
 	public String toString(){
 		return "RevivePotion:"+ getName() + ", HPrevive:"+ mRevivePts+", Price: $" + getPrice();
 	}

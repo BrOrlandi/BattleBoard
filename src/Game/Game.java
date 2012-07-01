@@ -1,10 +1,14 @@
 package Game;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
 import Character.*;
+import Character.Character;
 import Utilities.*;
 
 /**
@@ -22,12 +26,14 @@ public class Game {
 	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que contém a loja de itens padrão do jogo.
 	public static final int BOARD_HEIGHT = 5; ///< Altura padrão do tabuleiro.
 	public static final int BOARD_WIDTH = 5; ///< Largura padrão do tabuleiro.
-	
+	public static final double CHARACTER_PRICE = 1000.0; ///< Preço padrão de um personagem.	
 
 	public Player mJ1; ///< Jogador 1.
 	public Player mJ2; ///< Jogador 2.
 	public Board mBoard; ///< Tabuleiro do jogo.
 	public ItemStore mItemStore; ///< Loja de Items do jogo.
+	
+	private LinkedList<Character> mTurnQueue;
 	
 	/**
 	 * Construtor da Classe game, dará inicio ao jogo.
@@ -70,6 +76,22 @@ public class Game {
 		if(mItemStore == null)
 		{
 			throw new IOException("Item Store not found! Create a store on the main menu.");
+		}
+		
+		mTurnQueue = new LinkedList<Character>();
+		ArrayList<Character> p1Chars = mJ1.getTeam().getCharactersArrayList();
+		ArrayList<Character> p2Chars = mJ2.getTeam().getCharactersArrayList();
+		Iterator<Character> it1 = p1Chars.iterator();
+		Iterator<Character> it2 = p2Chars.iterator();
+		boolean flag1 = true, flag2 = true;
+		
+
+		while(flag1 || flag2)
+		{
+			if(it1.hasNext())
+			{
+				mTurnQueue.addLast(it1.next());
+			}
 		}
 	}
 	

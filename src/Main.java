@@ -205,9 +205,9 @@ public class Main {
 	    
 
 	    pline();
-	    alpha.print();
+	    System.out.println(alpha);
 	    pline();
-	    bravo.print();
+	    System.out.println(bravo);
 	    pline();
 	    
 	    pline();
