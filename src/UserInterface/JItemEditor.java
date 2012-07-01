@@ -15,7 +15,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import javax.swing.border.EtchedBorder;
 
-public class JItemEditor extends JFrame {
+public class JItemEditor extends JDialog {
 	
 	//Panel
 	private JPanel contentPane;
@@ -58,11 +58,12 @@ public class JItemEditor extends JFrame {
 	
 	public JItemEditor() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setBounds(100, 100, 799, 600);
 		setLocationRelativeTo(null);
 		setTitle("Ferreiro");
-		//setResizable(false);
+		setResizable(false);
+		setModal(true);
 		
 		itemStore = new ItemStore("Store", "Loja de itens");
 		

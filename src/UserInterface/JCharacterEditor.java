@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-public class JCharacterEditor extends JFrame {
+public class JCharacterEditor extends JDialog {
 	
 	//Panel que suporta imagem de fundo
 	private JImagePanel imagePane;
@@ -76,7 +76,7 @@ public class JCharacterEditor extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Criar Novo Personagem");
-		
+		setModal(true);
 		
 		//String com o caminho até a pasta atual
 		final String path = System.getProperty("user.dir")+"/";
@@ -334,6 +334,7 @@ public class JCharacterEditor extends JFrame {
 		returnButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				setVisible(false);
+			
 			}
 		});
 	}

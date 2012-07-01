@@ -111,11 +111,11 @@ public class JMain extends JFrame {
 		createItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JItemEditor jItemEditor = new JItemEditor();
-				jItemEditor.setVisible(true);
-			
+				jItemEditor.setVisible(true);		
 			}
 		});
 		
+		//criar personagem
 		createCharacterButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
