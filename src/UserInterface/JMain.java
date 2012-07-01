@@ -13,9 +13,10 @@ import java.io.IOException;
 
 public class JMain extends JFrame {
 
-	JButton playButton;
-	JButton createItemButton;
-	JButton exitButton;
+	private JButton playButton;
+	private JButton createItemButton;
+	private JButton createCharacterButton;
+	private JButton exitButton;
 	
 	private JPanel panel;
 	private JImagePanel imagePanel;
@@ -61,12 +62,15 @@ public class JMain extends JFrame {
 		
 		//Criar item
 		createItemButton = new JButton("Edição de Itens");
-		createItemButton.setBounds(54, 123, 327, 23);
+		createItemButton.setBounds(54, 173, 327, 23);
 		panel.add(createItemButton);
 		
+		createCharacterButton = new JButton("Criar novo personagem");
+		createCharacterButton.setBounds(54, 123, 327, 23);
+		panel.add(createCharacterButton);		
 		//Sair
 		exitButton = new JButton("Sair");
-		exitButton.setBounds(54, 173, 327, 23);
+		exitButton.setBounds(54, 223, 327, 23);
 		panel.add(exitButton);
 		
 		/**LABEL*/
@@ -109,6 +113,15 @@ public class JMain extends JFrame {
 				JItemEditor jItemEditor = new JItemEditor();
 				jItemEditor.setVisible(true);
 			
+			}
+		});
+		
+		createCharacterButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				JCharacterEditor jChacacterEditor = new JCharacterEditor();
+				jChacacterEditor.setVisible(true);
 			}
 		});
 		
