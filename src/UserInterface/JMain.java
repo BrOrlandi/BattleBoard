@@ -5,7 +5,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+
+import Item.ItemStore;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,11 +16,12 @@ public class JMain extends JFrame {
 
 	private JButton playButton;
 	private JButton createItemButton;
-	private JButton createCharacterButton;
 	private JButton exitButton;
 	
 	private JPanel panel;
-	private JImagePanel imagePanel;
+	private ImageJPanel imagePanel;
+	
+	private ItemStore itemStore;
 	
 	/**
 	 * Launch the application.
@@ -48,6 +50,8 @@ public class JMain extends JFrame {
 		setResizable(false);
 		setTitle("The Ultimate Board Game");
 		
+		itemStore = new ItemStore("Loja", "Loja de itens");
+		
 		//Painel que contem os botoes
 		panel = new JPanel();
 		panel.setBounds(47, 94, 370, 118);
@@ -64,10 +68,7 @@ public class JMain extends JFrame {
 		createItemButton = new JButton("Edição de Itens");
 		createItemButton.setBounds(54, 173, 327, 23);
 		panel.add(createItemButton);
-		
-		createCharacterButton = new JButton("Criar novo personagem");
-		createCharacterButton.setBounds(54, 123, 327, 23);
-		panel.add(createCharacterButton);		
+			
 		//Sair
 		exitButton = new JButton("Sair");
 		exitButton.setBounds(54, 223, 327, 23);
@@ -84,7 +85,7 @@ public class JMain extends JFrame {
 		System.out.println(path+"imagem.jpg");
 		
 		try {
-			imagePanel = new JImagePanel(path+"sword.jpg");
+			imagePanel = new ImageJPanel(path+"sword.jpg");
 		
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null, "Erro ao carregar imagem de fundo", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -110,21 +111,15 @@ public class JMain extends JFrame {
 		//listener do botao de criação de item
 		createItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JItemEditor jItemEditor = new JItemEditor();
-				jItemEditor.setVisible(true);		
+				JItemEditor jItemEditor = new JItemEditor(itemStore);
+				jItemEditor.setVisible(true);	
+				
+				if(jItemEditor.isVisible() == false){
+					jItemEditor.dispose();
+				}
 			}
 		});
-		
-		//criar personagem
-		createCharacterButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent event)
-			{
-				JCharacterEditor jChacacterEditor = new JCharacterEditor();
-				jChacacterEditor.setVisible(true);
-			}
-		});
-		
+				
 		//listener do botao de jogar
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

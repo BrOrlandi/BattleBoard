@@ -40,6 +40,11 @@ public class ItemStore {
 		mDescription = desc;
 	}
 	
+	public int getNumItens()
+	{
+		return mItems.size();
+	}
+	
 	/**
 	 * Adiciona um item à loja.
 	 * @param item item a ser adicionado.

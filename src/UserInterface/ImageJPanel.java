@@ -9,23 +9,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class JImagePanel extends JPanel  
+public class ImageJPanel extends JPanel  
 {  
     BufferedImage background = null;  
       
-    public JImagePanel(BufferedImage img)  
+    public ImageJPanel(BufferedImage img)  
     {  
         if (img == null)  
             throw new NullPointerException("Buffered image cannot be null!");  
         this.background = img;  
     }  
 
-    public JImagePanel(File imgSrc) throws IOException  
+    public ImageJPanel(File imgSrc) throws IOException  
     {  
         this(ImageIO.read(imgSrc));  
     }  
   
-    public JImagePanel(String fileName) throws IOException  
+    public ImageJPanel(String fileName) throws IOException  
     {  
         this(new File(fileName));  
     }  

@@ -10,24 +10,25 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-public class Board extends JDialog{
+public class JBoard extends JDialog{
 	
 	JScrollPane scrollPane;
-	JImagePanel contentPane;
+	ImageJPanel contentPane;
 	
 	JButton button;
-	SimpleTable jtable;
+	ItemTable jtable;
 	
-	public Board()
+	public JBoard()
 	{	
 		setSize(new Dimension(800, 500));
 		setResizable(false);
 		setModal(true);
+		setLocationRelativeTo(null);
 		
 		String path = System.getProperty("user.dir")+"/";
 		path.replace(" ", "\\ ");
 		try {
-			contentPane = new JImagePanel(path+"grass-background.jpg");
+			contentPane = new ImageJPanel(path+"grass-background.jpg");
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Imagem nao encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();

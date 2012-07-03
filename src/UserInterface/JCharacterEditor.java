@@ -8,10 +8,14 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import Character.Fighter;
+import Character.Ranger;
+import Overview.Team;
+
 public class JCharacterEditor extends JDialog {
 	
 	//Panel que suporta imagem de fundo
-	private JImagePanel imagePane;
+	private ImageJPanel imagePane;
 	private JPanel backgroundPane;
 	
 	//Botoes de mais e menos
@@ -36,6 +40,8 @@ public class JCharacterEditor extends JDialog {
 	
 	private JButton plusPower;
 	private JButton minusPower;
+	
+	private JButton createButton;
 	
 	//Rotulos
 	private JLabel nameJLabel;
@@ -65,11 +71,14 @@ public class JCharacterEditor extends JDialog {
 	//personagem que sera criado (atual)
 	private int selected = RANGER;
 	
+	private Team allCharacters;
+	
 	private int skillPointsLeft = 100;
 	/**
 	 * Construtor
+	 * @param t 
 	 */
-	public JCharacterEditor() {
+	public JCharacterEditor(Team t) {
 		
 		//Inicializacao do frame
 		setSize(new Dimension(700, 580));
@@ -77,6 +86,8 @@ public class JCharacterEditor extends JDialog {
 		setResizable(false);
 		setTitle("Criar Novo Personagem");
 		setModal(true);
+		
+		allCharacters = t;
 		
 		//String com o caminho até a pasta atual
 		final String path = System.getProperty("user.dir")+"/";
@@ -229,7 +240,10 @@ public class JCharacterEditor extends JDialog {
 		rightButton.setBounds(230, 500, 100, 20);
 		
 		returnButton = new JButton("Voltar");
-		returnButton.setBounds(500, 500, 100, 20);
+		returnButton.setBounds(564, 500, 100, 20);
+		
+		createButton = new JButton("Criar Personagem");
+		createButton.setBounds(402, 500, 145, 20);
 		
 		//Adicionando botoes que mudam a imagem do character	
 		backgroundPane.add(leftButton);
@@ -248,11 +262,12 @@ public class JCharacterEditor extends JDialog {
 	    backgroundPane.add(minusAcurracy);  
 	    backgroundPane.add(plusPower);
 	    backgroundPane.add(minusPower);
+	    backgroundPane.add(createButton);
 	    
 		//Painel com a imagem do character
 		try {
-			imagePane = new JImagePanel(path+"fighter2.jpg");
-			selected = RANGER;
+			imagePane = new ImageJPanel(path+"fighter2.jpg");
+			selected = FIGHTER;
 	
 			plusPower.setEnabled(true);
 			minusPower.setEnabled(true);
@@ -335,6 +350,28 @@ public class JCharacterEditor extends JDialog {
 			public void actionPerformed(ActionEvent event){
 				setVisible(false);
 			
+			}
+		});
+//		private JTextField strenghtTextField;
+//		private JTextField dexterityTextField;
+//		private JTextField speedTextField;
+//		private JTextField constitutionTextField;
+//		private JTextField powerTextField;
+//		private JTextField accuraryTextField;
+		//Criar personagem
+		
+		createButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event) {
+				//Cria persongaem e adiciona no time generico, fora no JTeameditor o time generico é adicionado a tabela
+				if(selected == FIGHTER){
+					Fighter f = new Fighter(nameTextField.getText(), Integer.parseInt(powerTextField.getText()));
+					allCharacters.addCharacter(f);
+					
+				}else if(selected == RANGER){
+					Ranger r = new Ranger(nameTextField.getText(), Integer.parseInt(accuraryTextField.getText()));
+					allCharacters.addCharacter(r);
+				}
+				setVisible(false);
 			}
 		});
 	}

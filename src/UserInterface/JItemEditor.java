@@ -19,7 +19,7 @@ public class JItemEditor extends JDialog {
 	
 	//Panel
 	private JPanel contentPane;
-	private JImagePanel buttonPane;
+	private ImageJPanel buttonPane;
 	
 	//Labels
 	private JLabel itemNameLabel;
@@ -49,14 +49,14 @@ public class JItemEditor extends JDialog {
 	private JComboBox typeComboBox;
 	
 	//Tabela dos itens
-	private SimpleTable table;
+	private ItemTable table;
 	
 	//Scroll
 	private JScrollPane scrollPane;
 	
 	private ItemStore itemStore;
 	
-	public JItemEditor() {
+	public JItemEditor(ItemStore it) {
 		
 		//setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setBounds(100, 100, 799, 600);
@@ -65,8 +65,15 @@ public class JItemEditor extends JDialog {
 		setResizable(false);
 		setModal(true);
 		
-		itemStore = new ItemStore("Store", "Loja de itens");
+		if(it.getNumItens() != 0)
+		{
+			String[] itemArray = it.getItemsString();
+			System.out.println(itemArray[0]);
+			System.out.println(itemArray[1]);
+			//table.addItemTable(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);		
+		}
 		
+		itemStore = it;
 
 		String path = System.getProperty("user.dir")+"/";
 		path.replace(" ", "\\ ");
@@ -84,7 +91,7 @@ public class JItemEditor extends JDialog {
 		
 		//painel que contem botoes e caixas de entrada de texto
 		try {
-			buttonPane = new JImagePanel(path+"Weapon.jpg");
+			buttonPane = new ImageJPanel(path+"Weapon.jpg");
 			buttonPane.setForeground(Color.GRAY);
 			buttonPane.setBounds(5, 157, 773, 400);
 		} catch (IOException e) {
@@ -209,11 +216,11 @@ public class JItemEditor extends JDialog {
 		/**TABELA DOS ITENS*/
 		
 		//Adiciona tabela
-		table = new SimpleTable();
+		table = new ItemTable();
 		table.setBounds(5, 5, 773, 152);
 		table.setEnabled(false);
 		table.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		scrollPane = new JScrollPane(table);
+		//scrollPane = new JScrollPane(table);
 		//table.add(scrollPane);
 		getContentPane().add(table);
 		table.setLayout(new CardLayout(0, 0));
@@ -223,6 +230,7 @@ public class JItemEditor extends JDialog {
 		//voltar
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(itemStore);
 				setVisible(false);
 			}
 		});
@@ -280,32 +288,62 @@ public class JItemEditor extends JDialog {
 	 * @param points
 	 */
 	public void addItem(String type, String name, String attack, String range, String defense, String flexibility, String price, String points)
-	{
-		if(type.equals("Weapon"))
-		{
-			Weapon w = new Weapon(name, Double.parseDouble(price), Integer.parseInt(attack), Integer.parseInt(range));
-			itemStore.addItem(w);
+	{	
+		boolean insert = true;
+		
+		if(type.equals("Weapon")){	
+			try{
+				Weapon w = new Weapon(name, Double.parseDouble(price), Integer.parseInt(attack), Integer.parseInt(range));
+				itemStore.addItem(w);
+				
+			}catch(NumberFormatException exception){
+				JOptionPane.showMessageDialog(null, "Preço, ataque e alcance devem ser numeros!", "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+				insert = false;
+			}
+			
+			
 		}
-		else if(type.equals("Armor"))
-		{	 
-			Armor a = new Armor(name, Double.parseDouble(price), Integer.parseInt(defense), Integer.parseInt(flexibility));
-			itemStore.addItem(a);
+		else if(type.equals("Armor")){	
+			try{
+				Armor a = new Armor(name, Double.parseDouble(price), Integer.parseInt(defense), Integer.parseInt(flexibility));
+				itemStore.addItem(a);
+			
+			}catch(NumberFormatException exception){
+				JOptionPane.showMessageDialog(null, "Preço, defesa e flexibilidade devem ser numeros!", "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+				insert = false;
+			}
+			
 		}
-		else if(type.equals("Health Potion"))
-		{
+		else if(type.equals("Health Potion")){
 			//String name, double price, int restore)
-			HealthPotion h = new HealthPotion(name, Double.parseDouble(price), Integer.parseInt(points));
-			itemStore.addItem(h);
+			try{
+				HealthPotion h = new HealthPotion(name, Double.parseDouble(price), Integer.parseInt(points));
+				itemStore.addItem(h);
+			
+			}catch(NumberFormatException exception){
+				JOptionPane.showMessageDialog(null, "Preço e pontos devem ser numeros!", "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+				insert = false;
+			}
+			
 		}
-		else if(type.equals("Revive Potion"))
-		{
+		else if(type.equals("Revive Potion")){
 			//String name, double price, int revivepts) {
-			RevivePotion r = new RevivePotion(name, Double.parseDouble(price), Integer.parseInt(points));
-			itemStore.addItem(r);
+			try{
+				RevivePotion r = new RevivePotion(name, Double.parseDouble(price), Integer.parseInt(points));
+				itemStore.addItem(r);
+				
+			}catch(NumberFormatException exception){
+				JOptionPane.showMessageDialog(null, "Preço e pontos devem ser numeros!", "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+				insert = false;
+			}
+			
 		}
 		
 		//adiciona na tabela
-		table.addItemTable(type, name, attack, range, defense, flexibility, price, points);
+		if(insert == true){
+			table.addItemTable(type, name, attack, range, defense, flexibility, price, points);
+		}
+		
 	}
 
 	/**
@@ -315,13 +353,13 @@ public class JItemEditor extends JDialog {
 	public void setTextFields(String string)
 	{
 		//se escolhido foi arma
-        if(string.equals("Weapon")) {	
-        	flexibilityTextField.setEnabled(false);
-        	defenseTextField.setEnabled(false);
+        if(string.equals("Weapon")) {	     	
         	rangeTextField.setEnabled(true);
         	attackTextField.setEnabled(true);
+        	flexibilityTextField.setEnabled(false);
+        	defenseTextField.setEnabled(false);
         	pointsTextField.setEnabled(false);
-        	
+	
         }
         //se escolihdo foi escudo
         else if (string.equals("Armor"))	{
@@ -333,11 +371,12 @@ public class JItemEditor extends JDialog {
         }
         //se escolhido foi poçao de vida ou poçao de reviver
         else if (string.equals("Health Potion") || string.equals("Revive Potion")){
+        	pointsTextField.setEnabled(true);
+        	
         	flexibilityTextField.setEnabled(false);
         	rangeTextField.setEnabled(false);
         	attackTextField.setEnabled(false);
         	defenseTextField.setEnabled(false);
-        	pointsTextField.setEnabled(true);
         }
 	}
 

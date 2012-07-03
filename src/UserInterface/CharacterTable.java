@@ -6,36 +6,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class SimpleTable extends JPanel{
-	
+import Character.Fighter;
+import Overview.Team;
+
+public class CharacterTable extends JPanel{
+
 	JTable jTable;
 	DefaultTableModel tableModel;  
 	
-	public SimpleTable()
+	public CharacterTable()
 	{
 
 		jTable = new JTable();
 		tableModel = new DefaultTableModel(); 
 		
-		String[] identifiers = new String[] {"Tipo", "Nome", "Ataque, Distancia", "Defesa", "Flexibilidade", "Preço", "Pontos"};
+		String[] identifiers = new String[] {"Tipo", "Nome", "Força", "Destreza", "Velocidade", "Constituição", "Poder", "Precisão"};
 		tableModel.setColumnIdentifiers(identifiers);
         jTable.setModel(tableModel);
         
         JScrollPane scrollPane = new JScrollPane(jTable);
         add(scrollPane);    
 	}	
-		
-	/**
-	 * 
-	 * @param name Nome do item		
-	 * @param type Tipo do item	
-	 * @param attack Pontos de Ataque do item
-	 * @param defense Pontos Defesa do item
-	 * @param price Preço do item
-	 */
-	public void addItemTable(String type, String name, String attack, String range, String defense, String flexibility, String price, String points)
+	
+	public void addCharacter(String type, String name, String force, String dexterity, String speed, String constitution, String power, String accuracy)
 	{
-		String[] add = new String[] {type, name, attack, range, defense, flexibility, price, points};
+		String[] add = new String[] {type, name, force, dexterity, speed, constitution, power, accuracy};
         tableModel.addRow(add);
 	}
 	
@@ -54,9 +49,10 @@ public class SimpleTable extends JPanel{
 			
 		}catch(ArrayIndexOutOfBoundsException ex)
 		{
-			JOptionPane.showMessageDialog(null, "Selecione um Item!", "Erro ao remover", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Selecione um Personagem para remover!", "Erro ao remover", JOptionPane.ERROR_MESSAGE);
 			position = -1;
 		}
 		return position;
 	}
+
 }

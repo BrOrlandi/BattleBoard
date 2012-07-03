@@ -150,6 +150,14 @@ public class Team {
 		}
 		return true;
 	}
-
+	
+	public int numCharacter(){
+		return mCharacters.size();
+	}
+	
+	public Character getCharacter(int pos)
+	{
+		return mCharacters.get(pos);
+	}
 }
 
