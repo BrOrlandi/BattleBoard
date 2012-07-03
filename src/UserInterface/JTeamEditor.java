@@ -213,16 +213,7 @@ public class JTeamEditor extends JDialog {
 		rightBuyItem = new JButton("Comprar itens");
 		rightBuyItem.setBounds(540, 500, 120, 20);
 		backgroundImagePane.add(rightBuyItem);
-//		
-//	    private JButton leftAddCharacterButton;
-//	    private JButton leftRemoveCharacterButton;
-//	    private JButton rightAddCharacterButton;
-//	    private JButton rightRemoveCharacterButton;
-//	    private JButton playButton;
-//	    private JButton returnButton;
-//	    private JButton newCharacterTableButton;
-//	    private JButton removeCharacterTableButton;
-		
+
 		//Adicionar novo personagem
 		newCharacterTableButton.addActionListener(new ActionListener()
 		{
@@ -311,7 +302,9 @@ public class JTeamEditor extends JDialog {
 		playButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				JBoard board = new JBoard();
+				setVisible(false);
 				board.setVisible(true);
+				
 			}
 		});
 		
@@ -321,6 +314,24 @@ public class JTeamEditor extends JDialog {
 				setVisible(false);
 			}
 		});
+		
+		ActionListener listener = new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event) {
+				if(event.getSource() == leftBuyItem){
+					JAddItem jadd = new JAddItem(alpha);
+					jadd.setVisible(true);
+				}
+				else if (event.getSource() == rightBuyItem){
+					JAddItem jadd = new JAddItem(bravo);
+					jadd.setVisible(true);
+				}
+				
+			}
+		};
+		
+		leftBuyItem.addActionListener(listener);
+		rightBuyItem.addActionListener(listener);
 	}
 	
 	//Atualiza item dos personagns disponiveis
@@ -331,4 +342,6 @@ public class JTeamEditor extends JDialog {
 				characterModel.addElement(allCharacters.getCharacter(i).toString());		
 		}	
 	}
+	
+	
 }

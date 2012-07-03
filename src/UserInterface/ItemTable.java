@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ItemTable extends JPanel{
 	
+
 	JTable jTable;
 	DefaultTableModel tableModel;  
 	

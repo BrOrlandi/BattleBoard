@@ -48,7 +48,7 @@ public class JMain extends JFrame {
 		setBounds(100, 100, 450, 700);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setTitle("The Ultimate Board Game");
+		setTitle("The Ultimate Board Game - aeho!");
 		
 		itemStore = new ItemStore("Loja", "Loja de itens");
 		
