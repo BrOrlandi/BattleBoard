@@ -696,7 +696,7 @@ public class Character {
 		return array;
 	}
 	
-	public String toString(){
+	public String fullDescription(){
 		StringBuilder sb = new StringBuilder();
 		if(isDead())
 		{
@@ -718,6 +718,17 @@ public class Character {
 		}
 		sb.append(mInventory.size()+" items");
 		return sb.toString();
+	}
+	
+	public String toString(){
+		if(isDead())
+		{
+			return mAlias;
+		}
+		else
+		{
+			return mAlias + "[+]";
+		}
 	}
 	
 	/**
