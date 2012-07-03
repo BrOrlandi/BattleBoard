@@ -10,6 +10,4 @@ public class NotArmorItemException extends Exception{
 		super(str);
 	}
 
-	public NotArmorItemException() {}
-
 }

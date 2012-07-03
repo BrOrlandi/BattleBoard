@@ -7,8 +7,6 @@ import Character.Character;
  */
 public class OccupiedBoardPositionException extends CharacterException {
 
-	public OccupiedBoardPositionException(Character chr){super(chr);}
-
 	public OccupiedBoardPositionException(Character chr, String string) {
 		super(chr,string);
 	}

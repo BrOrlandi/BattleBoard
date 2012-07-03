@@ -7,11 +7,6 @@ import Character.Character;
  */
 public class OutOfRangeCharacterException extends CharacterException{
 	private int mRange;
-
-	public OutOfRangeCharacterException(Character chr, int range) {
-		super(chr);
-		mRange = range;
-	}
 	
 	public OutOfRangeCharacterException(Character chr, int range,
 			String str) {

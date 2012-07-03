@@ -8,6 +8,4 @@ public class InventoryOccupiedPositionException extends Exception {
 	public InventoryOccupiedPositionException(String str){
 		super(str);
 	}
-
-	public InventoryOccupiedPositionException() {}
 }

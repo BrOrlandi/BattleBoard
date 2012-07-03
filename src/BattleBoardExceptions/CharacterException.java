@@ -14,14 +14,6 @@ public class CharacterException extends Exception{
 	private Character mCharacter; ///< o Character que está morto que causou a exceção
 	
 	/**
-	 * Construtor da exceção que deve receber um Character.
-	 * @param chr Character que gerou a exceção.
-	 */
-	public CharacterException(Character chr){
-		mCharacter = chr;
-	}
-	
-	/**
 	 * Construtor da exception
 	 * Recebe uma string que pode ser recuperada pelo método getMessage().
 	 * @param character um Character que causou a Exception
@@ -29,6 +21,7 @@ public class CharacterException extends Exception{
 	 */
 	public CharacterException(Character character, String string) {
 		super(string);
+		mCharacter = character;
 	}
 
 	/**

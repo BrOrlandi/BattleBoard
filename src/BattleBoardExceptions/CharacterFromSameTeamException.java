@@ -7,9 +7,6 @@ import Character.Character;
  *
  */
 public class CharacterFromSameTeamException extends CharacterException {
-	public CharacterFromSameTeamException(Character chr) {
-		super(chr);
-	}
 
 	public CharacterFromSameTeamException(Character chr, String str) {
 		super(chr,str);
