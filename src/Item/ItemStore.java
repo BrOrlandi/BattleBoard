@@ -63,4 +63,12 @@ public class ItemStore {
 		}
 		return array;
 	}
+	
+	/**
+	 * Permite acessar os items da loja em um vetor.
+	 * @return Array com os Items da loja.
+	 */
+	public Item[] getItems(){
+		return (Item[])mItems.toArray();
+	}
 }

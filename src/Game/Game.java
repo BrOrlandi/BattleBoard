@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
+import BattleBoardExceptions.ItemNotFoundException;
 import Character.*;
 import Character.Character;
 import Utilities.*;
@@ -32,8 +33,6 @@ public class Game {
 	public Player mJ2; ///< Jogador 2.
 	public Board mBoard; ///< Tabuleiro do jogo.
 	public ItemStore mItemStore; ///< Loja de Items do jogo.
-	
-	private LinkedList<Character> mTurnQueue;
 	
 	/**
 	 * Construtor da Classe game, dará inicio ao jogo.
@@ -72,27 +71,35 @@ public class Game {
 		mJ2 = p;
 	}
 
+	/**
+	 * Usado para comprar um item da loja de itens.
+	 * Lança uma exceção de dinheiro insuficiente.
+	 * @param p Jogador que está comprando.
+	 * @param pos Posição do item na loja.
+	 * @return o Item que foi comprado.
+	 * @throws NotEnoughMoneyException
+	 * @throws ItemNotFoundException 
+	 */
+	public Item buyItem(Player p, int pos) throws NotEnoughMoneyException, ItemNotFoundException{
+		Item it = mItemStore.getItems()[pos];
+		if(it == null)
+		{
+			throw new ItemNotFoundException("Item not found on Item Store.");
+		}
+		p.subtractMoney(it.getPrice());
+		return it;
+	}
+	
 	public void startGame() throws IOException{
 		if(mItemStore == null)
 		{
 			throw new IOException("Item Store not found! Create a store on the main menu.");
 		}
 		
-		mTurnQueue = new LinkedList<Character>();
-		ArrayList<Character> p1Chars = mJ1.getTeam().getCharactersArrayList();
-		ArrayList<Character> p2Chars = mJ2.getTeam().getCharactersArrayList();
-		Iterator<Character> it1 = p1Chars.iterator();
-		Iterator<Character> it2 = p2Chars.iterator();
-		boolean flag1 = true, flag2 = true;
-		
+	}
+	
+	public static void main(String args[]){
 
-		while(flag1 || flag2)
-		{
-			if(it1.hasNext())
-			{
-				mTurnQueue.addLast(it1.next());
-			}
-		}
 	}
 	
 }
