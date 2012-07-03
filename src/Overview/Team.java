@@ -146,10 +146,13 @@ public class Team {
 		}
 		return true;
 	}
-
-	public ArrayList<Character> getCharactersArrayList(){
-		Collections.shuffle(mCharacters);
-		return mCharacters;
+	
+	/**
+	 * 
+	 * @return Array de Characters do Time.
+	 */
+	public Character[] getCharactersArray(){
+		return (Character[]) mCharacters.toArray();
 	}
 }
 

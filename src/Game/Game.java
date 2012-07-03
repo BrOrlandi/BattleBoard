@@ -74,21 +74,26 @@ public class Game {
 	/**
 	 * Usado para comprar um item da loja de itens.
 	 * Lança uma exceção de dinheiro insuficiente.
-	 * @param p Jogador que está comprando.
-	 * @param pos Posição do item na loja.
-	 * @return o Item que foi comprado.
+	 * @param p jogador que está comprando.
+	 * @param posItem posição do item na loja de itens.
+	 * @param posCharacter posição do personagem no time do jogador.
 	 * @throws NotEnoughMoneyException
-	 * @throws ItemNotFoundException 
+	 * @throws ItemNotFoundException
 	 */
-	public Item buyItem(Player p, int pos) throws NotEnoughMoneyException, ItemNotFoundException{
-		Item it = mItemStore.getItems()[pos];
-		if(it == null)
+	public void buyItem(Player p, int posItem, int posCharacter) throws NotEnoughMoneyException, ArrayIndexOutOfBoundsException{
+		Item[] its = mItemStore.getItemArray();
+		Character[] chars = p.getTeam().getCharactersArray();
+		if(posItem < 0 || posItem >= its.length || posCharacter < 0 || posCharacter >= chars.length)
 		{
-			throw new ItemNotFoundException("Item not found on Item Store.");
+			throw new ArrayIndexOutOfBoundsException("Item not found on Item Store.");
 		}
+		Item it = its[posItem];
+		Character chr = chars[posCharacter];
 		p.subtractMoney(it.getPrice());
-		return it;
+		chr.addItem(it);
 	}
+	
+	//public void addCharacterToPlayer()
 	
 	public void startGame() throws IOException{
 		if(mItemStore == null)
