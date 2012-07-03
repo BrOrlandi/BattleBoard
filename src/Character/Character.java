@@ -453,7 +453,7 @@ public class Character {
 		{
 			//System.out.println(it.getName() + " is not consumable!");
 			//return false;
-			throw new NotConsumableItem();
+			throw new NotConsumableItem(it.getName() + " is not consumable!");
 		}
 	}
 
