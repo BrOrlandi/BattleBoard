@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import BattleBoardExceptions.CharacterFromSameTeamException;
 import BattleBoardExceptions.CharacterNotFoundOnBoardException;
 import BattleBoardExceptions.DeadCharacterException;
+import BattleBoardExceptions.EmptyBoardPositionException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
 import Character.*;
@@ -34,15 +35,12 @@ public class JBoard extends JDialog{
 	private JPanel contentPane;
 	
 	private JButton attackButton;
-	private JButton moveButton;
-	
-	private JLabel boardNameLabel;
-	private JLabel currentPlayer;
 	
 	private JTextField firstSelection;
 	private JTextField secondSelection;
 
-	//private JLabel 
+	private JLabel logLabel;
+	
 	private JButton firstSelectionButton;
 	private JButton secondSelectionButton;
 	
@@ -101,13 +99,20 @@ public class JBoard extends JDialog{
 		
 //		Ranger r2 = (Ranger) tableModel.getValueAt(5, 5);
 //		System.out.println(r2);
+		logLabel = new JLabel("Histórico");
+		logLabel.setBounds(350, 330, 100, 20);
+		logLabel.setForeground(Color.WHITE);
+		imagePane.add(logLabel);
+		
 		
 		listModel = new DefaultListModel();
 		logList = new JList(listModel);
-		scrollPane = new JScrollPane();
-		scrollPane.add(logList);
-		scrollPane.setBounds(270, 360, 300, 100);
+		logList.setBounds(270, 360, 400, 100);
+		scrollPane = new JScrollPane(logList);
+		scrollPane.setBounds(270, 360, 400, 100);
+		scrollPane.setWheelScrollingEnabled(true);
 		imagePane.add(scrollPane);
+		
 	
 
 		
@@ -115,11 +120,6 @@ public class JBoard extends JDialog{
 		attackButton = new JButton("Atacar!");
 		attackButton.setBounds(80, 350, 120, 20);
 		imagePane.add(attackButton);
-			
-		currentPlayer = new JLabel("Jogador da vez: Alpha");
-		currentPlayer.setForeground(Color.WHITE);
-		currentPlayer.setBounds(300, 250, 150, 20);
-		imagePane.add(currentPlayer);
 		
 		moveUp = new JButton("Cima");
 		moveUp.setBounds(600, 250, 30, 20);
@@ -183,17 +183,27 @@ public class JBoard extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
-				try{
-					if(tableModel.getValueAt(row, column) != null && tableModel.getValueAt(row-1, column) == null){
-						
-							tableModel.setValueAt(tableModel.getValueAt(row, column), row-1, column);
-							tableModel.setValueAt(null, row, column);
-							boardTable.setColumnSelectionInterval(column, column);
-							boardTable.setRowSelectionInterval(row-1, row-1);
-					}
+				
+					
+				try {
+					game.mBoard.moveUp(column, row);
+					
+					tableModel.setValueAt(tableModel.getValueAt(row, column), row-1, column);
+					tableModel.setValueAt(null, row, column);
+					boardTable.setColumnSelectionInterval(column, column);
+					boardTable.setRowSelectionInterval(row-1, row-1);
+					
+				}catch (OccupiedBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição ocupada");
+					e.printStackTrace();
 				}catch(ArrayIndexOutOfBoundsException e){
-					JOptionPane.showMessageDialog(null, "Movimento invalido", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
+					e.printStackTrace();
 				}
+				
+			
+				
+				
 			}
 		});
 		
@@ -270,10 +280,12 @@ public class JBoard extends JDialog{
 				int row = boardTable.getSelectedRow();
 				
 				//adiciona ao primeiro personagem escolhido
-				firstSelectionCharacter = game.mBoard.getCharacter(column, row);
-				
-				if(firstSelectionCharacter != null){
+				try {
+					firstSelectionCharacter = game.mBoard.getCharacter(column, row);
 					firstSelection.setText(firstSelectionCharacter.getName());
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Escolha um personagem para mover!");
+					e.printStackTrace();
 				}
 				
 			}
@@ -288,11 +300,15 @@ public class JBoard extends JDialog{
 				int row = boardTable.getSelectedRow();			
 				
 				//adiciona ao segundo personagem escolhido
-				secondSelectionCharacter = game.mBoard.getCharacter(column, row);
-				
-				if(secondSelectionCharacter != null){
+				try {
+					secondSelectionCharacter = game.mBoard.getCharacter(column, row);
 					secondSelection.setText(secondSelectionCharacter.getName());
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Escolha uma posição com personagem!");
+					e.printStackTrace();
 				}
+				
+				
 			}
 		});
 		
@@ -306,6 +322,13 @@ public class JBoard extends JDialog{
 					
 					listModel.addElement(firstSelectionCharacter.getName() + "Atacou" + secondSelectionCharacter.getName() + "| Dano causado: " + 
 					damage.getSecond() + "HP restante: " + secondSelectionCharacter.getHP());
+					
+					SwingUtilities.invokeLater(new Runnable() {  
+                        public void run() {  
+                            JScrollBar bar = scrollPane.getVerticalScrollBar();  
+                            bar.setValue(bar.getMaximum());  
+                        }  
+                    });  
 					
 					
 				} catch (DeadCharacterException e) {

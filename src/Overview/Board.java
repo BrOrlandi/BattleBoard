@@ -213,8 +213,8 @@ public class Board {
 	 * @throws OccupiedBoardPositionException 
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public void moveUp(int x, int y) throws OccupiedBoardPositionException{
-		BoardPosition atual;
+	public void moveUp(int x, int y) throws OccupiedBoardPositionException, ArrayIndexOutOfBoundsException{
+		BoardPosition atual = null;
 		try {
 			atual = getBoardPosition(x, y);
 		} catch (EmptyBoardPositionException e) {
@@ -225,7 +225,15 @@ public class Board {
 		{
 			throw new ArrayIndexOutOfBoundsException("Can't move up!");
 		}
-		BoardPosition future = getBoardPosition(x, y+1);
+		BoardPosition future = null;
+		
+		try {
+			future = getBoardPosition(x, y+1);
+		} catch (EmptyBoardPositionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(future != null)
 		{
 			throw new OccupiedBoardPositionException(future.getOccup(), "Occupied board position by "+future.getOccup().getName());
