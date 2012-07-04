@@ -9,6 +9,8 @@ import Utilities.XML;
 
 
 public class testsGame extends TestCase {
+	
+	/*
 	public void test1(){
 		Game G = new Game();
 		
@@ -93,14 +95,16 @@ public class testsGame extends TestCase {
 	    G.addItemToStore(rp5);
 	    G.addItemToStore(rp6);
 	    }catch(Exception e){
-	    	System.out.println("What? "+e.getMessage());
+	    	System.out.println(e.getMessage());
 	    	pegou = true;
 	    }
 	    //assertEquals(false,pegou);
 	    
 	}
+	//*/
+	
 	
 	public void test2(){
-		
+		Game G = new Game();
 	}
 }
