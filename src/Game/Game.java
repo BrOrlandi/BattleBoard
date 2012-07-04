@@ -49,7 +49,7 @@ public class Game {
 		try{
 			mItemStore = (ItemStore) XML.fromXML(ITEM_STORE_FILE);
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			mItemStore = null;
 		}
 		

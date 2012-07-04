@@ -2,6 +2,7 @@ package Overview;
 import java.util.*;
 
 import BattleBoardExceptions.CharacterNotFoundOnBoardException;
+import BattleBoardExceptions.EmptyBoardPositionException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.Character;
 import Utilities.Pair;
@@ -85,7 +86,13 @@ public class Board {
 	 * @throws OccupiedBoardPositionException 
 	 */
 	public boolean setCharacterPosition(int x, int y, Character character) throws OccupiedBoardPositionException{
-		Character chr = getCharacter(x, y);
+		Character chr = null;
+		try {
+			chr = getCharacter(x, y);
+		} catch (EmptyBoardPositionException e) {
+			//devera capturar esta exceção
+			chr = null;
+		}
 		if(chr != null)
 		{
 			throw new OccupiedBoardPositionException(chr,"Board position occupied by "+ chr.getName()+"!");
@@ -103,28 +110,37 @@ public class Board {
 	 * @param x linha do personagem requerido.
 	 * @param y coluna do personagem requerido.
 	 * @return Caso nao encontre o character buscado, entao retorna null.
+	 * @throws EmptyBoardPositionException 
 	 */
-	public Character getCharacter(int x, int y){	
+	public Character getCharacter(int x, int y) throws EmptyBoardPositionException{
+		BoardPosition bp = getBoardPosition(x, y);
+		return bp.getOccup(); // personagem que ocupa a posição.
+	}
+	
+	/**
+	 * Pega uma BoardPosition se esta estiver ocupada por um personagem no tabuleiro.
+	 * @param x coordenada X no tabuleiro.
+	 * @param y coordenada Y no tabuleiro.
+	 * @return a BoardPosition requisitada.
+	 * @throws EmptyBoardPositionException 
+	 */
+	public BoardPosition getBoardPosition(int x, int y) throws EmptyBoardPositionException{	
 		int pos = x*mWidth + y;
-		//character que sera retornado
-		Character character = null;
-		
 		Iterator<BoardPosition> it = mPositions.iterator();
 		BoardPosition boardPosition = null;
 		
-		int posAux = 0;
+		int posAux = -1;
 		//enquato nao chegou ao fim e posAux é menor (pois set é ordenado)
 		while(it.hasNext() && posAux < pos)
 		{	
 			boardPosition = it.next();
 			posAux = boardPosition.getPos();
 		}
-
-		if(pos == posAux && boardPosition != null)
-		{		
-			character = boardPosition.getOccup();
-		}	
-		return character;
+		if(posAux != pos || boardPosition == null)
+		{	
+			throw new EmptyBoardPositionException("Board position ("+x+","+y+") is empty.");
+		}
+		return boardPosition;
 	}
 	
 	/**
@@ -176,6 +192,45 @@ public class Board {
 		
 		//System.out.println("Distancia: " + distance);
 		return distance;
+	}
+	
+	/**
+	 * 
+	 * @return array contendo as posições ocupadas pelos personagens.
+	 */
+	public BoardPosition[] getBoardPositions(){
+		BoardPosition[] bp = new BoardPosition[1];
+		bp = mPositions.toArray(bp);
+		return bp;
+	}
+	
+	/**
+	 * Move um personagem para uma posição acima no tabuleiro.
+	 * Só há necessidade de passar as coordenadas do personagem, se esta posição estiver vazia, será lançada exceção.
+	 * Se a posição que deseja mover estiver ocupada ou ultrapassar os limites do tabuleiro, será lançado exceções.
+	 * @param x coordenada X atual do personagem.
+	 * @param y coordenada Y atual do personagem.
+	 * @throws OccupiedBoardPositionException 
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public void moveUp(int x, int y) throws OccupiedBoardPositionException{
+		BoardPosition atual;
+		try {
+			atual = getBoardPosition(x, y);
+		} catch (EmptyBoardPositionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(y+1 == mHeight)
+		{
+			throw new ArrayIndexOutOfBoundsException("Can't move up!");
+		}
+		BoardPosition future = getBoardPosition(x, y+1);
+		if(future != null)
+		{
+			throw new OccupiedBoardPositionException(future.getOccup(), "Occupied board position by "+future.getOccup().getName());
+		}
+		atual.setXY(x, y+1);
 	}
 	
 }//fim da classe Board
