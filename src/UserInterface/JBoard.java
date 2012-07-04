@@ -26,6 +26,8 @@ public class JBoard extends JDialog{
 	private JLabel boardNameLabel;
 	private JLabel currentPlayer;
 	
+	private JLabel 
+	
 	private JButton moveUp;
 	private JButton moveDown;
 	private JButton moveLeft;
