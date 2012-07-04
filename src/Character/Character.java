@@ -734,7 +734,7 @@ public class Character {
 	}
 	
 	public String toString(){
-		if(isDead())
+		if(!isDead())
 		{
 			return mAlias;
 		}

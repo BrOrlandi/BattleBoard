@@ -1,10 +1,8 @@
-import java.io.IOException;
-
-import com.thoughtworks.xstream.XStreamException;
-
 import Game.Game;
 import junit.framework.TestCase;
 import Item.*;
+import BattleBoardExceptions.EmptyBoardPositionException;
+import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.*;
 import Character.Character;
 import Overview.Color;
@@ -168,5 +166,25 @@ public class testsGame extends TestCase {
 	    	System.out.println(chrs2[i]);
 	    }
 
+	    try {
+			G.mBoard.setCharacterPosition(0, 0, h1);
+		    G.mBoard.setCharacterPosition(1, 0, f1);
+		    G.mBoard.setCharacterPosition(2, 0, r1);
+			G.mBoard.setCharacterPosition(0, 4, h2);
+		    G.mBoard.setCharacterPosition(1, 4, f2);
+		    G.mBoard.setCharacterPosition(2, 4, r2);
+		} catch (OccupiedBoardPositionException e) {
+			e.printStackTrace();
+		}
+	    
+	    try {
+			G.mBoard.moveUp(0, 0);
+		} catch (OccupiedBoardPositionException e) {
+			System.out.println("Posição ocupada!");
+			e.printStackTrace();
+		} catch (EmptyBoardPositionException e) {
+			System.out.println("Posição ocupada!");
+			e.printStackTrace();
+		}
 	}
 }
