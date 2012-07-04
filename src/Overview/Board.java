@@ -207,20 +207,15 @@ public class Board {
 	/**
 	 * Move um personagem para uma posição acima no tabuleiro.
 	 * Só há necessidade de passar as coordenadas do personagem, se esta posição estiver vazia, será lançada exceção.
-	 * Se a posição que deseja mover estiver ocupada ou ultrapassar os limites do tabuleiro, será lançado exceções.
+	 * Se a posição que deseja mover estiver ocupada ou ultrapassar os limites do tabuleiro, será lançado exceções também.
 	 * @param x coordenada X atual do personagem.
 	 * @param y coordenada Y atual do personagem.
+	 * @throws EmptyBoardPositionException 
 	 * @throws OccupiedBoardPositionException 
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public void moveUp(int x, int y) throws OccupiedBoardPositionException{
-		BoardPosition atual;
-		try {
-			atual = getBoardPosition(x, y);
-		} catch (EmptyBoardPositionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void moveUp(int x, int y) throws EmptyBoardPositionException, OccupiedBoardPositionException{
+		BoardPosition atual = getBoardPosition(x, y);
 		if(y+1 == mHeight)
 		{
 			throw new ArrayIndexOutOfBoundsException("Can't move up!");

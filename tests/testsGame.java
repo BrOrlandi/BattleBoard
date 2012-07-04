@@ -181,10 +181,8 @@ public class testsGame extends TestCase {
 			G.mBoard.moveUp(0, 0);
 		} catch (OccupiedBoardPositionException e) {
 			System.out.println("Posição ocupada!");
-			e.printStackTrace();
 		} catch (EmptyBoardPositionException e) {
-			System.out.println("Posição ocupada!");
-			e.printStackTrace();
+			System.out.println("Posição vazia!");
 		}
 	}
 }
