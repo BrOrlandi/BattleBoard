@@ -80,6 +80,8 @@ public class ItemStore {
 	 * @return Array com os Items da loja.
 	 */
 	public Item[] getItemArray(){
-		return ((Item[]) mItems.toArray());
+		Item[] its = new Item[1]; 
+		its = mItems.toArray(its);
+		return its;
 	}
 }
