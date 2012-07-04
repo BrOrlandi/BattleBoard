@@ -2,7 +2,7 @@ package Game;
 
 import Overview.Color;
 import Overview.Team;
-import Game.*;
+import Character.Character;
 
 
 
@@ -67,5 +67,21 @@ public class Player {
 	
 	public Team getTeam(){
 		return mTeam;
+	}
+	
+	/**
+	 * Adiciona personagens ao time do jogador.
+	 * @param chr o personagem a ser adicionado.
+	 */
+	public void addCharacter(Character chr){
+		mTeam.addCharacter(chr);
+	}
+	
+	/**
+	 * 
+	 * @return Array de Characters do time deste jogador.
+	 */
+	public Character[] getCharactersArray(){
+		return mTeam.getCharactersArray();
 	}
 }

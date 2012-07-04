@@ -104,6 +104,8 @@ public class Team {
 	 * @param chr Personagem que sera adicionado ao time
 	 */
 	public void addCharacter(Character chr){
+		if(chr == null)
+			throw new NullPointerException();
 		chr.setColor(mColor);
 		mCharacters.add(chr);
 	}
@@ -152,7 +154,9 @@ public class Team {
 	 * @return Array de Characters do Time.
 	 */
 	public Character[] getCharactersArray(){
-		return (Character[]) mCharacters.toArray();
+		Character chrs[] = new Character[1];
+		chrs = mCharacters.toArray(chrs);
+		return chrs;
 	}
 }
 
