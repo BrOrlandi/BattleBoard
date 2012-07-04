@@ -7,10 +7,12 @@ import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
+import BattleBoardExceptions.CharacterCanNotConsumeItemException;
 import BattleBoardExceptions.CharacterFromSameTeamException;
 import BattleBoardExceptions.CharacterNotFoundOnBoardException;
 import BattleBoardExceptions.DeadCharacterException;
 import BattleBoardExceptions.ItemNotFoundException;
+import BattleBoardExceptions.OpposingTeamCharacterException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
 import Character.*;
 import Character.Character;
@@ -143,5 +145,19 @@ public class Game {
 		return ret;
 	}
 	
-	public boolean use
+	/**
+	 * Usar um item consumível entre os personagens.
+	 * @param giver Personagem que possui o item a ser consumido.
+	 * @param receiver Personagem que consumirá o item.
+	 * @throws CharacterNotFoundOnBoardException
+	 * @throws CharacterCanNotConsumeItemException
+	 * @throws DeadCharacterException
+	 * @throws OpposingTeamCharacterException
+	 * @throws OutOfRangeCharacterException
+	 * @throws ItemNotFoundException
+	 */
+	public void useConsumable(Character giver, Character receiver) throws CharacterNotFoundOnBoardException, CharacterCanNotConsumeItemException, DeadCharacterException, OpposingTeamCharacterException, OutOfRangeCharacterException, ItemNotFoundException{
+		int distance = mBoard.getDistance(giver, receiver);
+		giver.useConsumable(receiver, distance);
+	}
 }

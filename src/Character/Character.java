@@ -549,12 +549,11 @@ public class Character {
 
 	/**
 	 * Usa o item consumível carregado pelo personagem.
-	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado ou não possui um item consumível.
 	 * @throws DeadCharacterException 
 	 * @throws ItemNotFoundException 
 	 * @throws CharacterCanNotConsumeItemException 
 	 */
-	public boolean useConsumable() throws DeadCharacterException, ItemNotFoundException, CharacterCanNotConsumeItemException{
+	public void useConsumable() throws DeadCharacterException, ItemNotFoundException, CharacterCanNotConsumeItemException{
 		if(isDead())
 		{
 			//System.out.println(mAlias + " is dead and can't use an consumable.");
@@ -570,7 +569,6 @@ public class Character {
 			mConsumableItem.consume(this);
 			//System.out.println(mAlias + " consumed a "+ ((Item)mConsumableItem).getName()+".");
 			mConsumableItem = null;
-			return true;
 		}
 		else
 		{
@@ -584,17 +582,17 @@ public class Character {
 	 * Usa o item consumível carregado pelo personagem em outro personagem desde que a distancia entre ele seja no máximo 2.
 	 * @param chr personagem no qual o consumível será aplicado.
 	 * @param distance distancia entre os personagens
-	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado, não possui um item consumível, ou ainda o personagem escolhido não pode usar o item.
 	 * @throws CharacterCanNotConsumeItemException 
 	 * @throws DeadCharacterException 
 	 * @throws ItemNotFoundException 
 	 * @throws OpposingTeamCharacterException 
 	 * @throws OutOfRangeCharacterException 
 	 */
-	public boolean useConsumable(Character chr, int distance) throws CharacterCanNotConsumeItemException, DeadCharacterException, ItemNotFoundException, OpposingTeamCharacterException, OutOfRangeCharacterException{
+	public void useConsumable(Character chr, int distance) throws CharacterCanNotConsumeItemException, DeadCharacterException, ItemNotFoundException, OpposingTeamCharacterException, OutOfRangeCharacterException{
 		if(this == chr)
 		{
-			return useConsumable();
+			useConsumable();
+			return;
 		}
 		
 		if(isDead())
@@ -635,7 +633,6 @@ public class Character {
 				System.out.println(chr.mAlias+" is alive again!");
 			}
 			mConsumableItem = null;
-			return true;
 		}
 		else
 		{
@@ -694,6 +691,26 @@ public class Character {
 		return array;
 	}
 	
+	/**
+	 * Pega um array com todas as chaves dos itens. Util para implementar uma interface que pode pegar um item pela posição da lista.
+	 * @return array com as chaves dos itens no inventário.
+	 */
+	public int[] getItemKeyArray(){
+		int[] array = new int[mInventory.size()];
+		Iterator<Integer> it2 = mInventory.keySet().iterator();
+		int i=0;
+		while(it2.hasNext())
+		{
+			array[i] = it2.next();
+			i++;
+		}
+		return array;
+	}
+	
+	/**
+	 * Dá a descrição completa das características do personagem.
+	 * @return uma String contendo todas as informações.
+	 */
 	public String fullDescription(){
 		StringBuilder sb = new StringBuilder();
 		if(isDead())
