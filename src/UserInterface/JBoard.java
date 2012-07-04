@@ -184,26 +184,23 @@ public class JBoard extends JDialog{
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
 				
-					
 				try {
 					game.mBoard.moveUp(column, row);
-					
 					tableModel.setValueAt(tableModel.getValueAt(row, column), row-1, column);
 					tableModel.setValueAt(null, row, column);
 					boardTable.setColumnSelectionInterval(column, column);
 					boardTable.setRowSelectionInterval(row-1, row-1);
-					
-				}catch (OccupiedBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição ocupada");
+						
+				} catch (OccupiedBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
 					e.printStackTrace();
-				}catch(ArrayIndexOutOfBoundsException e){
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
+					e.printStackTrace();
+				} catch(ArrayIndexOutOfBoundsException e){
 					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
 					e.printStackTrace();
 				}
-				
-			
-				
-				
 			}
 		});
 		
@@ -212,18 +209,25 @@ public class JBoard extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
-				try{
-					if(tableModel.getValueAt(row, column) != null && tableModel.getValueAt(row+1, column) == null){
-						
-							tableModel.setValueAt(tableModel.getValueAt(row, column), row+1, column);
-							tableModel.setValueAt(null, row, column);
-							boardTable.setColumnSelectionInterval(column, column);
-							boardTable.setRowSelectionInterval(row+1, row+1);
-						
-					}
-				}catch(ArrayIndexOutOfBoundsException e){
-					JOptionPane.showMessageDialog(null, "Movimento invalido", "Erro", JOptionPane.ERROR_MESSAGE);
+				
+				
+				try {
+					game.mBoard.moveDown(column, row);
+					tableModel.setValueAt(tableModel.getValueAt(row, column), row+1, column);
+					tableModel.setValueAt(null, row, column);
+					boardTable.setColumnSelectionInterval(column, column);
+					boardTable.setRowSelectionInterval(row+1, row+1);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
+					e.printStackTrace();
+				} catch (OccupiedBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
+					e.printStackTrace();
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
+					e.printStackTrace();
 				}
+				
 			}
 		});
 		
@@ -233,17 +237,23 @@ public class JBoard extends JDialog{
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
 				
-				try{
-					if(tableModel.getValueAt(row, column) != null && tableModel.getValueAt(row, column - 1) == null){
-						
-							tableModel.setValueAt(tableModel.getValueAt(row, column), row, column-1);
-							tableModel.setValueAt(null, row, column);
-							boardTable.setColumnSelectionInterval(column-1, column-1);
-							boardTable.setRowSelectionInterval(row, row);
-					}
-				}catch(ArrayIndexOutOfBoundsException e){
-					JOptionPane.showMessageDialog(null, "Movimento invalido", "Erro", JOptionPane.ERROR_MESSAGE);
+				try {
+					game.mBoard.moveLeft(column, row);
+					tableModel.setValueAt(tableModel.getValueAt(row, column), row, column-1);
+					tableModel.setValueAt(null, row, column);
+					boardTable.setColumnSelectionInterval(column-1, column-1);
+					boardTable.setRowSelectionInterval(row, row);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
+					e.printStackTrace();
+				} catch (OccupiedBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
+					e.printStackTrace();
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
+					e.printStackTrace();
 				}
+				
 				
 			}
 		});
@@ -253,18 +263,26 @@ public class JBoard extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
-				try{
-					if(tableModel.getValueAt(row, column) != null  && tableModel.getValueAt(row, column +1) == null){
-						
-							tableModel.setValueAt(tableModel.getValueAt(row, column), row, column+1);
-							tableModel.setValueAt(null, row, column);
-							
-							boardTable.setColumnSelectionInterval(column+1, column+1);
-							boardTable.setRowSelectionInterval(row, row);
-					}
-				}catch(ArrayIndexOutOfBoundsException e){
-					JOptionPane.showMessageDialog(null, "Movimento invalido", "Erro", JOptionPane.ERROR_MESSAGE);
+				
+				try {
+					game.mBoard.moveRight(column, row);
+					
+					tableModel.setValueAt(tableModel.getValueAt(row, column), row, column+1);
+					tableModel.setValueAt(null, row, column);
+					boardTable.setColumnSelectionInterval(column+1, column+1);
+					boardTable.setRowSelectionInterval(row, row);
+					
+				} catch (ArrayIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
+					e.printStackTrace();
+				} catch (OccupiedBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
+					e.printStackTrace();
+				} catch (EmptyBoardPositionException e) {
+					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
+					e.printStackTrace();
 				}
+				
 			}
 		});
 		
