@@ -36,7 +36,8 @@ public class ItemStore {
 	 * @return verdadeiro se o item foi adicionado.
 	 */
 	public boolean addItem(Item item){
-		return mItems.add(item);
+		boolean x = mItems.add(item);
+		return x;
 	}
 	
 	/**
@@ -69,6 +70,6 @@ public class ItemStore {
 	 * @return Array com os Items da loja.
 	 */
 	public Item[] getItemArray(){
-		return (Item[])mItems.toArray();
+		return ((Item[]) mItems.toArray());
 	}
 }

@@ -160,4 +160,25 @@ public class Game {
 		int distance = mBoard.getDistance(giver, receiver);
 		giver.useConsumable(receiver, distance);
 	}
+	
+	/**
+	 * Deve ser usado para adicionar itens à loja de itens.
+	 * @param it item a ser adicionado.
+	 * @throws Exception
+	 * @warning Não deve usar diretamente o addItem da Item Store, este verifica se a Store foi criada.
+	 */
+	public void addItemToStore(Item it) throws Exception{
+		if(mItemStore == null){
+			throw new Exception("Item Store not created yet!");
+		}
+		mItemStore.addItem(it);
+	}
+	
+	/**
+	 * Cria a loja de itens do jogo a partir do nome.
+	 * @param storeName nome da loja de itens.
+	 */
+	public void createItemStore(String storeName){
+		mItemStore = new ItemStore(storeName);
+	}
 }

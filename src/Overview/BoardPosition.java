@@ -3,6 +3,10 @@ package Overview;
 import Character.Character;
 import Utilities.Pair;
 
+/**
+ * Representa uma posição do tabuleiro que é ocupada por um jogador.
+ *
+ */
 public class BoardPosition implements Comparable<BoardPosition>
 {
 	/**

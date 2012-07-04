@@ -12,6 +12,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+/**
+ * Classe com funções para manusear arquivos XML para salvar estados do programa.
+ *
+ */
 public class XML {
 	
 	/** 
