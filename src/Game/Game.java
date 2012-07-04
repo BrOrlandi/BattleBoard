@@ -7,7 +7,11 @@ import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
+import BattleBoardExceptions.CharacterFromSameTeamException;
+import BattleBoardExceptions.CharacterNotFoundOnBoardException;
+import BattleBoardExceptions.DeadCharacterException;
 import BattleBoardExceptions.ItemNotFoundException;
+import BattleBoardExceptions.OutOfRangeCharacterException;
 import Character.*;
 import Character.Character;
 import Utilities.*;
@@ -25,8 +29,8 @@ public class Game {
 	
 	public static final double INITIAL_MONEY = 5000.0; ///< Dinheiro inicial que os jogadores irão começar.
 	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que contém a loja de itens padrão do jogo.
-	public static final int BOARD_HEIGHT = 5; ///< Altura padrão do tabuleiro.
-	public static final int BOARD_WIDTH = 5; ///< Largura padrão do tabuleiro.
+	public static final int BOARD_HEIGHT = 10; ///< Altura padrão do tabuleiro.
+	public static final int BOARD_WIDTH = 10; ///< Largura padrão do tabuleiro.
 	public static final double CHARACTER_PRICE = 1000.0; ///< Preço padrão de um personagem.	
 
 	public Player mJ1; ///< Jogador 1.
@@ -56,19 +60,23 @@ public class Game {
 	}
 	
 	/**
-	 * Define o jogador 1.
-	 * @param p jogador que será o 1.
+	 * Cria o jogador 1.
+	 * @param name nome do jogador.
+	 * @param teamName nome do time.
+	 * @param teamColor cor do time.
 	 */
-	public void setPlayerOne(Player p){
-		mJ1 = p;
+	public void setPlayerOne(String name, String teamName, Color teamColor){
+		mJ1 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 
 	/**
-	 * Define o jogador 2.
-	 * @param p jogador que será o 2.
+	 * Cria o jogador 2.
+	 * @param name nome do jogador.
+	 * @param teamName nome do time.
+	 * @param teamColor cor do time.
 	 */
-	public void setPlayerTwo(Player p){
-		mJ2 = p;
+	public void setPlayerTwo(String name, String teamName, Color teamColor){
+		mJ2 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 
 	/**
@@ -93,8 +101,6 @@ public class Game {
 		chr.addItem(it);
 	}
 	
-	//public void addCharacterToPlayer()
-	
 	public void startGame() throws IOException{
 		if(mItemStore == null)
 		{
@@ -107,4 +113,35 @@ public class Game {
 
 	}
 	
+	/// Opções de ações dos personagens em cada turno:
+	/**
+	 * Realiza um ataque entre dois personagens.
+	 * @param attacker
+	 * @param victim
+	 * @return Pair de valores, no qual o primeiro é o tipo de evento do ataque. E o segundo valor é o dano causado pelo ataque.
+	 * @throws OutOfRangeCharacterException 
+	 * @throws CharacterFromSameTeamException 
+	 * @throws DeadCharacterException 
+	 * @throws CharacterNotFoundOnBoardException 
+	 * @see NORMAL_ATTACK
+	 */
+	public Pair<Integer, Integer> attackCharacter(Character attacker, Character victim) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException, CharacterNotFoundOnBoardException{
+		int distance = mBoard.getDistance(attacker, victim);
+		Pair<Integer, Integer> ret = attacker.attackCharacter(victim, distance);
+		if(ret.getFirst() == Character.KILL_ATTACK){
+			//System.out.println(victim.getName() + " was killed by "+ attacker.getName()+"!");
+			//verificar se todos do time foram mortos.
+			Team t1 = mBoard.getTeam(victim.getColor());
+			if(t1.allDead())
+			{
+				t1.defeat();
+				Team t2 = mBoard.getTeam(attacker.getColor());
+				t2.victory();
+				ret.setFirst(Character.WIN_ATTACK);
+			}
+		}
+		return ret;
+	}
+	
+	public boolean use
 }

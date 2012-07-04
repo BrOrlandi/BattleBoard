@@ -15,6 +15,7 @@ import Item.*;
 import Overview.Board;
 import Overview.Color;
 import Overview.Team;
+import Utilities.Pair;
 
 /**
  * @package Character
@@ -43,6 +44,11 @@ public class Character {
 	protected Weapon mWeapon;
 	protected Armor mArmor;
 	
+	public static final int NORMAL_ATTACK = 0; ///< Um ataque normal efetuado pelo personagem
+	public static final int MISS_ATTACK = 1; ///< O personagem errou o ataque.
+	public static final int CRITICAL_ATTACK = 2; ///< O personagem realizou um ataque critico.
+	public static final int KILL_ATTACK = 3; ///< O ataque do personagem matou a vítima.
+	public static final int WIN_ATTACK = 4; ///< O ataque do personagem matou a vítima e deu vitória ao seu time.
 	
 	/**
 	 * Construtor que recebe o nome do personagem
@@ -100,14 +106,15 @@ public class Character {
 	
 	/**
 	 * Método para atacar outro personagem.
-	 * @param victim Recebe o personagem que sera atacado.
-	 * @param board Recebe o tabuleiro onde ocorre a batalha.
-	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta ou não está no tabuleiro, ou a distancia não é suficiente para o ataque.
+	 * @param victim o personagem que sera atacado.
+	 * @param distance distancia entre os personagens.
+	 * @return Pair de valores, no qual o primeiro é o tipo de evento do ataque. E o segundo valor é o dano causado pelo ataque.
 	 * @throws DeadCharacterException 
 	 * @throws CharacterFromSameTeamException 
 	 * @throws OutOfRangeCharacterException 
+	 * @see NORMAL_ATTACK
 	 */
-	public boolean attackCharacter(Character victim, Board board) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException{
+	public Pair<Integer, Integer> attackCharacter(Character victim, int distance) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException{
 		
 		if(isDead())
 		{
@@ -125,7 +132,6 @@ public class Character {
 			throw new DeadCharacterException(victim,victim.mAlias + " is dead!");
 		}
 		
-		int distance = board.getDistance(this, victim);
 		int range;
 		if(mWeapon != null)
 			range = mWeapon.getRange();
@@ -147,6 +153,8 @@ public class Character {
 		double chance = Math.random();
 		//Calculo do dano que o personagem sofrera
 		int dano =  ((getAttackPoints() - victim.getDefensePoints()) + (int)rnd(-5,5));
+
+		Pair<Integer, Integer> ret = new Pair<Integer, Integer>(NORMAL_ATTACK, 0);
 		
 		//reduçao de dano se o personagem for Fighter
 		if(this instanceof Fighter)
@@ -162,27 +170,21 @@ public class Character {
 		if(chance < 0.02*(mXP)/2)
 		{
 			dano = dano*2;
-			System.out.println(mAlias +" CRITICAL ATTACK " + victim.mAlias + "\t | Damage: " +dano);
+			//System.out.println(mAlias +" CRITICAL ATTACK " + victim.mAlias + "\t | Damage: " +dano);
+			ret.setFirst(CRITICAL_ATTACK);
 		}
 		else
 		{
-			System.out.println(mAlias +" Attacks "+ victim.mAlias + "\t | Damage: " +dano);
+			//System.out.println(mAlias +" Attacks "+ victim.mAlias + "\t | Damage: " +dano);
 		}
 		victim.mHP -= dano; // finalmente diminui o HP da vitima.
+		ret.setSecond(dano);
 		if(victim.mHP <= 0){
-			System.out.println(victim.mAlias + " was killed by "+ mAlias+"!");
-			victim.mHP = 0;
 			addXP(1);
-			//verificar se todos do time foram mortos.
-			Team t1 = board.getTeam(victim.mColor);
-			if(t1.allDead())
-			{
-				t1.defeat();
-				Team t2 = board.getTeam(mColor);
-				t2.victory();
-			}
+			victim.mHP = 0;
+			ret.setFirst(KILL_ATTACK);
 		}
-		return true;
+		return ret;
 	}
 	
 	/**
@@ -407,7 +409,7 @@ public class Character {
 			return -1;
 		}
 		int k2 = chr.addItem(it);
-		System.out.println(mAlias + " gives "+ it.getName()+ " to "+ chr.mAlias);
+		//System.out.println(mAlias + " gives "+ it.getName()+ " to "+ chr.mAlias);
 		return k2;
 	}
 	
@@ -415,12 +417,11 @@ public class Character {
 	 * Seta o item consumível do personagem.
 	 * Este deve vir do próprio inventário.
 	 * @param key chave do item consumível no inventário.
-	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for consumível.
 	 * @throws DeadCharacterException 
 	 * @throws ItemNotFoundException 
 	 * @throws NotConsumableItem 
 	 */
-	public boolean setConsumable(int key) throws DeadCharacterException, ItemNotFoundException, NotConsumableItem{
+	public void setConsumable(int key) throws DeadCharacterException, ItemNotFoundException, NotConsumableItem{
 		if(isDead())
 		{
 			//System.out.println(mAlias + " is dead and can't set a consumable.");
@@ -438,7 +439,7 @@ public class Character {
 		{
 			Item back = (Item) mConsumableItem;
 			mConsumableItem = (Consumable) it;
-			System.out.println("Now "+ it.getName() + " can be consumed by "+mAlias);
+			//System.out.println("Now "+ it.getName() + " can be consumed by "+mAlias);
 			mInventory.remove(key);
 			
 			//verificando se já tem consumable setado.
@@ -447,7 +448,6 @@ public class Character {
 				this.addItem(back);
 				//item consumable anterior foi guardado no inventário ao trocar de item.
 			}
-			return true;
 		}
 		else
 		{
@@ -484,7 +484,7 @@ public class Character {
 		{
 			Item back = (Item) mWeapon;
 			mWeapon = (Weapon) it;
-			System.out.println("Now "+ mAlias + " is carryng a "+it.getName());
+			//System.out.println("Now "+ mAlias + " is carryng a "+it.getName());
 			mInventory.remove(key);
 			
 			//verificando se já tem item setado.
@@ -507,12 +507,11 @@ public class Character {
 	 * Seta a armadura principal do personagem.
 	 * Esta deve vir do próprio inventário.
 	 * @param key chave do item armadura no inventário.
-	 * @return true se o item foi setado com sucesso. False se não encontrar o item no inventário ou ele não for uma armadura.
 	 * @throws DeadCharacterException 
 	 * @throws ItemNotFoundException 
 	 * @throws NotArmorItemException 
 	 */
-	public boolean setArmor(int key) throws DeadCharacterException, ItemNotFoundException, NotArmorItemException{
+	public void setArmor(int key) throws DeadCharacterException, ItemNotFoundException, NotArmorItemException{
 		if(isDead())
 		{
 			//System.out.println(mAlias + " is dead and can't set an armor.");
@@ -530,7 +529,7 @@ public class Character {
 		{
 			Item back = (Item) mArmor;
 			mArmor = (Armor) it;
-			System.out.println("Now "+ mAlias + " is wearing a "+it.getName());
+			//System.out.println("Now "+ mAlias + " is wearing a "+it.getName());
 			mInventory.remove(key);
 			
 			//verificando se já tem item setado.
@@ -539,7 +538,6 @@ public class Character {
 				this.addItem(back);
 				//item anterior foi guardado no inventário ao trocar de item.
 			}
-			return true;
 		}
 		else
 		{
@@ -585,7 +583,7 @@ public class Character {
 	/**
 	 * Usa o item consumível carregado pelo personagem em outro personagem desde que a distancia entre ele seja no máximo 2.
 	 * @param chr personagem no qual o consumível será aplicado.
-	 * @param board tabuleiro onde os personagens estão.
+	 * @param distance distancia entre os personagens
 	 * @return true se o item foi usado com sucesso. False caso o item não pode ser usado, não possui um item consumível, ou ainda o personagem escolhido não pode usar o item.
 	 * @throws CharacterCanNotConsumeItemException 
 	 * @throws DeadCharacterException 
@@ -593,7 +591,7 @@ public class Character {
 	 * @throws OpposingTeamCharacterException 
 	 * @throws OutOfRangeCharacterException 
 	 */
-	public boolean useConsumable(Character chr, Board board) throws CharacterCanNotConsumeItemException, DeadCharacterException, ItemNotFoundException, OpposingTeamCharacterException, OutOfRangeCharacterException{
+	public boolean useConsumable(Character chr, int distance) throws CharacterCanNotConsumeItemException, DeadCharacterException, ItemNotFoundException, OpposingTeamCharacterException, OutOfRangeCharacterException{
 		if(this == chr)
 		{
 			return useConsumable();
@@ -619,7 +617,7 @@ public class Character {
 			throw new OpposingTeamCharacterException(chr,mAlias + " and " + chr.mAlias + " aren't friends to use a consumable!");
 		}
 		
-		int distance = board.getDistance(this, chr);
+		//int distance = board.getDistance(this, chr);
 		
 		// caso a distancia entre os personagens seja maior que 2, então não pode usar item
 		if(distance > 2)

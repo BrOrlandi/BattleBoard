@@ -1,6 +1,7 @@
 package Overview;
 import java.util.*;
 
+import BattleBoardExceptions.CharacterNotFoundOnBoardException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.Character;
 import Utilities.Pair;
@@ -142,6 +143,7 @@ public class Board {
 			if(boardPosition.getOccup() == character)
 			{
 				XY = boardPosition.getXY();
+				break;
 			}
 		}
 		return XY;
@@ -151,17 +153,22 @@ public class Board {
 	 * Permite checar a distancia a distancia entre dois personagens no tabuleiro.
 	 * @param c1 o primeiro personagem.
 	 * @param c2 o segundo personagem.
-	 * @return a distancia ou um número negativo se um dos personagens não estiver no tabuleiro.
+	 * @return a distancia entre os personagens.
+	 * @throws CharacterNotFoundOnBoardException 
 	 */
-	public int getDistance(Character c1, Character c2){
+	public int getDistance(Character c1, Character c2) throws CharacterNotFoundOnBoardException{
 		Pair<Integer, Integer> c1Pos = getCharacterXY(c1);
+		if(c1Pos == null)
+		{
+			throw new CharacterNotFoundOnBoardException(c1, c1.getName() + " was not found on Board.");
+		}
 		Pair<Integer, Integer> c2Pos = getCharacterXY(c2);
+		if(c2Pos == null)
+		{
+			throw new CharacterNotFoundOnBoardException(c2, c2.getName() + " was not found on Board.");
+		}
 		
 		//se algum dos personagens não está no tabuleiro.
-		if(c1Pos == null || c2Pos == null)
-		{
-			return -1;
-		}
 		
 		int distance = (int)Math.pow(c1Pos.getFirst() - c2Pos.getFirst(), 2) + 
 				(int)Math.pow(c1Pos.getSecond() - c2Pos.getSecond(), 2);
