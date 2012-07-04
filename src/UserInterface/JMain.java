@@ -60,6 +60,8 @@ public class JMain extends JFrame {
 			game.createItemStore("Loja");
 		}
 		
+		game.createItemStore("Loja");
+		
 		
 		//Painel que contem os botoes
 		panel = new JPanel();

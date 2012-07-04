@@ -66,6 +66,7 @@ public class JItemEditor extends JDialog {
 		setTitle("Ferreiro");
 		setResizable(false);
 		setModal(true);
+		JOptionPane.showMessageDialog(null, it.getNumItens());
 		
 		if(it.getNumItens() != 0)
 		{

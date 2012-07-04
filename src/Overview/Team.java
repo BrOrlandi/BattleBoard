@@ -162,13 +162,11 @@ public class Team {
 	 * @return Array de Characters do Time.
 	 */
 	public Character[] getCharactersArray(){
-<<<<<<< HEAD
-		return (Character[]) mCharacters.toArray();
-=======
+		
 		Character chrs[] = new Character[1];
 		chrs = mCharacters.toArray(chrs);
 		return chrs;
->>>>>>> remotes/origin/Novas_Classes
+
 	}
 }
 

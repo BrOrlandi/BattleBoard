@@ -1,9 +1,7 @@
 package Game;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import Item.ItemStore;
 
 import Item.*;
 import Overview.*;

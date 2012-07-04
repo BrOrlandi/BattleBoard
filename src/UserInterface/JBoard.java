@@ -328,6 +328,7 @@ public class JBoard extends JDialog{
 	}
 	
 	public void refreshBoardTable(Board b){
+        
 		//TODO metodo que retorna as boardposition que contem personagem
 		//percorrer e colocar na tabela visual
 	}
