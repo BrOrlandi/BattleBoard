@@ -93,7 +93,12 @@ public class Ranger extends Character{
 		}
 	}
 	
-	public String toString(){
-		return "Ranger, ACC: "+ mAccuracy+"\n"+super.toString();
+	/**
+	 * Dá a descrição completa das características do personagem.
+	 * Sobreescrita para imprimir o Accuracy do Ranger.
+	 * @return uma String contendo todas as informações.
+	 */
+	public String fullDescription(){
+		return "Ranger, ACC: "+ mAccuracy+"\n"+super.fullDescription();
 	}
 }

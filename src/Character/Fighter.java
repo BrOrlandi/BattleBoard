@@ -95,7 +95,12 @@ public class Fighter extends Character {
 		}
 	}
 	
-	public String toString(){
-		return "Fighter, POW: "+ mPower+"\n"+super.toString();
+	/**
+	 * Dá a descrição completa das características do personagem.
+	 * Sobreescrita para imprimir o Power do Fighter.
+	 * @return uma String contendo todas as informações.
+	 */
+	public String fullDescription(){
+		return "Fighter, POW: "+ mPower+"\n"+super.fullDescription();
 	}
 }
