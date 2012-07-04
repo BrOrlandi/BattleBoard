@@ -163,6 +163,7 @@ public class JItemEditor extends JDialog {
 		String[] types = {"Weapon", "Armor","Health Potion", "Revive Potion"};
 		typeComboBox = new JComboBox(types);
 		typeComboBox.setBounds(144, 133, 138, 20);	
+		typeComboBox.setSelectedIndex(0);
 		buttonPane.add(typeComboBox);
 		
 		//campo de texto flexibilidade
