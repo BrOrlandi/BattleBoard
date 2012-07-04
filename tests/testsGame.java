@@ -5,10 +5,15 @@ import com.thoughtworks.xstream.XStreamException;
 import Game.Game;
 import junit.framework.TestCase;
 import Item.*;
+import Character.*;
+import Character.Character;
+import Overview.Color;
 import Utilities.XML;
 
 
 public class testsGame extends TestCase {
+	
+	/*
 	public void test1(){
 		Game G = new Game();
 		
@@ -93,14 +98,75 @@ public class testsGame extends TestCase {
 	    G.addItemToStore(rp5);
 	    G.addItemToStore(rp6);
 	    }catch(Exception e){
-	    	System.out.println("What? "+e.getMessage());
+	    	System.out.println(e.getMessage());
 	    	pegou = true;
 	    }
 	    //assertEquals(false,pegou);
 	    
 	}
+	//*/
+	
 	
 	public void test2(){
+		Game G = new Game();
+		G.setPlayerOne("Bruno", "Bravo", Color.Blue);
+		G.setPlayerTwo("Vinicius", "Alpha", Color.Red);
 		
+		Item[] its = G.mItemStore.getItemArray();
+		assertNotNull(its);
+		for(int i=0;i<its.length;i++){
+			System.out.println(its[i]);
+		}
+		
+		Fighter h1 = new Fighter("Hero Fighter",80);
+		h1.setConstitution(10);
+		h1.setStrength(30);
+		h1.setDexterity(50);
+		h1.setSpeed(10);
+		Fighter f1 = new Fighter("Fighter 1",50);
+		f1.setConstitution(30);
+		f1.setDexterity(30);
+		f1.setSpeed(20);
+		f1.setStrength(20);
+	    Ranger r1 = new Ranger("Ranger 1", 50);
+	    r1.setStrength(40);
+	    r1.setSpeed(40);
+	    r1.setDexterity(10);
+	    r1.setConstitution(10);
+
+		Ranger h2 = new Ranger("Hero Ranger",80);
+		h2.setConstitution(20);
+		h2.setStrength(20);
+		h2.setDexterity(50);
+		h2.setSpeed(10);
+		Fighter f2 = new Fighter("Fighter 2",40);
+		f2.setConstitution(10);
+		f2.setDexterity(10);
+		f2.setSpeed(40);
+		f2.setStrength(40);
+	    Ranger r2 = new Ranger("Ranger 2", 40);
+	    r2.setStrength(20);
+	    r2.setSpeed(20);
+	    r2.setDexterity(30);
+	    r2.setConstitution(30);
+
+	    G.mJ1.addCharacter(h1);
+	    G.mJ1.addCharacter(f1);
+	    G.mJ1.addCharacter(r1);
+	    G.mJ2.addCharacter(h2);
+	    G.mJ2.addCharacter(f2);
+	    G.mJ2.addCharacter(r2);
+
+	    System.out.println("Personagens do time "+G.mJ1.getTeam().getName()+"("+G.mJ1.getTeam().getColor()+ ") de "+G.mJ1.getName());
+	    Character[] chrs1 = G.mJ1.getCharactersArray();
+	    for(int i=0;i<chrs1.length;i++){
+	    	System.out.println(chrs1[i]);
+	    }
+	    System.out.println("Personagens do time "+G.mJ2.getTeam().getName()+"("+G.mJ2.getTeam().getColor()+ ") de "+G.mJ2.getName());
+	    Character[] chrs2 = G.mJ1.getCharactersArray();
+	    for(int i=0;i<chrs2.length;i++){
+	    	System.out.println(chrs2[i]);
+	    }
+
 	}
 }

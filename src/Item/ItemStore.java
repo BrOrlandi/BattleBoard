@@ -46,12 +46,22 @@ public class ItemStore {
 	}
 	
 	/**
-	 * Remove um item da loja, deve ser usado quando um jogador comprar o item.
+	 * Remove um item da loja.
 	 * @param item referencia do item a ser removido.
 	 * @return true se foi removido com sucesso.
 	 */
 	public boolean removeItem(Item item){
 		return mItems.remove(item);
+	}
+	
+	/**
+	 * Remove um item da loja a partir da sua posição na lista de itens.
+	 * @param item referencia do item a ser removido.
+	 * @return true se foi removido com sucesso.
+	 */
+	public boolean removeItem(int pos){
+		Item[] its = getItemArray();
+		return mItems.remove(its[pos]);
 	}
 	
 	/**
@@ -75,6 +85,8 @@ public class ItemStore {
 	 * @return Array com os Items da loja.
 	 */
 	public Item[] getItemArray(){
-		return ((Item[]) mItems.toArray());
+		Item[] its = new Item[1]; 
+		its = mItems.toArray(its);
+		return its;
 	}
 }
