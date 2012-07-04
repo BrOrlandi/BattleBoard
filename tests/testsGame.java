@@ -5,6 +5,7 @@ import BattleBoardExceptions.EmptyBoardPositionException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.*;
 import Character.Character;
+import Overview.BoardPosition;
 import Overview.Color;
 import Utilities.XML;
 
@@ -177,12 +178,26 @@ public class testsGame extends TestCase {
 			e.printStackTrace();
 		}
 	    
+	    BoardPosition[] bps = G.mBoard.getBoardPositions();
+	    for(int i =0;i<bps.length;i++)
+	    {
+	    	System.out.println("X: "+ bps[i].getXY().getFirst()+" Y: "+bps[i].getXY().getSecond() + "  "+bps[i].getOccup());
+	    }
+	    
 	    try {
 			G.mBoard.moveUp(0, 0);
-		} catch (OccupiedBoardPositionException e) {
-			System.out.println("Posição ocupada!");
-		} catch (EmptyBoardPositionException e) {
-			System.out.println("Posição vazia!");
+			G.mBoard.moveRight(0, 1);
+			G.mBoard.moveLeft(1, 1);
+			G.mBoard.moveDown(0, 1);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
+
+	    System.out.println("=====================");
+	    bps = G.mBoard.getBoardPositions();
+	    for(int i =0;i<bps.length;i++)
+	    {
+	    	System.out.println("X: "+ bps[i].getXY().getFirst()+" Y: "+bps[i].getXY().getSecond() + "  "+bps[i].getOccup());
+	    }
 	}
 }
