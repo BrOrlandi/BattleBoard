@@ -216,43 +216,9 @@ public class Board {
 	 */
 	public void moveUp(int x, int y) throws EmptyBoardPositionException, OccupiedBoardPositionException, ArrayIndexOutOfBoundsException{
 		BoardPosition atual = getBoardPosition(x, y);
-		if(y+1 == mHeight)
-		{
-			throw new ArrayIndexOutOfBoundsException("Can't move up!");
-		}
-		BoardPosition future = null;
-		try{
-		future = getBoardPosition(x, y+1);
-		}
-		catch(EmptyBoardPositionException e)
-		{
-			//deve capturar a exceção pois deve estar vazia a posição.
-			future = null;
-		}
-		if(future != null)
-		{
-			throw new OccupiedBoardPositionException(future.getOccup(), "Occupied board position by "+future.getOccup().getName());
-		}
-		mPositions.remove(atual);
-		atual.setXY(x, y+1);
-		mPositions.add(atual);
-	}
-	
-	/**
-	 * Move um personagem para uma posição abaixo no tabuleiro.
-	 * Só há necessidade de passar as coordenadas do personagem, se esta posição estiver vazia, será lançada exceção.
-	 * Se a posição que deseja mover estiver ocupada ou ultrapassar os limites do tabuleiro, será lançado exceções também.
-	 * @param x coordenada X atual do personagem.
-	 * @param y coordenada Y atual do personagem.
-	 * @throws EmptyBoardPositionException 
-	 * @throws OccupiedBoardPositionException 
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public void moveDown(int x, int y) throws EmptyBoardPositionException, OccupiedBoardPositionException, ArrayIndexOutOfBoundsException{
-		BoardPosition atual = getBoardPosition(x, y);
 		if(y-1 == -1)
 		{
-			throw new ArrayIndexOutOfBoundsException("Can't move down!");
+			throw new ArrayIndexOutOfBoundsException("Can't move up!");
 		}
 		BoardPosition future = null;
 		try{
@@ -269,6 +235,40 @@ public class Board {
 		}
 		mPositions.remove(atual);
 		atual.setXY(x, y-1);
+		mPositions.add(atual);
+	}
+	
+	/**
+	 * Move um personagem para uma posição abaixo no tabuleiro.
+	 * Só há necessidade de passar as coordenadas do personagem, se esta posição estiver vazia, será lançada exceção.
+	 * Se a posição que deseja mover estiver ocupada ou ultrapassar os limites do tabuleiro, será lançado exceções também.
+	 * @param x coordenada X atual do personagem.
+	 * @param y coordenada Y atual do personagem.
+	 * @throws EmptyBoardPositionException 
+	 * @throws OccupiedBoardPositionException 
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public void moveDown(int x, int y) throws EmptyBoardPositionException, OccupiedBoardPositionException, ArrayIndexOutOfBoundsException{
+		BoardPosition atual = getBoardPosition(x, y);
+		if(y+1 == mHeight)
+		{
+			throw new ArrayIndexOutOfBoundsException("Can't move down!");
+		}
+		BoardPosition future = null;
+		try{
+		future = getBoardPosition(x, y+1);
+		}
+		catch(EmptyBoardPositionException e)
+		{
+			//deve capturar a exceção pois deve estar vazia a posição.
+			future = null;
+		}
+		if(future != null)
+		{
+			throw new OccupiedBoardPositionException(future.getOccup(), "Occupied board position by "+future.getOccup().getName());
+		}
+		mPositions.remove(atual);
+		atual.setXY(x, y+1);
 		mPositions.add(atual);
 	}
 	
