@@ -1,7 +1,8 @@
 package Item;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * 
@@ -10,34 +11,23 @@ import java.util.Iterator;
  */
 public class ItemStore {
 	private String mName; ///< Nome da Loja
-	private String mDescription; ///< Descrição da Loja
-	private ArrayList<Item> mItems; ///< Lista de Itens na loja.
+	private SortedSet<Item> mItems; ///< Lista de Itens na loja.
 	
 	/**
 	 * Construtor de ItemStore
 	 * @param name Nome da loja
-	 * @param desc Descrição da loja
 	 */
-	public ItemStore(String name, String desc){
+	public ItemStore(String name){
 		mName = name;
-		mDescription = desc;
-		mItems = new ArrayList<Item>();
+		mItems = new TreeSet<Item>();
 	}
 
-	public String getmName() {
+	public String getName() {
 		return mName;
 	}
 	
-	public void setmName(String name) {
+	public void setName(String name) {
 		mName = name;
-	}
-
-	public String getmDescription() {
-		return mDescription;
-	}
-
-	public void setmDescription(String desc) {
-		mDescription = desc;
 	}
 	
 	public int getNumItens()
@@ -51,16 +41,17 @@ public class ItemStore {
 	 * @return verdadeiro se o item foi adicionado.
 	 */
 	public boolean addItem(Item item){
-		return mItems.add(item);
+		boolean x = mItems.add(item);
+		return x;
 	}
 	
 	/**
 	 * Remove um item da loja, deve ser usado quando um jogador comprar o item.
-	 * @param pos posição do item na lista.
-	 * @return o item que foi removido.
+	 * @param item referencia do item a ser removido.
+	 * @return true se foi removido com sucesso.
 	 */
-	public Item removeItem(int pos){
-		return mItems.remove(pos);
+	public boolean removeItem(Item item){
+		return mItems.remove(item);
 	}
 	
 	/**
@@ -77,5 +68,13 @@ public class ItemStore {
 			i++;
 		}
 		return array;
+	}
+	
+	/**
+	 * Permite acessar os items da loja em um vetor.
+	 * @return Array com os Items da loja.
+	 */
+	public Item[] getItemArray(){
+		return ((Item[]) mItems.toArray());
 	}
 }

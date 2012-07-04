@@ -5,6 +5,9 @@ package Utilities;
  * Pacote com classes úteis para o funcionamento do projeto.
  */
 
+/**
+ * Representa um par de valores. É uma classe genérica.
+ */
 public class Pair<A, B> {
 	
 	private A mFirst; ///< primeiro elemento do par.

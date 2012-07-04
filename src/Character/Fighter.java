@@ -1,6 +1,10 @@
 package Character;
 
+import BattleBoardExceptions.CharacterFromSameTeamException;
+import BattleBoardExceptions.DeadCharacterException;
+import BattleBoardExceptions.OutOfRangeCharacterException;
 import Overview.Board;
+import Utilities.Pair;
 
 /**
  * 
@@ -64,26 +68,31 @@ public class Fighter extends Character {
 	
 	/**
 	 * Sobreescrita do método para atacar outro personagem, pois calcula uma chance de Erro do ataque.
-	 * @param victim Recebe o personagem que sera atacado.
-	 * @param board Recebe o tabuleiro onde ocorre a batalha.
-	 * @return true se o ataque foi efetuado. False quando a vitima já esta morta.
+	 * @param victim o personagem que sera atacado.
+	 * @param distance distancia entre os personagens.
+	 * @return Pair de valores, no qual o primeiro é o tipo de evento do ataque. E o segundo valor é o dano causado pelo ataque.
+	 * @throws DeadCharacterException 
+	 * @throws CharacterFromSameTeamException 
+	 * @throws OutOfRangeCharacterException 
+	 * @see NORMAL_ATTACK
 	 */
-	public boolean attackCharacter(Character victim, Board board){
-		if(isDead())
+	public Pair<Integer, Integer> attackCharacter(Character victim, int distance) throws DeadCharacterException, CharacterFromSameTeamException, OutOfRangeCharacterException{
+			if(isDead())
 		{
-			System.out.println(getName() + " is dead and can't attack.");
-			return false;
+			//System.out.println(getName() + " is dead and can't attack.");
+			//return false;
+			throw new DeadCharacterException(this,getName() + " is dead and can't attack.");
 		}
 		
 		double chance = Math.random();
 		if (chance > (0.1)/(this.mXP))
 		{			
-			return super.attackCharacter(victim, board);
+			return super.attackCharacter(victim, distance);
 		}
 		else
 		{
-			System.out.println(getName() + " MISS!");
-			return true;
+			//System.out.println(getName() + " MISS!");
+			return new Pair<Integer, Integer>(Character.MISS_ATTACK, 0);
 		}
 	}
 	

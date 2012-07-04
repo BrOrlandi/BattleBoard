@@ -1,5 +1,6 @@
 //package main;
 
+import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.*;
 import Item.*;
 import Overview.*;
@@ -133,6 +134,7 @@ public class Main {
 	    RevivePotion rp5 = new RevivePotion("Hero Revive", 300.0, 200);
 	    RevivePotion rp6 = new RevivePotion("Hero Revive", 300.0, 200);
 
+	    try{
 	    h1.addItem(1,w5);
 	    h1.addItem(2,a5);
 	    h1.addItem(3,i1);
@@ -148,6 +150,7 @@ public class Main {
 	    f1.addItem(3,hp1);
 	    f1.addItem(4,rp3);
 	    f1.addItem(5, a7);
+	    
 	    f1.setWeapon(1);
 	    f1.setArmor(2);
 	    f1.setConsumable(3);
@@ -192,7 +195,9 @@ public class Main {
 	    r2.setArmor(2);
 	    r2.setConsumable(4);
 	    pline();
-	    
+	    }catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	    
 	    Board board = new Board(4,4);
 	    board.addTeam(alpha);
@@ -200,9 +205,9 @@ public class Main {
 	    
 
 	    pline();
-	    alpha.print();
+	    System.out.println(alpha);
 	    pline();
-	    bravo.print();
+	    System.out.println(bravo);
 	    pline();
 	    
 	    pline();
@@ -215,24 +220,22 @@ public class Main {
 	    f2.print();
 	    r2.print();
 
-	    /**
-	     * Posições do tabuleiro:
-	     *  	0 	1 	2 	3 
-	     * 0|	f1		r1	h1
-	     * 1|	
-	     * 2|	r2		h2
-	     * 3|				f2
-	     */
+	    try{
 	    board.setCharacterPosition(0,3, h1);
 	    board.setCharacterPosition(0,0, f1);
 	    board.setCharacterPosition(0,2, r1);
 	    board.setCharacterPosition(2,2, h2);
 	    board.setCharacterPosition(3,3, f2);
 	    board.setCharacterPosition(2,0, r2);
-
+	    }catch (OccupiedBoardPositionException e) {
+			System.out.println(e.getMessage());
+		}
+/**
 	    pline();
 	    System.out.println("Todos tentam atacar os inimigos = 9 ataques.");
 	    pline();
+
+	    try{
 	    h1.attackCharacter(h2, board);
 	    h1.attackCharacter(f2, board);
 	    h1.attackCharacter(r2, board);
@@ -302,10 +305,14 @@ public class Main {
 	    System.out.println(alpha.getResults());
 	    System.out.println("|||| Bravo Team:  ||||");
 	    System.out.println(bravo.getResults());
+	    }catch(Exception e)
+	    {
+	    	System.out.println(e.getMessage());
+	    }
 	    
-	    
+	    //*/
 	}
-	
+	//*/
 	public static void pline(){
 		System.out.println("------------------------------------------------------");
 	}

@@ -58,14 +58,10 @@ public class Team {
 		return result;
 	}
 	
-	/**
-	 * Imprime o time e suas caracteristicas
-	 */
-	public void print(){
-		System.out.println(this.toString());
-	}
-	
 	@Override
+	/**
+	 * @return String com as caracteristica do time(nome e cor e resultados) e cada personagem.
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Team: " + mName + ", Color: "+ mColor+ "\n");
@@ -83,7 +79,7 @@ public class Team {
 	 */
 	public void victory(){
 		mWin++;
-		System.out.println(mName + " Team won the battle!");
+		//System.out.println(mName + " Team won the battle!");
 	}
 
 	/**
@@ -91,7 +87,7 @@ public class Team {
 	 */
 	public void defeat(){
 		mLose++;
-		System.out.println(mName + " Team was defeated!");
+		//System.out.println(mName + " Team was defeated!");
 	}
 
 	/**
@@ -99,7 +95,7 @@ public class Team {
 	 */
 	public void draw(){
 		mDraw++;
-		System.out.println(mName + " Team drew!");
+		//System.out.println(mName + " Team drew!");
 	}
 	//
 	
@@ -151,6 +147,7 @@ public class Team {
 		return true;
 	}
 	
+<<<<<<< HEAD
 	public int numCharacter(){
 		return mCharacters.size();
 	}
@@ -158,6 +155,14 @@ public class Team {
 	public Character getCharacter(int pos)
 	{
 		return mCharacters.get(pos);
+=======
+	/**
+	 * 
+	 * @return Array de Characters do Time.
+	 */
+	public Character[] getCharactersArray(){
+		return (Character[]) mCharacters.toArray();
+>>>>>>> remotes/origin/Novas_Classes
 	}
 }
 

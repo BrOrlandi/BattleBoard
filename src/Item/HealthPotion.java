@@ -59,12 +59,8 @@ public class HealthPotion extends Item implements Consumable{
 	}
 	
 	/**
-	 * Sobreescrita para imprimir também os pontos de cura.
+	 * Sobreescrita para conter também os pontos de cura.
 	 */
-	public void print(){
-		System.out.println(toString());
-	}
-	
 	public String toString(){
 		return "HealthPotion:"+ getName() + ", HPrestore:"+ mRestorePts+", Price: $" + getPrice();
 	}

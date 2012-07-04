@@ -52,12 +52,8 @@ public class Armor extends Item{
 	}
 	
 	/**
-	 * Sobreescrita para imprimir também a Flexibilidade da Armadura.
+	 * Sobreescrita para conter também a Defesa e Flexibilidade da Armadura.
 	 */
-	public void print(){
-		System.out.println(toString());
-	}
-	
 	public String toString(){
 		return "Armor:"+ getName() + ", DEF: "+ mDefensePts + ", FLEX: " + mFlexibility+", Price: $" + getPrice();
 	}

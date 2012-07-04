@@ -2,11 +2,9 @@ package Game;
 
 import Overview.Color;
 import Overview.Team;
+import Game.*;
 
-/**
- * @package Game
- * Classes gerais que irão manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
- */
+
 
 /**
  * 
@@ -51,7 +49,11 @@ public class Player {
 	 * Subtrai dinheiro do jogador.
 	 * @param money quantia de dinheiro a ser subtraida.
 	 */
-	public void subtractMoney(double money){
+	public void subtractMoney(double money) throws NotEnoughMoneyException{
+		if(mMoney - money < 0)
+		{
+			throw new NotEnoughMoneyException(mName + "does not have enough money.");
+		}
 		mMoney -= money;
 	}
 
