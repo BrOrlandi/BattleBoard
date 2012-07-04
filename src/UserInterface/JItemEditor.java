@@ -3,6 +3,8 @@ package UserInterface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import Character.Fighter;
 import Item.*;
 
 
@@ -67,10 +69,28 @@ public class JItemEditor extends JDialog {
 		
 		if(it.getNumItens() != 0)
 		{
-			String[] itemArray = it.getItemsString();
-			System.out.println(itemArray[0]);
-			System.out.println(itemArray[1]);
-			//table.addItemTable(itemArray[0], itemArray[1], itemArray[2], itemArray[3], itemArray[4], itemArray[5], itemArray[6], itemArray[7]);		
+			Item[] itemArray = it.getItemArray();
+			
+			for(int i = 0; i < it.getNumItens(); i++){
+				
+				if (itemArray[i] instanceof Weapon){
+					Weapon w = (Weapon) itemArray[i];
+					table.addItemTable("Weapon", w.getName(), String.valueOf(w.getAttackpts()), String.valueOf(w.getRange()), "0", "0", String.valueOf(w.getPrice()), "0");
+				}
+				else if(itemArray[i] instanceof Armor){
+					Armor a = (Armor) itemArray[i];
+					table.addItemTable("Armor", a.getName(), "0", "0", String.valueOf(a.getDefensepts()), String.valueOf(a.getFlexibility()), String.valueOf(a.getPrice()), "0");
+				}
+				else if(itemArray[i] instanceof RevivePotion){
+					RevivePotion r = (RevivePotion) itemArray[i];
+					table.addItemTable("Revive Potion", r.getName(), "0", "0", "0", "0", String.valueOf(r.getPrice()), String.valueOf(r.getRevivePoints()));
+				}
+				else if(itemArray[i] instanceof HealthPotion){
+					HealthPotion h = (HealthPotion) itemArray[i];
+					table.addItemTable("HealthPotion", h.getName(), "0", "0", "0", "0", String.valueOf(h.getPrice()), String.valueOf(h.getRestorePoints()));
+				}
+				
+			}
 		}
 		
 		itemStore = it;
@@ -255,7 +275,7 @@ public class JItemEditor extends JDialog {
 				//Usa o indice que foi removido para remover o item da ItemStore (caso removido com sucesso)
 				if(position != -1)
 				{
-					itemStore.removeItem(position);
+					//itemStore.removeItem(position);
 				}
 				
 				

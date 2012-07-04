@@ -1,12 +1,13 @@
 package UserInterface;
 
-
 import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import Character.Fighter;
+import Game.Game;
+import Item.ItemStore;
 import Overview.Team;
 
 import java.awt.CardLayout;
@@ -71,7 +72,7 @@ public class JTeamEditor extends JDialog {
     /**
      * Construtor
      */
-	public JTeamEditor() {
+	public JTeamEditor(final Game game) {
 		
 		//Algumas inicizalicaçoes
 		setBounds(100, 100, 900, 600);
@@ -244,12 +245,17 @@ public class JTeamEditor extends JDialog {
 		leftAddCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				
+				//Pega posicoa na lista de disponiveis
 				int pos = characterList.getSelectedIndex();
+				
+				//Adiciona na tabela do time alpha
 				leftModel.addElement(allCharacters.getCharacter(pos));
 				
+				//Remove da tabela de disponiveis
 				characterModel.remove(pos);
 				
-				alpha.addCharacter(allCharacters.getCharacter(pos));
+				//adiciona ao time alpha
+				game.mJ1.getTeam().addCharacter(allCharacters.getCharacter(pos));
 				allCharacters.removeCharacter(pos);
 				
 			}
@@ -259,49 +265,60 @@ public class JTeamEditor extends JDialog {
 		leftRemoveCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				
+				//Pega posicao para remover
 				int pos = leftList.getSelectedIndex();
-				characterModel.addElement(alpha.getCharacter(pos));
 				
+				//Adiciona de volta a lista de disponiveis
+				characterModel.addElement(game.mJ1.getTeam().getCharacter(pos));
+				
+				//remove da tabela da esquerda
 				leftModel.remove(pos);
 				
-				allCharacters.addCharacter(alpha.getCharacter(pos));
-				alpha.removeCharacter(pos);
+				allCharacters.addCharacter(game.mJ1.getTeam().getCharacter(pos));
+				game.mJ1.getTeam().removeCharacter(pos);
 			}
 		});
 		
 		//Adiciona personagem no time Bravo
 		rightAddCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				
+
+				//Pega posicoa na lista de disponiveis
 				int pos = characterList.getSelectedIndex();
+				
+				//Adiciona na tabela do time bravo
 				rightModel.addElement(allCharacters.getCharacter(pos));
 				
+				//Remove da tabela de disponiveis
 				characterModel.remove(pos);
 				
-				bravo.addCharacter(allCharacters.getCharacter(pos));
-				allCharacters.removeCharacter(pos);
-				
+				//adiciona ai time bravo
+				game.mJ2.getTeam().addCharacter(allCharacters.getCharacter(pos));
+				allCharacters.removeCharacter(pos);		
 			}
 		});
 		
-		//Remove character do time alpha
+		//Remove character do time bravo
 		rightRemoveCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				
+				//Pega posicao para remover
 				int pos = rightList.getSelectedIndex();
-				characterModel.addElement(bravo.getCharacter(pos));
 				
+				//Adiciona de volta a lista de disponiveis
+				characterModel.addElement(game.mJ2.getTeam().getCharacter(pos));
+				
+				//remove da tabela da esquerda
 				rightModel.remove(pos);
 				
-				allCharacters.addCharacter(bravo.getCharacter(pos));
-				bravo.removeCharacter(pos);
-			}
+				allCharacters.addCharacter(game.mJ2.getTeam().getCharacter(pos));
+				game.mJ2.getTeam().removeCharacter(pos);	}
 		});
 		
 		//botao jogar!
 		playButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				JBoard board = new JBoard();
+				JBoard board = new JBoard(game);
 				setVisible(false);
 				board.setVisible(true);
 				
@@ -319,11 +336,11 @@ public class JTeamEditor extends JDialog {
 		{
 			public void actionPerformed(ActionEvent event) {
 				if(event.getSource() == leftBuyItem){
-					JAddItem jadd = new JAddItem(alpha);
+					JAddItem jadd = new JAddItem(game.mJ1.getTeam(), game.mItemStore);
 					jadd.setVisible(true);
 				}
 				else if (event.getSource() == rightBuyItem){
-					JAddItem jadd = new JAddItem(bravo);
+					JAddItem jadd = new JAddItem(game.mJ2.getTeam(), game.mItemStore);
 					jadd.setVisible(true);
 				}
 				

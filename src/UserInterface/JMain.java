@@ -6,7 +6,8 @@ import java.awt.EventQueue;
 
 import javax.swing.*;
 
-import Item.ItemStore;
+import Game.Game;
+import Overview.Color;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,8 +22,9 @@ public class JMain extends JFrame {
 	private JPanel panel;
 	private ImageJPanel imagePanel;
 	
-	private ItemStore itemStore;
+	//private ItemStore itemStore;
 	
+	private Game game;
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +52,14 @@ public class JMain extends JFrame {
 		setResizable(false);
 		setTitle("The Ultimate Board Game - aeho!");
 		
-		itemStore = new ItemStore("Loja", "Loja de itens");
+		//itemStore = new ItemStore("Loja");
+		
+		try{
+			game = new Game();
+		}catch(Exception e){
+			game.createItemStore("Loja");
+		}
+		
 		
 		//Painel que contem os botoes
 		panel = new JPanel();
@@ -111,7 +120,7 @@ public class JMain extends JFrame {
 		//listener do botao de criação de item
 		createItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JItemEditor jItemEditor = new JItemEditor(itemStore);
+				JItemEditor jItemEditor = new JItemEditor(game.mItemStore);
 				jItemEditor.setVisible(true);	
 				
 				if(jItemEditor.isVisible() == false){
@@ -123,8 +132,15 @@ public class JMain extends JFrame {
 		//listener do botao de jogar
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JTeamEditor teamEditor =  new JTeamEditor();
+				
+				String name = JOptionPane.showInputDialog("Digite o nome do jogador 1");
+				game.setPlayerOne(name, "Alpha", Color.Red);
+				name = JOptionPane.showInputDialog("Digite o nome do jogador 2");
+				game.setPlayerTwo(name, "Bravo", Color.Blue);
+				
+				JTeamEditor teamEditor =  new JTeamEditor(game);
 				teamEditor.setVisible(true);
+		
 				//Board board = new Board();
 				//board.setVisible(true);
 			}

@@ -64,4 +64,8 @@ public class HealthPotion extends Item implements Consumable{
 	public String toString(){
 		return "HealthPotion:"+ getName() + ", HPrestore:"+ mRestorePts+", Price: $" + getPrice();
 	}
+	
+	public int getRestorePoints(){
+		return mRestorePts;
+	}
 }

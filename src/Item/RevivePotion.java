@@ -63,4 +63,8 @@ public class RevivePotion extends Item implements Consumable{
 	public String toString(){
 		return "RevivePotion:"+ getName() + ", HPrevive:"+ mRevivePts+", Price: $" + getPrice();
 	}
+	
+	public int getRevivePoints(){
+		return mRevivePts;
+	}
 }

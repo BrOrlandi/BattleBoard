@@ -147,7 +147,6 @@ public class Team {
 		return true;
 	}
 	
-<<<<<<< HEAD
 	public int numCharacter(){
 		return mCharacters.size();
 	}
@@ -155,14 +154,13 @@ public class Team {
 	public Character getCharacter(int pos)
 	{
 		return mCharacters.get(pos);
-=======
+	}
 	/**
 	 * 
 	 * @return Array de Characters do Time.
 	 */
 	public Character[] getCharactersArray(){
 		return (Character[]) mCharacters.toArray();
->>>>>>> remotes/origin/Novas_Classes
 	}
 }
 
