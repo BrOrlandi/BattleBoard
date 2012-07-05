@@ -135,18 +135,20 @@ public class JMain extends JFrame {
 		//listener do botao de jogar
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				String name = JOptionPane.showInputDialog("Player One name:");
-				
+				String teamName = JOptionPane.showInputDialog(name +" team name:");
+
 				if(name != null){
-					game.setPlayerOne(name, "Alpha", Color.RED);
-					name = JOptionPane.showInputDialog("Player Two name:");
-					
-					if(name != null){
-						game.setPlayerTwo(name, "Bravo", Color.BLUE);
-						JTeamEditor teamEditor =  new JTeamEditor(game);
-						teamEditor.setVisible(true);
-					}
+					game.setPlayerOne(name, teamName, Color.RED);
+				}
+
+				name = JOptionPane.showInputDialog("Player Two name:");
+				teamName = JOptionPane.showInputDialog(name +" team name:");
+				if(name != null){
+					game.setPlayerTwo(name, teamName, Color.BLUE);
+					JTeamEditor teamEditor =  new JTeamEditor(game);
+					teamEditor.setVisible(true);
 				}
 			}
 		});

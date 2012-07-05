@@ -31,6 +31,8 @@ public class Game {
 	public static final int BOARD_HEIGHT = 10; ///< Altura padr�o do tabuleiro.
 	public static final int BOARD_WIDTH = 10; ///< Largura padr�o do tabuleiro.
 	public static final double CHARACTER_PRICE = 1000.0; ///< Pre�o padr�o de um personagem.	
+	
+	public static final Color[] COLORS = {Color.BLUE,Color.CYAN,Color.GREEN,Color.MAGENTA,Color.ORANGE,Color.PINK,Color.RED,Color.YELLOW};
 
 	public Player mJ1; ///< Jogador 1.
 	public Player mJ2; ///< Jogador 2.
@@ -109,10 +111,6 @@ public class Game {
 		{
 			throw new IOException("Item Store not found! Create a store on the main menu.");
 		}
-
-	}
-
-	public static void main(String args[]){
 
 	}
 
