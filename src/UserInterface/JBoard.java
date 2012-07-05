@@ -53,6 +53,7 @@ public class JBoard extends JDialog{
 	private JButton moveRight;
 	
 	private JTable boardTable;
+	private  DefaultTableModel tableModel;
 	
 	public JBoard(final Game game)
 	{	
@@ -89,21 +90,19 @@ public class JBoard extends JDialog{
 		boardTable.setBounds(80, 60, 650, 160);
 		boardTable.setCellSelectionEnabled(true);
 		
-		final DefaultTableModel tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel();
 		tableModel.setRowCount(10);
 		tableModel.setColumnCount(10);
 		boardTable.setModel(tableModel);
 		imagePane.add(boardTable);
 		
-		//TODO fazer Exception de OutOfBounds da board
-		
+		initTable(game);
 //		Ranger r2 = (Ranger) tableModel.getValueAt(5, 5);
 //		System.out.println(r2);
 		logLabel = new JLabel("Histórico");
 		logLabel.setBounds(350, 330, 100, 20);
 		logLabel.setForeground(Color.WHITE);
 		imagePane.add(logLabel);
-		
 		
 		listModel = new DefaultListModel();
 		logList = new JList(listModel);
@@ -113,28 +112,25 @@ public class JBoard extends JDialog{
 		scrollPane.setWheelScrollingEnabled(true);
 		imagePane.add(scrollPane);
 		
-	
-
-		
 		//botao de atacar
 		attackButton = new JButton("Atacar!");
 		attackButton.setBounds(80, 350, 120, 20);
 		imagePane.add(attackButton);
 		
 		moveUp = new JButton("Cima");
-		moveUp.setBounds(600, 250, 30, 20);
+		moveUp.setBounds(500, 250, 100, 20);
 		imagePane.add(moveUp);
 		
 		moveDown = new JButton("Baixo");
-		moveDown.setBounds(600, 300, 30, 20);
+		moveDown.setBounds(500, 300, 100, 20);
 		imagePane.add(moveDown);
 		
-		moveLeft = new JButton("Es");
-		moveLeft.setBounds(570, 275, 30, 20);
+		moveLeft = new JButton("Esquerda");
+		moveLeft.setBounds(400, 275, 100, 20);
 		imagePane.add(moveLeft);
 		
-		moveRight = new JButton("Dir");
-		moveRight.setBounds(630, 275, 30, 20);
+		moveRight = new JButton("Direita");
+		moveRight.setBounds(600, 275, 100, 20);
 		imagePane.add(moveRight);
 		
 		firstSelectionButton = new JButton("Fixar");
@@ -154,30 +150,6 @@ public class JBoard extends JDialog{
 		secondSelection.setBounds(200, 250, 100, 20);
 		imagePane.add(secondSelection);
 		
-		Ranger r = new Ranger("Vinicius", 20);			
-		Fighter f = new Fighter("Aehoo", 20);
-		
-		game.mJ1.getTeam().addCharacter(r);
-		game.mJ2.getTeam().addCharacter(f);
-		
-		try {
-			
-			game.mBoard.setCharacterPosition(7, 7, r);
-			tableModel.setValueAt(r, 7, 7);
-		} catch (OccupiedBoardPositionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			game.mBoard.setCharacterPosition(9, 9, f);
-			tableModel.setValueAt(f, 9, 9);
-		} catch (OccupiedBoardPositionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		//TODO criar função na board que move personagem
-		
 		//Move pra cima no tabuleiro
 		moveUp.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
@@ -185,6 +157,7 @@ public class JBoard extends JDialog{
 				int row = boardTable.getSelectedRow();
 				
 				try {
+					
 					game.mBoard.moveUp(column, row);
 					tableModel.setValueAt(tableModel.getValueAt(row, column), row-1, column);
 					tableModel.setValueAt(null, row, column);
@@ -209,8 +182,7 @@ public class JBoard extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
-				
-				
+								
 				try {
 					game.mBoard.moveDown(column, row);
 					tableModel.setValueAt(tableModel.getValueAt(row, column), row+1, column);
@@ -338,8 +310,8 @@ public class JBoard extends JDialog{
 					
 					System.out.println("Passei aqui!");
 					
-					listModel.addElement(firstSelectionCharacter.getName() + "Atacou" + secondSelectionCharacter.getName() + "| Dano causado: " + 
-					damage.getSecond() + "HP restante: " + secondSelectionCharacter.getHP());
+					listModel.addElement(firstSelectionCharacter.getName() + " atacou " + secondSelectionCharacter.getName() + " e causou " + 
+					damage.getSecond() + "de dano. HP restante: " + secondSelectionCharacter.getHP());
 					
 					SwingUtilities.invokeLater(new Runnable() {  
                         public void run() {  
@@ -347,8 +319,7 @@ public class JBoard extends JDialog{
                             bar.setValue(bar.getMaximum());  
                         }  
                     });  
-					
-					
+						
 				} catch (DeadCharacterException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
@@ -362,15 +333,31 @@ public class JBoard extends JDialog{
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
 				}
-				
-				
 			}
 		});
 	}
 	
-	public void refreshBoardTable(Board b){
-        
-		//TODO metodo que retorna as boardposition que contem personagem
-		//percorrer e colocar na tabela visual
+	public void initTable(Game game){
+			
+		for(int i = 0; i < game.mJ1.getTeam().numCharacter(); i++){
+			tableModel.setValueAt(game.mJ1.getTeam().getCharacter(i), i, 0);
+			
+			try {
+				game.mBoard.setCharacterPosition(0, i, game.mJ1.getTeam().getCharacter(i));
+			} catch (OccupiedBoardPositionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		for(int i = 0; i < game.mJ2.getTeam().numCharacter(); i++){
+			tableModel.setValueAt(game.mJ1.getTeam().getCharacter(i), i, 9);
+			
+			try {
+				game.mBoard.setCharacterPosition(9, i, game.mJ2.getTeam().getCharacter(i));
+			} catch (OccupiedBoardPositionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -136,15 +136,17 @@ public class JMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String name = JOptionPane.showInputDialog("Digite o nome do jogador 1");
-				game.setPlayerOne(name, "Alpha", Color.Red);
-				name = JOptionPane.showInputDialog("Digite o nome do jogador 2");
-				game.setPlayerTwo(name, "Bravo", Color.Blue);
 				
-				JTeamEditor teamEditor =  new JTeamEditor(game);
-				teamEditor.setVisible(true);
-		
-				//Board board = new Board();
-				//board.setVisible(true);
+				if(name != null){
+					game.setPlayerOne(name, "Alpha", Color.Red);
+					name = JOptionPane.showInputDialog("Digite o nome do jogador 2");
+					
+					if(name != null){
+						game.setPlayerTwo(name, "Bravo", Color.Blue);
+						JTeamEditor teamEditor =  new JTeamEditor(game);
+						teamEditor.setVisible(true);
+					}
+				}
 			}
 		});
 

@@ -64,8 +64,6 @@ public class JTeamEditor extends JDialog {
     private JLabel leftMoneyValueLabel;
     private JLabel rightMoneyValueLabel;
     
-    private Team alpha;
-    private Team bravo;
     
     private Team allCharacters;
  
@@ -79,9 +77,6 @@ public class JTeamEditor extends JDialog {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setModal(true);
-		
-		alpha = new Team("Alpha", Overview.Color.Red);
-		bravo = new Team("Bravo", Overview.Color.Blue);
 		
 		allCharacters = new Team("All", Overview.Color.White);
 		
@@ -176,14 +171,14 @@ public class JTeamEditor extends JDialog {
 		backgroundImagePane.add(centerLabel);
 		
 		//Label time 1
-		leftLabel = new JLabel("Time Alpha");
-		leftLabel.setBounds(80, 270, 100, 20);
+		leftLabel = new JLabel("Time Alpha (" + game.mJ1.getName() + ")");
+		leftLabel.setBounds(60, 270, 120, 20);
 		leftLabel.setForeground(Color.RED);
 		backgroundImagePane.add(leftLabel);
 		
 		//Label time 2
-		rightLabel = new JLabel("Time Bravo");
-		rightLabel.setBounds(740, 270, 100, 20);
+		rightLabel = new JLabel("Time Bravo (" + game.mJ2.getName() + ")");
+		rightLabel.setBounds(720, 270, 140, 20);
 		rightLabel.setForeground(Color.BLUE);
 		backgroundImagePane.add(rightLabel);
 		
@@ -192,7 +187,7 @@ public class JTeamEditor extends JDialog {
 		leftMoneyLabel.setForeground(Color.ORANGE);
 		backgroundImagePane.add(leftMoneyLabel);
 		
-		leftMoneyValueLabel = new JLabel("10000");
+		leftMoneyValueLabel = new JLabel(String.valueOf(game.mJ1.getMoney()));
 		leftMoneyValueLabel.setBounds(275, 470, 120, 20);
 		leftMoneyValueLabel.setForeground(Color.GREEN);
 		backgroundImagePane.add(leftMoneyValueLabel);
@@ -202,7 +197,7 @@ public class JTeamEditor extends JDialog {
 		rightMoneyLabel.setForeground(Color.ORANGE);
 		backgroundImagePane.add(rightMoneyLabel);
 		
-		rightMoneyValueLabel = new JLabel("10000");
+		rightMoneyValueLabel = new JLabel(String.valueOf(game.mJ2.getMoney()));
 		rightMoneyValueLabel.setBounds(585, 470, 120, 20);
 		rightMoneyValueLabel.setForeground(Color.GREEN);
 		backgroundImagePane.add(rightMoneyValueLabel);
@@ -257,7 +252,6 @@ public class JTeamEditor extends JDialog {
 				//adiciona ao time alpha
 				game.mJ1.getTeam().addCharacter(allCharacters.getCharacter(pos));
 				allCharacters.removeCharacter(pos);
-				
 			}
 		});
 		
@@ -269,7 +263,7 @@ public class JTeamEditor extends JDialog {
 				int pos = leftList.getSelectedIndex();
 				
 				//Adiciona de volta a lista de disponiveis
-				characterModel.addElement(game.mJ1.getTeam().getCharacter(pos));
+				characterModel.addElement(game.mJ1.getTeam().getCharacter(pos).fullDescription());
 				
 				//remove da tabela da esquerda
 				leftModel.remove(pos);
@@ -306,7 +300,7 @@ public class JTeamEditor extends JDialog {
 				int pos = rightList.getSelectedIndex();
 				
 				//Adiciona de volta a lista de disponiveis
-				characterModel.addElement(game.mJ2.getTeam().getCharacter(pos));
+				characterModel.addElement(game.mJ2.getTeam().getCharacter(pos).fullDescription());
 				
 				//remove da tabela da esquerda
 				rightModel.remove(pos);
@@ -318,6 +312,10 @@ public class JTeamEditor extends JDialog {
 		//botao jogar!
 		playButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
+				
+				game.mBoard.addTeam(game.mJ1.getTeam());
+				game.mBoard.addTeam(game.mJ2.getTeam());
+				
 				JBoard board = new JBoard(game);
 				setVisible(false);
 				board.setVisible(true);
@@ -332,6 +330,7 @@ public class JTeamEditor extends JDialog {
 			}
 		});
 		
+		//ActionListener dos botoes de compra de item
 		ActionListener listener = new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event) {
@@ -356,7 +355,7 @@ public class JTeamEditor extends JDialog {
 		characterModel.removeAllElements();
 		
 		for(int i = 0; i <allCharacters.numCharacter(); i++){
-				characterModel.addElement(allCharacters.getCharacter(i).toString());		
+				characterModel.addElement(allCharacters.getCharacter(i).fullDescription());		
 		}	
 	}
 	
