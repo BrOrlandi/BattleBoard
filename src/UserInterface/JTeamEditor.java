@@ -80,7 +80,7 @@ public class JTeamEditor extends JDialog {
      */
 	public JTeamEditor(final Game game) {
 		
-		//Algumas inicizalicaçoes
+		//Algumas inicizalicaï¿½oes
 		setBounds(100, 100, 900, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -180,7 +180,7 @@ public class JTeamEditor extends JDialog {
 		backgroundImagePane.add(removeCharacterTableButton);
 		
 		//Label
-		centerLabel = new JLabel("Personagens Disponíveis - Mil dinheiros cada!");
+		centerLabel = new JLabel("Personagens Disponï¿½veis - Mil dinheiros cada!");
 		centerLabel.setBounds(330, 15, 280, 20);
 		centerLabel.setForeground(Color.WHITE);
 		backgroundImagePane.add(centerLabel);
@@ -401,7 +401,7 @@ public class JTeamEditor extends JDialog {
 		leftEditCharacter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int pos = leftList.getSelectedIndex();
-				JEditCharacter jedit = new JEditCharacter(game.mJ1.getTeam().getCharacter(pos));
+				JCharacterEditor jedit = new JCharacterEditor(game.mJ1.getTeam().getCharacter(pos));
 				jedit.setVisible(true);
 				
 			}
@@ -411,7 +411,7 @@ public class JTeamEditor extends JDialog {
 		rightEditCharacter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int pos = rightList.getSelectedIndex();
-				JEditCharacter jedit = new JEditCharacter(game.mJ2.getTeam().getCharacter(pos));
+				JCharacterEditor jedit = new JCharacterEditor(game.mJ2.getTeam().getCharacter(pos));
 				jedit.setVisible(true);
 				
 			}
