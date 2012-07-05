@@ -76,14 +76,26 @@ public class Character {
 		return mAlias;
 	}
 	
+	/**
+	 * Pega o consumivel equipado pelo personagem
+	 * @return consumivel
+	 */
 	public Consumable getConsumable(){
 		return mConsumableItem;
 	}
-	
+
+	/**
+	 * Pega a arma pelo personagem
+	 * @return arma
+	 */
 	public Weapon getWeapon(){
 		return mWeapon;
 	}
-	
+
+	/**
+	 * Pega a armadura pelo personagem
+	 * @return armadura
+	 */
 	public Armor getArmor(){
 		return mArmor;
 	}
@@ -726,19 +738,19 @@ public class Character {
 		{
 			sb.append("[+ DEAD +]\n");
 		}
-		sb.append("~={ "+ mAlias + " }=~\n HP: "+mHP + " XP: "+mXP+"\n"+
-				"STR: " + mStrength + " SPD: " + mSpeed + " DEX: " + mDexterity + " CST: "+mConstitution+"\n");
+		sb.append(" ~={ "+ mAlias + " }=~\n HP: "+mHP + " XP: "+mXP+"\n"+
+				" STR: " + mStrength + " SPD: " + mSpeed + " DEX: " + mDexterity + " CST: "+mConstitution+" \n");
 		if(mWeapon != null)
 		{
-			sb.append("{ "+mWeapon+" }\n");
+			sb.append("{ "+mWeapon+" } \n");
 		}
 		if(mArmor != null)
 		{
-			sb.append("{ "+mArmor+" }\n");
+			sb.append("{ "+mArmor+" } \n");
 		}
 		if(mConsumableItem != null)
 		{
-			sb.append("{ "+mConsumableItem+" }\n");
+			sb.append("{ "+mConsumableItem+" } \n");
 		}
 		sb.append(mInventory.size()+" items");
 		return sb.toString();
@@ -787,5 +799,4 @@ public class Character {
 	public GameColor getColor(){
 		return mColor;
 	}
-	
 }//fim da classe Character

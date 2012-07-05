@@ -57,7 +57,7 @@ public class JAddItem extends JDialog{
 		contentPane.setForeground(Color.GRAY);
 		
 		//Rotulo
-		availableItem = new JLabel("Itens disponiveis na loja");
+		availableItem = new JLabel("Available items on Store.");
 		availableItem.setBounds(223, 40, 140, 20);
 		contentPane.add(availableItem);
 		
@@ -68,12 +68,12 @@ public class JAddItem extends JDialog{
 		contentPane.add(cashAvailable);
 		
 		//Rotulo
-		characterLabel = new JLabel("Escolha um de seus personagens");
+		characterLabel = new JLabel("Select a character.");
 		characterLabel.setBounds(201, 291, 201, 20);
 		contentPane.add(characterLabel);
 		
 		//Rotulo
-		cashLabel = new JLabel("Dinheiro Disponivel:");
+		cashLabel = new JLabel("Money:");
 		cashLabel.setBounds(186, 260, 132, 20);
 		cashLabel.setForeground(Color.ORANGE);
 		contentPane.add(cashLabel);
@@ -101,12 +101,12 @@ public class JAddItem extends JDialog{
 		getContentPane().add(characterListScroll);
 		
 		//botao comprar
-		buyItem = new JButton("Comprar!");
+		buyItem = new JButton("Buy!");
 		buyItem.setBounds(223, 499, 140, 20);
 		getContentPane().add(buyItem);
 		
 		//botao voltar
-		returnButton = new JButton("Voltar");
+		returnButton = new JButton("Back");
 		returnButton.setBounds(239, 541, 100, 20);
 		getContentPane().add(returnButton);
 		
@@ -132,13 +132,13 @@ public class JAddItem extends JDialog{
 				
 				try {
 					game.buyItem(player, itemSelected, characterSelected);
-					JOptionPane.showMessageDialog(null, "Item comprado com sucesso!");
+					JOptionPane.showMessageDialog(null, "Item purchased!");
 					cashAvailable.setText(String.valueOf(player.getMoney()));
 				} catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null, "Selecione um item e/ou personagem");
+					JOptionPane.showMessageDialog(null, "Select an Item and a Character.");
 					e.printStackTrace();
 				} catch (NotEnoughMoneyException e) {
-					JOptionPane.showMessageDialog(null, "Você nao tem dinheiro para comprar o item");
+					JOptionPane.showMessageDialog(null, "You don't have money to buy this! :(");
 					e.printStackTrace();
 				}
 			}

@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import Character.*;
+
 import Character.Character;
 import Game.Game;
 import Game.NotEnoughMoneyException;
-import Item.ItemStore;
-
-import Overview.GameColor;
-import Overview.Team;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -134,70 +130,70 @@ public class JTeamEditor extends JDialog {
 		backgroundImagePane.add(rightScroll);
 		
 		//Botoes de adicioanar e remover personagem do time 1 (lado esquerdo)
-		leftAddCharacterButton = new JButton("Adicionar");
+		leftAddCharacterButton = new JButton("Buy Character");
 		leftAddCharacterButton.setBounds(240, 370, 100, 20);
 		backgroundImagePane.add(leftAddCharacterButton);
 		
-		leftRemoveCharacterButton = new JButton("Remover");
+		leftRemoveCharacterButton = new JButton("Remove");
 		leftRemoveCharacterButton.setBounds(240, 400, 100, 20);
 		backgroundImagePane.add(leftRemoveCharacterButton);
 		
 		//Botoes de adicionar e remover personagens do time 2 (lado direito)
-		rightAddCharacterButton = new JButton("Adicionar");
+		rightAddCharacterButton = new JButton("Buy Character");
 		rightAddCharacterButton.setBounds(550, 370, 100, 20);
 		backgroundImagePane.add(rightAddCharacterButton);
 		
-		rightRemoveCharacterButton = new JButton("Remover");
+		rightRemoveCharacterButton = new JButton("Remove");
 		rightRemoveCharacterButton.setBounds(550, 400, 100, 20);
 		backgroundImagePane.add(rightRemoveCharacterButton);
 		
-		leftEditCharacter = new JButton("Editar personagem");
+		leftEditCharacter = new JButton("Character Inventory");
 		leftEditCharacter.setBounds(240, 340, 145, 20);
 		backgroundImagePane.add(leftEditCharacter);
 		
-		rightEditCharacter = new JButton("Editar personagem");
+		rightEditCharacter = new JButton("Character Inventory");
 		rightEditCharacter.setBounds(505, 340, 145, 20);
 		backgroundImagePane.add(rightEditCharacter);
 		
 		//Botao jogar no centro da tela
-		playButton = new JButton("Jogar!");
+		playButton = new JButton("BATTLE!");
 		playButton.setBounds(395, 350, 100, 60);
 		backgroundImagePane.add(playButton);
 		
 		//botao voltar na parte inferior da tela
-		returnButton = new JButton("Voltar");
+		returnButton = new JButton("Back");
 		returnButton.setBounds(395, 530, 100, 20);
 		backgroundImagePane.add(returnButton);
 		
 		//botao de criar novo personagem (que ficara disponivel para ser colocado no time)
-		newCharacterTableButton = new JButton("Criar Novo Personagem");
+		newCharacterTableButton = new JButton("Create new Character");
 		newCharacterTableButton.setBounds(230, 250, 180, 20);
 		backgroundImagePane.add(newCharacterTableButton);
 		
 		//botao de apagar personagem permanentemente da lista
-		removeCharacterTableButton = new JButton("Apagar personagem");
+		removeCharacterTableButton = new JButton("Erase Character");
 		removeCharacterTableButton.setBounds(480, 250, 180, 20);
 		backgroundImagePane.add(removeCharacterTableButton);
 		
 		//Label
-		centerLabel = new JLabel("Personagens Dispon�veis - Mil dinheiros cada!");
+		centerLabel = new JLabel("Available characters: ( $1000 )");
 		centerLabel.setBounds(330, 15, 280, 20);
 		centerLabel.setForeground(Color.WHITE);
 		backgroundImagePane.add(centerLabel);
 		
 		//Label time 1
-		leftLabel = new JLabel("Time Alpha (" + game.mJ1.getName() + ")");
+		leftLabel = new JLabel(game.mJ1.getTeam().getName()+"\n(" + game.mJ1.getName() + ")");
 		leftLabel.setBounds(60, 270, 120, 20);
-		leftLabel.setForeground(Color.RED);
+		leftLabel.setForeground(Color.RED); // TODO
 		backgroundImagePane.add(leftLabel);
 		
 		//Label time 2
-		rightLabel = new JLabel("Time Bravo (" + game.mJ2.getName() + ")");
+		rightLabel = new JLabel(game.mJ2.getTeam().getName()+"\n(" + game.mJ2.getName() + ")");
 		rightLabel.setBounds(720, 270, 140, 20);
 		rightLabel.setForeground(Color.BLUE);
 		backgroundImagePane.add(rightLabel);
 		
-		leftMoneyLabel = new JLabel("Dinheiro Restante:");
+		leftMoneyLabel = new JLabel("Money:");
 		leftMoneyLabel.setBounds(240, 450, 120, 20);
 		leftMoneyLabel.setForeground(Color.ORANGE);
 		backgroundImagePane.add(leftMoneyLabel);
@@ -207,7 +203,7 @@ public class JTeamEditor extends JDialog {
 		leftMoneyValueLabel.setForeground(Color.GREEN);
 		backgroundImagePane.add(leftMoneyValueLabel);
 		
-		rightMoneyLabel = new JLabel("Dinheiro Restante:");
+		rightMoneyLabel = new JLabel("Money:");
 		rightMoneyLabel.setBounds(550, 450, 120, 20);
 		rightMoneyLabel.setForeground(Color.ORANGE);
 		backgroundImagePane.add(rightMoneyLabel);
@@ -217,11 +213,11 @@ public class JTeamEditor extends JDialog {
 		rightMoneyValueLabel.setForeground(Color.GREEN);
 		backgroundImagePane.add(rightMoneyValueLabel);
 		
-		leftBuyItem = new JButton("Comprar itens");
+		leftBuyItem = new JButton("Buy Items");
 		leftBuyItem.setBounds(230, 500, 120, 20);
 		backgroundImagePane.add(leftBuyItem);
 		
-		rightBuyItem = new JButton("Comprar itens");
+		rightBuyItem = new JButton("Buy Items");
 		rightBuyItem.setBounds(540, 500, 120, 20);
 		backgroundImagePane.add(rightBuyItem);
 
@@ -275,12 +271,12 @@ public class JTeamEditor extends JDialog {
 						game.mJ1.getTeam().addCharacter(allCharacters.get(pos));
 						allCharacters.remove(pos);
 					}else {
-						JOptionPane.showConfirmDialog(null, "Selecione um personagem para comprar");
+						JOptionPane.showMessageDialog(null, "Select a character to buy.");
 					}
 					
 					
 				} catch (NotEnoughMoneyException e) {
-					JOptionPane.showMessageDialog(null, "Voce nao tem dinheiro para comprar o personagem!");
+					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
 				}
 				
@@ -329,11 +325,11 @@ public class JTeamEditor extends JDialog {
 						game.mJ2.getTeam().addCharacter(allCharacters.get(pos));
 						allCharacters.remove(pos);	
 					}else{
-						JOptionPane.showConfirmDialog(null, "Selecione um personagem para comprar");
+						JOptionPane.showMessageDialog(null, "Select a character to buy.");
 					}
 
 				} catch (NotEnoughMoneyException e) {
-					JOptionPane.showMessageDialog(null, "Voce nao tem dinheiro para comprar o personagem!");
+					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
 				}
 	
@@ -401,7 +397,8 @@ public class JTeamEditor extends JDialog {
 		leftEditCharacter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int pos = leftList.getSelectedIndex();
-				JCharacterEditor jedit = new JCharacterEditor(game.mJ1.getTeam().getCharacter(pos));
+				System.out.println(game.mJ1.getTeam().getCharacter(pos) == null);
+				JSetItemCharacter jedit = new JSetItemCharacter(game.mJ1.getTeam().getCharacter(pos));
 				jedit.setVisible(true);
 				
 			}
@@ -411,7 +408,7 @@ public class JTeamEditor extends JDialog {
 		rightEditCharacter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int pos = rightList.getSelectedIndex();
-				JCharacterEditor jedit = new JCharacterEditor(game.mJ2.getTeam().getCharacter(pos));
+				JSetItemCharacter jedit = new JSetItemCharacter(game.mJ2.getTeam().getCharacter(pos));
 				jedit.setVisible(true);
 				
 			}

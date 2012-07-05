@@ -18,7 +18,7 @@ public class ItemTable extends JPanel{
 		jTable = new JTable();
 		tableModel = new DefaultTableModel(); 
 		
-		String[] identifiers = new String[] {"Tipo", "Nome", "Ataque", "Distancia", "Defesa", "Flexibilidade", "Preço", "Pontos"};
+		String[] identifiers = new String[] {"Type", "Name", "ATK", "Range", "DEF", "Flex", "Price", "Points"};
 		tableModel.setColumnIdentifiers(identifiers);
         jTable.setModel(tableModel);
         
@@ -32,7 +32,7 @@ public class ItemTable extends JPanel{
 	 * @param type Tipo do item	
 	 * @param attack Pontos de Ataque do item
 	 * @param defense Pontos Defesa do item
-	 * @param price Preço do item
+	 * @param price Preï¿½o do item
 	 */
 	public void addItemTable(String type, String name, String attack, String range, String defense, String flexibility, String price, String points)
 	{
@@ -55,7 +55,7 @@ public class ItemTable extends JPanel{
 			
 		}catch(ArrayIndexOutOfBoundsException ex)
 		{
-			JOptionPane.showMessageDialog(null, "Selecione um Item!", "Erro ao remover", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Select an Item!", "Error on remove.", JOptionPane.ERROR_MESSAGE);
 			position = -1;
 		}
 		return position;

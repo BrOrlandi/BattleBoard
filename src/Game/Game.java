@@ -1,9 +1,6 @@
 package Game;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
@@ -14,26 +11,25 @@ import BattleBoardExceptions.DeadCharacterException;
 import BattleBoardExceptions.ItemNotFoundException;
 import BattleBoardExceptions.OpposingTeamCharacterException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
-import Character.*;
 import Character.Character;
 import Utilities.*;
 
 /**
  * @package Game
- * Classes gerais que irão manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
+ * Classes gerais que irï¿½o manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
  */
 
 /**
- * Esta classe será a principal da parte de Controle do paradigma MVC, gerencia todo o jogo e é a esta classe que a interface gráfica do usuário irá acessar os métodos.
+ * Esta classe serï¿½ a principal da parte de Controle do paradigma MVC, gerencia todo o jogo e ï¿½ a esta classe que a interface grï¿½fica do usuï¿½rio irï¿½ acessar os mï¿½todos.
  *
  */
 public class Game {
 
-	public static final double INITIAL_MONEY = 10000.0; ///< Dinheiro inicial que os jogadores irão começar.
-	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que contém a loja de itens padrão do jogo.
-	public static final int BOARD_HEIGHT = 10; ///< Altura padrão do tabuleiro.
-	public static final int BOARD_WIDTH = 10; ///< Largura padrão do tabuleiro.
-	public static final double CHARACTER_PRICE = 1000.0; ///< Preço padrão de um personagem.	
+	public static final double INITIAL_MONEY = 10000.0; ///< Dinheiro inicial que os jogadores irï¿½o comeï¿½ar.
+	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que contï¿½m a loja de itens padrï¿½o do jogo.
+	public static final int BOARD_HEIGHT = 10; ///< Altura padrï¿½o do tabuleiro.
+	public static final int BOARD_WIDTH = 10; ///< Largura padrï¿½o do tabuleiro.
+	public static final double CHARACTER_PRICE = 1000.0; ///< Preï¿½o padrï¿½o de um personagem.	
 
 	public Player mJ1; ///< Jogador 1.
 	public Player mJ2; ///< Jogador 2.
@@ -41,8 +37,8 @@ public class Game {
 	public ItemStore mItemStore; ///< Loja de Items do jogo.
 
 	/**
-	 * Construtor da Classe game, dará inicio ao jogo.
-	 * Tenta carregar a loja de itens do jogo e cria o tabuleiro com as dimensões padrões.
+	 * Construtor da Classe game, darï¿½ inicio ao jogo.
+	 * Tenta carregar a loja de itens do jogo e cria o tabuleiro com as dimensï¿½es padrï¿½es.
 	 */
 	public Game(){
 		//carrega a loja de itens.
@@ -83,10 +79,10 @@ public class Game {
 
 	/**
 	 * Usado para comprar um item da loja de itens.
-	 * Lança uma exceção de dinheiro insuficiente.
-	 * @param p jogador que está comprando.
-	 * @param posItem posição do item na loja de itens.
-	 * @param posCharacter posição do personagem no time do jogador.
+	 * Lanï¿½a uma exceï¿½ï¿½o de dinheiro insuficiente.
+	 * @param p jogador que estï¿½ comprando.
+	 * @param posItem posiï¿½ï¿½o do item na loja de itens.
+	 * @param posCharacter posiï¿½ï¿½o do personagem no time do jogador.
 	 * @throws NotEnoughMoneyException
 	 * @throws ItemNotFoundException
 	 */
@@ -119,12 +115,12 @@ public class Game {
 
 	}
 
-	/// Opções de ações dos personagens em cada turno:
+	/// Opï¿½ï¿½es de aï¿½ï¿½es dos personagens em cada turno:
 	/**
 	 * Realiza um ataque entre dois personagens.
 	 * @param attacker
 	 * @param victim
-	 * @return Pair de valores, no qual o primeiro é o tipo de evento do ataque. E o segundo valor é o dano causado pelo ataque.
+	 * @return Pair de valores, no qual o primeiro ï¿½ o tipo de evento do ataque. E o segundo valor ï¿½ o dano causado pelo ataque.
 	 * @throws OutOfRangeCharacterException 
 	 * @throws CharacterFromSameTeamException 
 	 * @throws DeadCharacterException 
@@ -150,9 +146,9 @@ public class Game {
 	}
 
 	/**
-	 * Usar um item consumível entre os personagens.
+	 * Usar um item consumï¿½vel entre os personagens.
 	 * @param giver Personagem que possui o item a ser consumido.
-	 * @param receiver Personagem que consumirá o item.
+	 * @param receiver Personagem que consumirï¿½ o item.
 	 * @throws CharacterNotFoundOnBoardException
 	 * @throws CharacterCanNotConsumeItemException
 	 * @throws DeadCharacterException
@@ -166,10 +162,10 @@ public class Game {
 	}
 
 	/**
-	 * Deve ser usado para adicionar itens à loja de itens.
+	 * Deve ser usado para adicionar itens ï¿½ loja de itens.
 	 * @param it item a ser adicionado.
 	 * @throws Exception
-	 * @warning Não deve usar diretamente o addItem da Item Store, este verifica se a Store foi criada.
+	 * @warning Nï¿½o deve usar diretamente o addItem da Item Store, este verifica se a Store foi criada.
 	 */
 	public void addItemToStore(Item it) throws Exception{
 		if(mItemStore == null){

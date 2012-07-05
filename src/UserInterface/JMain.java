@@ -54,12 +54,12 @@ public class JMain extends JFrame {
 		setBounds(100, 100, 450, 700);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setTitle("Jogo de Tabuleiro 4Fun!");
+		setTitle("BattleBoard");
 				
 		try{
 			game = new Game();
 		}catch(Exception e){
-			game.createItemStore("Loja");
+			game.createItemStore("Item Store");
 		}
 		
 		
@@ -71,22 +71,22 @@ public class JMain extends JFrame {
 		/**BOTOES*/
 		
 		//botao de play
-		playButton = new JButton("Jogar");
+		playButton = new JButton("Play");
 		playButton.setBounds(54, 77, 327, 23);
 		panel.add(playButton);
 		
 		//Criar item
-		createItemButton = new JButton("Edição de Itens");
+		createItemButton = new JButton("Item Store Editor");
 		createItemButton.setBounds(54, 130, 327, 23);
 		panel.add(createItemButton);
 			
 		//Sair
-		exitButton = new JButton("Sair");
+		exitButton = new JButton("Exit");
 		exitButton.setBounds(54, 180, 327, 23);
 		panel.add(exitButton);
 		
 		/**LABEL*/
-		JLabel Names = new JLabel("Feito por Bruno Orlandi e Vinicius Lovato");
+		JLabel Names = new JLabel("Developed by Bruno Orlandi and Vinicius Lovato");
 		Names.setBounds(147, 261, 248, 14);
 		panel.add(Names);
 		
@@ -96,10 +96,10 @@ public class JMain extends JFrame {
 		System.out.println(path+"imagem.jpg");
 		
 		try {
-			imagePanel = new ImageJPanel(path+"sword.jpg");
+			imagePanel = new ImageJPanel(path+"Sword.jpg");
 		
 		} catch (IOException e1) {
-			JOptionPane.showMessageDialog(null, "Erro ao carregar imagem de fundo", "Erro", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error loading background image:"+path+"Sword.jpg", "Error", JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
 		}
 		
@@ -119,7 +119,7 @@ public class JMain extends JFrame {
 			}
 		});
 		
-		//listener do botao de criação de item
+		//listener do botao de criaï¿½ï¿½o de item
 		createItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -136,11 +136,11 @@ public class JMain extends JFrame {
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String name = JOptionPane.showInputDialog("Digite o nome do jogador 1");
+				String name = JOptionPane.showInputDialog("Player One name:");
 				
 				if(name != null){
 					game.setPlayerOne(name, "Alpha", GameColor.Red);
-					name = JOptionPane.showInputDialog("Digite o nome do jogador 2");
+					name = JOptionPane.showInputDialog("Player Two name:");
 					
 					if(name != null){
 						game.setPlayerTwo(name, "Bravo", GameColor.Blue);

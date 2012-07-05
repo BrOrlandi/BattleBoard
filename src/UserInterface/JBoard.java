@@ -78,7 +78,7 @@ public class JBoard extends JDialog{
 			imagePane.setBounds(0, 0, 800, 500);
 			imagePane.setLayout(null);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Imagem nao encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Image not found: "+path+"grass-background.jpg", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		
@@ -108,13 +108,13 @@ public class JBoard extends JDialog{
 		initTable(game);
 		
 		//Rotulo
-		logLabel = new JLabel("Histórico de eventos");
+		logLabel = new JLabel("Events History:");
 		logLabel.setBounds(400, 330, 150, 20);
 		logLabel.setForeground(Color.WHITE);
 		imagePane.add(logLabel);
 		
 		//Rotulo
-		titleLabel = new JLabel ("Tabuleiro");
+		titleLabel = new JLabel ("Board");
 		titleLabel.setBounds(360, 25, 100, 20);
 		titleLabel.setForeground(Color.BLACK);
 		imagePane.add(titleLabel);
@@ -133,39 +133,39 @@ public class JBoard extends JDialog{
 		imagePane.add(scrollPane);
 		
 		//botao de atacar
-		attackButton = new JButton("Atacar!");
+		attackButton = new JButton("Attack!");
 		attackButton.setBounds(80, 350, 120, 20);
 		imagePane.add(attackButton);
 		
-		useConsumableButton = new JButton("Usar consumivel");
+		useConsumableButton = new JButton("Use consumable");
 		useConsumableButton.setBounds(80, 400, 140, 20);
 		imagePane.add(useConsumableButton);
 		
 		/**Botoes direcionais*/
 		
-		moveUp = new JButton("Cima");
+		moveUp = new JButton("Up");
 		moveUp.setBounds(500, 250, 100, 20);
 		imagePane.add(moveUp);
 		
-		moveDown = new JButton("Baixo");
+		moveDown = new JButton("Down");
 		moveDown.setBounds(500, 300, 100, 20);
 		imagePane.add(moveDown);
 		
-		moveLeft = new JButton("Esquerda");
+		moveLeft = new JButton("Left");
 		moveLeft.setBounds(400, 275, 100, 20);
 		imagePane.add(moveLeft);
 		
-		moveRight = new JButton("Direita");
+		moveRight = new JButton("Right");
 		moveRight.setBounds(600, 275, 100, 20);
 		imagePane.add(moveRight);
 		
 		//Botao de personagem selecionado (atacante)
-		firstSelectionButton = new JButton("Atacante");
+		firstSelectionButton = new JButton("Attacker");
 		firstSelectionButton.setBounds(80, 275, 100, 20);
 		imagePane.add(firstSelectionButton);
 		
 		//Botao de personagem selecionado (defensor)
-		secondSelectionButton = new JButton("Defensor");
+		secondSelectionButton = new JButton("Victim");
 		secondSelectionButton.setBounds(200, 275, 100, 20);
 		imagePane.add(secondSelectionButton);
 		
@@ -179,7 +179,7 @@ public class JBoard extends JDialog{
 		secondSelection.setBounds(200, 250, 100, 20);
 		imagePane.add(secondSelection);
 		
-		JOptionPane.showMessageDialog(null, "Para atacar e usar itens, fixe um personagem em Atacante e outro em Defensor");
+		JOptionPane.showMessageDialog(null, "To attack and use items, fix two characters to make the action.");
 		
 		//Move pra cima no tabuleiro
 		moveUp.addActionListener(new ActionListener(){
@@ -198,15 +198,8 @@ public class JBoard extends JDialog{
 					boardTable.setColumnSelectionInterval(column, column);
 					boardTable.setRowSelectionInterval(row-1, row-1);
 						
-				} catch (OccupiedBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
-					e.printStackTrace();
-				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
-					e.printStackTrace();
-				} catch(ArrayIndexOutOfBoundsException e){
-					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
-					e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
@@ -225,15 +218,8 @@ public class JBoard extends JDialog{
 					tableModel.setValueAt(null, row, column);
 					boardTable.setColumnSelectionInterval(column, column);
 					boardTable.setRowSelectionInterval(row+1, row+1);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
-					e.printStackTrace();
-				} catch (OccupiedBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
-					e.printStackTrace();
-				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
-					e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
 			}
@@ -251,15 +237,8 @@ public class JBoard extends JDialog{
 					tableModel.setValueAt(null, row, column);
 					boardTable.setColumnSelectionInterval(column-1, column-1);
 					boardTable.setRowSelectionInterval(row, row);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
-					e.printStackTrace();
-				} catch (OccupiedBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
-					e.printStackTrace();
-				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
-					e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
 				
@@ -280,15 +259,8 @@ public class JBoard extends JDialog{
 					boardTable.setColumnSelectionInterval(column+1, column+1);
 					boardTable.setRowSelectionInterval(row, row);
 					
-				} catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null, "Posição fora do tabuleiro");
-					e.printStackTrace();
-				} catch (OccupiedBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição ja esta ocupada!");
-					e.printStackTrace();
-				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Posição atual esta vazia!");
-					e.printStackTrace();
+				}  catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
 			}
@@ -310,7 +282,7 @@ public class JBoard extends JDialog{
 					firstSelectionCharacter = game.mBoard.getCharacter(column, row);
 					firstSelection.setText(firstSelectionCharacter.getName());
 				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Escolha uma posição com personagem!");
+					JOptionPane.showMessageDialog(null, "The selected position is empty.\nSelect a character on the Board.");
 					e.printStackTrace();
 				}
 				
@@ -330,7 +302,7 @@ public class JBoard extends JDialog{
 					secondSelectionCharacter = game.mBoard.getCharacter(column, row);
 					secondSelection.setText(secondSelectionCharacter.getName());
 				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Escolha uma posição com personagem!");
+					JOptionPane.showMessageDialog(null, "The selected position is empty.\nSelect a character on the Board.");
 					e.printStackTrace();
 				}
 				
@@ -350,20 +322,29 @@ public class JBoard extends JDialog{
 					//verifica tipo do ataque
 					String attackT = "";
 					int attackType = damage.getFirst();
-					if(attackType == 1){
-						attackT = "MISS! ";
+					if(attackType == Character.MISS_ATTACK){
+						attackT = " MISS ";
 					}
-					else if(attackType == 2){
-						attackT = "CRITICAL HIT! ";
+					else if(attackType == Character.CRITICAL_ATTACK){
+						attackT = " CRITICAL attacks ";
+					}
+					else{
+						attackT = " attacks ";
+					}
+					
+					StringBuilder sb = new StringBuilder();
+					sb.append(firstSelectionCharacter.getName() + attackT + secondSelectionCharacter.getName());
+					if(attackType != 1)
+					{
+						sb.append(". Damage: " + damage.getSecond());
 					}
 					
 					//Imprime da lista de log
-					listModel.addElement(attackT + firstSelectionCharacter.getName() + " atacou " + secondSelectionCharacter.getName() + " e causou " + 
-					damage.getSecond() + " de dano. HP restante: " + secondSelectionCharacter.getHP());
+					listModel.addElement(sb.toString());
 					
 					//verifica se o jogador defensor foi morto
-					if(secondSelectionCharacter.isDead()){
-						listModel.addElement(secondSelectionCharacter.getName() + " foi morto em combate!");
+					if(attackType == Character.KILL_ATTACK){
+						listModel.addElement(secondSelectionCharacter.getName() + " was killed by "+ firstSelectionCharacter.getName());
 					}
 					
 					//Move barra da log lis
@@ -375,25 +356,15 @@ public class JBoard extends JDialog{
                     });  
 					
 					//Se foi um ataque que matou o ultimo pesonagme vivo do outro time
-					if(attackType == 4){
-						JOptionPane.showMessageDialog(null, "Jogador " + firstSelectionCharacter.getColor() + " ganhou!");
+					if(attackType == Character.WIN_ATTACK){
+						JOptionPane.showMessageDialog(null, game.mBoard.getTeam(firstSelectionCharacter.getColor()).getName()+"'s "+firstSelectionCharacter.getColor()+"Team wons the Battle!");
 						setVisible(false);
 					}
 					
 					
 						
-				} catch (DeadCharacterException e) {
+				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
-					e.printStackTrace();
-				} catch (CharacterFromSameTeamException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					e.printStackTrace();
-				} catch (OutOfRangeCharacterException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					e.printStackTrace();
-				} catch (CharacterNotFoundOnBoardException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					e.printStackTrace();
 				}
 			}
 		});
@@ -403,24 +374,8 @@ public class JBoard extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					firstSelectionCharacter.useConsumable(secondSelectionCharacter,  game.mBoard.getDistance(firstSelectionCharacter, secondSelectionCharacter));
-				} catch (CharacterCanNotConsumeItemException e1) {
-					JOptionPane.showMessageDialog(null, "Personagem alvo nao pode usar o item");
-					e1.printStackTrace();
-				} catch (DeadCharacterException e1) {
-					JOptionPane.showMessageDialog(null, "Personagem alvo esta morto!");
-					e1.printStackTrace();
-				} catch (OpposingTeamCharacterException e1) {
-					JOptionPane.showMessageDialog(null, "Personagem alvo é de outro time!");
-					e1.printStackTrace();
-				} catch (OutOfRangeCharacterException e1) {
-					JOptionPane.showMessageDialog(null, "Personagem alvo esta fora do alcance");
-					e1.printStackTrace();
-				} catch (CharacterNotFoundOnBoardException e1) {
-					JOptionPane.showMessageDialog(null, "Não ha personagem alvo!");
-					e1.printStackTrace();
-				} catch (ItemNotFoundException e1) {
-					JOptionPane.showMessageDialog(null, "Não ha item para ser usado!");
-					e1.printStackTrace();
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
 			}
 			
@@ -435,7 +390,6 @@ public class JBoard extends JDialog{
 			try {
 				game.mBoard.setCharacterPosition(0, i, game.mJ1.getTeam().getCharacter(i));
 			} catch (OccupiedBoardPositionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -445,7 +399,6 @@ public class JBoard extends JDialog{
 			try {
 				game.mBoard.setCharacterPosition(9, i, game.mJ2.getTeam().getCharacter(i));
 			} catch (OccupiedBoardPositionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

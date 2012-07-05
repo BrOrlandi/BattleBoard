@@ -52,7 +52,7 @@ public class Player {
 	public void subtractMoney(double money) throws NotEnoughMoneyException{
 		if(mMoney - money < 0)
 		{
-			throw new NotEnoughMoneyException(mName + "does not have enough money.");
+			throw new NotEnoughMoneyException(mName + " does not have enough money.");
 		}
 		mMoney -= money;
 	}
