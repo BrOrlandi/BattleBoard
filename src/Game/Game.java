@@ -103,6 +103,10 @@ public class Game {
 		chr.addItem(it);
 	}
 	
+	public void buyCharacter(Player p) throws NotEnoughMoneyException{
+		p.subtractMoney(1000);
+	}
+	
 	public void startGame() throws IOException{
 		if(mItemStore == null)
 		{
