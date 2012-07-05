@@ -1,6 +1,7 @@
 package Game;
 
-import Overview.GameColor;
+import java.awt.Color;
+
 import Overview.Team;
 import Character.Character;
 
@@ -23,7 +24,7 @@ public class Player {
 	 * @param teamName Nome do Time do jogador.
 	 * @param teamColor Cor do time do jogador.
 	 */
-	public Player(String name, double initialMoney, String teamName, GameColor teamColor){
+	public Player(String name, double initialMoney, String teamName, Color teamColor){
 		mName = name;
 		mMoney = initialMoney;
 		mTeam = new Team(teamName, teamColor);

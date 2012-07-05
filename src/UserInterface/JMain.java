@@ -1,6 +1,7 @@
 package UserInterface;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -11,7 +12,6 @@ import com.thoughtworks.xstream.XStreamException;
 import Game.Game;
 import Item.Item;
 import Item.ItemStore;
-import Overview.GameColor;
 import Utilities.XML;
 
 import java.awt.event.ActionListener;
@@ -139,11 +139,11 @@ public class JMain extends JFrame {
 				String name = JOptionPane.showInputDialog("Player One name:");
 				
 				if(name != null){
-					game.setPlayerOne(name, "Alpha", GameColor.Red);
+					game.setPlayerOne(name, "Alpha", Color.RED);
 					name = JOptionPane.showInputDialog("Player Two name:");
 					
 					if(name != null){
-						game.setPlayerTwo(name, "Bravo", GameColor.Blue);
+						game.setPlayerTwo(name, "Bravo", Color.BLUE);
 						JTeamEditor teamEditor =  new JTeamEditor(game);
 						teamEditor.setVisible(true);
 					}

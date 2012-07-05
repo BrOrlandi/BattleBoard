@@ -4,28 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import BattleBoardExceptions.CharacterCanNotConsumeItemException;
-import BattleBoardExceptions.CharacterFromSameTeamException;
-import BattleBoardExceptions.CharacterNotFoundOnBoardException;
+
 import BattleBoardExceptions.DeadCharacterException;
 import BattleBoardExceptions.EmptyBoardPositionException;
-import BattleBoardExceptions.ItemNotFoundException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
-import BattleBoardExceptions.OpposingTeamCharacterException;
-import BattleBoardExceptions.OutOfRangeCharacterException;
 import Character.*;
 import Character.Character;
 import Game.Game;
 import Overview.Board;
-import Overview.GameColor;
 import Utilities.Pair;
 
 public class JBoard extends JDialog{

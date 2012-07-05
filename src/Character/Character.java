@@ -1,4 +1,5 @@
 package Character;
+import java.awt.Color;
 import java.util.*;
 
 import BattleBoardExceptions.CharacterCanNotConsumeItemException;
@@ -12,7 +13,6 @@ import BattleBoardExceptions.NotWeaponItemException;
 import BattleBoardExceptions.OpposingTeamCharacterException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
 import Item.*;
-import Overview.GameColor;
 import Utilities.Pair;
 
 /**
@@ -35,7 +35,7 @@ public class Character {
 	protected int mDexterity;		///< Destreza do personagem
 	protected int mSpeed;			///< Velocidade do personagem
 	protected int mConstitution;	///< Constituição do personagem
-	private GameColor mColor;					///< Cor que o personagem está usando. Identifica o time que o personagem pertence.
+	private Color mColor;					///< Cor que o personagem está usando. Identifica o time que o personagem pertence.
 	
 	private Map<Integer, Item> mInventory;		///< Inventário de itens do personagem.
 	private Consumable mConsumableItem;
@@ -792,11 +792,11 @@ public class Character {
 		}
 	}
 	
-	public void setColor(GameColor cor){
+	public void setColor(Color cor){
 		mColor = cor;
 	}
 	
-	public GameColor getColor(){
+	public Color getColor(){
 		return mColor;
 	}
 }//fim da classe Character

@@ -1,4 +1,5 @@
 package Overview;
+import java.awt.Color;
 import java.util.*;
 
 import BattleBoardExceptions.CharacterNotFoundOnBoardException;
@@ -22,7 +23,7 @@ public class Board {
 	private int mWidth;				///< Largura do tabuleiro	
 	private int mHeight;				///< Altura do tabuleiro
 	private Set<BoardPosition> mPositions; ///< Conjunto ordenado de BoardPositions com os personagens.
-	private Map<GameColor, Team> mTeams; ///< Mapa de times, a chave é a cor do time.
+	private Map<Color, Team> mTeams; ///< Mapa de times, a chave é a cor do time.
 	
 	/**
 	 *Construtor padrao de tabuleiro, altura e largura recebem 5 
@@ -30,7 +31,7 @@ public class Board {
 	public Board(){
 		mWidth = 5;
 		mHeight = 5;
-		mTeams = new HashMap<GameColor, Team>();
+		mTeams = new HashMap<Color, Team>();
 		mPositions = new TreeSet<BoardPosition>();
 	}
 	
@@ -42,7 +43,7 @@ public class Board {
 	public Board(int width, int height){
 		mWidth = width;
 		mHeight = height;
-		mTeams = new HashMap<GameColor, Team>();
+		mTeams = new HashMap<Color, Team>();
 		mPositions = new TreeSet<BoardPosition>();
 	}
 	
@@ -59,7 +60,7 @@ public class Board {
 	 * @param c cor do time que está buscando
 	 * @return o time se este existe e está no tabuleiro.
 	 */
-	public Team getTeam(GameColor c){
+	public Team getTeam(Color c){
 		return mTeams.get(c);
 	}
 	
@@ -68,7 +69,7 @@ public class Board {
 	 * @param color Cor do time que sera removido
 	 * @return true se o time foi removido com sucesso. 
 	 */
-	public boolean removeTeam(GameColor color)
+	public boolean removeTeam(Color color)
 	{
 		if(mTeams.remove(color) == null)
 		{
