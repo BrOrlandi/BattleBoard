@@ -12,7 +12,7 @@ public class Team {
 	
 	//Atributos
 	private String mName;	///< Nome do time
-	private Color mColor;	///< Cor do time
+	private GameColor mColor;	///< Cor do time
 	private int mWin;		///< Numero de vitorias do time		
 	private int mLose;		///< Numero de derrotas do time
 	private int mDraw;		///< Numero de empates do time
@@ -24,7 +24,7 @@ public class Team {
 	 * @param name Nome do time
 	 * @param color Cor do time
 	 */
-	public Team(String name, Color color){
+	public Team(String name, GameColor color){
 		mName = name;
 		mColor = color;
 		mWin = 0;
@@ -46,7 +46,7 @@ public class Team {
 	 * 
 	 * @return Cor do time
 	 */
-	public Color getColor(){
+	public GameColor getColor(){
 		return mColor;
 	}
 	/**

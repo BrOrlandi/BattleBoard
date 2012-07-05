@@ -67,7 +67,7 @@ public class Game {
 	 * @param teamName nome do time.
 	 * @param teamColor cor do time.
 	 */
-	public void setPlayerOne(String name, String teamName, Color teamColor){
+	public void setPlayerOne(String name, String teamName, GameColor teamColor){
 		mJ1 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 
@@ -77,7 +77,7 @@ public class Game {
 	 * @param teamName nome do time.
 	 * @param teamColor cor do time.
 	 */
-	public void setPlayerTwo(String name, String teamName, Color teamColor){
+	public void setPlayerTwo(String name, String teamName, GameColor teamColor){
 		mJ2 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 

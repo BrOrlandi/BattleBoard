@@ -53,8 +53,8 @@ public class Main {
 	public static void main (String args[])
 	{	
 		
-		Team alpha = new Team("Alpha",Color.Red);
-		Team bravo = new Team("Bravo",Color.Blue);
+		Team alpha = new Team("Alpha",GameColor.Red);
+		Team bravo = new Team("Bravo",GameColor.Blue);
 
 		Fighter h1 = new Fighter("Hero Fighter",80);
 		h1.setConstitution(10);

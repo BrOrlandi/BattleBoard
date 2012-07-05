@@ -6,7 +6,7 @@ import BattleBoardExceptions.OccupiedBoardPositionException;
 import Character.*;
 import Character.Character;
 import Overview.BoardPosition;
-import Overview.Color;
+import Overview.GameColor;
 import Utilities.XML;
 
 
@@ -108,8 +108,8 @@ public class testsGame extends TestCase {
 	
 	public void test2(){
 		Game G = new Game();
-		G.setPlayerOne("Bruno", "Bravo", Color.Blue);
-		G.setPlayerTwo("Vinicius", "Alpha", Color.Red);
+		G.setPlayerOne("Bruno", "Bravo", GameColor.Blue);
+		G.setPlayerTwo("Vinicius", "Alpha", GameColor.Red);
 		
 		Item[] its = G.mItemStore.getItemArray();
 		assertNotNull(its);
@@ -152,6 +152,7 @@ public class testsGame extends TestCase {
 	    G.mJ1.addCharacter(h1);
 	    G.mJ1.addCharacter(f1);
 	    G.mJ1.addCharacter(r1);
+	    
 	    G.mJ2.addCharacter(h2);
 	    G.mJ2.addCharacter(f2);
 	    G.mJ2.addCharacter(r2);
@@ -162,7 +163,7 @@ public class testsGame extends TestCase {
 	    	System.out.println(chrs1[i]);
 	    }
 	    System.out.println("Personagens do time "+G.mJ2.getTeam().getName()+"("+G.mJ2.getTeam().getColor()+ ") de "+G.mJ2.getName());
-	    Character[] chrs2 = G.mJ1.getCharactersArray();
+	    Character[] chrs2 = G.mJ2.getCharactersArray();
 	    for(int i=0;i<chrs2.length;i++){
 	    	System.out.println(chrs2[i]);
 	    }
@@ -198,6 +199,17 @@ public class testsGame extends TestCase {
 	    for(int i =0;i<bps.length;i++)
 	    {
 	    	System.out.println("X: "+ bps[i].getXY().getFirst()+" Y: "+bps[i].getXY().getSecond() + "  "+bps[i].getOccup());
+	    }
+	    
+	    System.out.println("========="+G.mJ1.getTeam()+"============");
+	    for(int i=0;i<chrs1.length;i++){
+	    	System.out.println(chrs1[i].getColor());
+	    	assertEquals(G.mJ1.getTeam().getColor(), chrs1[i].getColor());
+	    }
+	    System.out.println("========="+G.mJ2.getTeam()+"============");
+	    for(int i=0;i<chrs2.length;i++){
+	    	System.out.println(chrs2[i].getColor());
+	    	assertEquals(G.mJ2.getTeam().getColor(), chrs2[i].getColor());
 	    }
 	}
 }
