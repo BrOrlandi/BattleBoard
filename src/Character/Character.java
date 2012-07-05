@@ -12,7 +12,7 @@ import BattleBoardExceptions.NotWeaponItemException;
 import BattleBoardExceptions.OpposingTeamCharacterException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
 import Item.*;
-import Overview.Color;
+import Overview.GameColor;
 import Utilities.Pair;
 
 /**
@@ -35,7 +35,7 @@ public class Character {
 	protected int mDexterity;		///< Destreza do personagem
 	protected int mSpeed;			///< Velocidade do personagem
 	protected int mConstitution;	///< Constituição do personagem
-	private Color mColor;					///< Cor que o personagem está usando. Identifica o time que o personagem pertence.
+	private GameColor mColor;					///< Cor que o personagem está usando. Identifica o time que o personagem pertence.
 	
 	private Map<Integer, Item> mInventory;		///< Inventário de itens do personagem.
 	private Consumable mConsumableItem;
@@ -76,6 +76,17 @@ public class Character {
 		return mAlias;
 	}
 	
+	public Consumable getConsumable(){
+		return mConsumableItem;
+	}
+	
+	public Weapon getWeapon(){
+		return mWeapon;
+	}
+	
+	public Armor getArmor(){
+		return mArmor;
+	}
 	/**
 	 * 
 	 * @return Retorna pontos de Defesa levando em conta todos os itens no inventario do personagem
@@ -769,11 +780,11 @@ public class Character {
 		}
 	}
 	
-	public void setColor(Color cor){
+	public void setColor(GameColor cor){
 		mColor = cor;
 	}
 	
-	public Color getColor(){
+	public GameColor getColor(){
 		return mColor;
 	}
 	

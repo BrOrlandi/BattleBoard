@@ -6,8 +6,13 @@ import java.awt.EventQueue;
 
 import javax.swing.*;
 
+import com.thoughtworks.xstream.XStreamException;
+
 import Game.Game;
-import Overview.Color;
+import Item.Item;
+import Item.ItemStore;
+import Overview.GameColor;
+import Utilities.XML;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,7 +27,6 @@ public class JMain extends JFrame {
 	private JPanel panel;
 	private ImageJPanel imagePanel;
 	
-	//private ItemStore itemStore;
 	
 	private Game game;
 	/**
@@ -50,17 +54,13 @@ public class JMain extends JFrame {
 		setBounds(100, 100, 450, 700);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setTitle("The Ultimate Board Game - aeho!");
-		
-		//itemStore = new ItemStore("Loja");
-		
+		setTitle("Jogo de Tabuleiro 4Fun!");
+				
 		try{
 			game = new Game();
 		}catch(Exception e){
 			game.createItemStore("Loja");
 		}
-		
-		game.createItemStore("Loja");
 		
 		
 		//Painel que contem os botoes
@@ -77,12 +77,12 @@ public class JMain extends JFrame {
 		
 		//Criar item
 		createItemButton = new JButton("Edição de Itens");
-		createItemButton.setBounds(54, 173, 327, 23);
+		createItemButton.setBounds(54, 130, 327, 23);
 		panel.add(createItemButton);
 			
 		//Sair
 		exitButton = new JButton("Sair");
-		exitButton.setBounds(54, 223, 327, 23);
+		exitButton.setBounds(54, 180, 327, 23);
 		panel.add(exitButton);
 		
 		/**LABEL*/
@@ -122,6 +122,7 @@ public class JMain extends JFrame {
 		//listener do botao de criação de item
 		createItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				JItemEditor jItemEditor = new JItemEditor(game.mItemStore);
 				jItemEditor.setVisible(true);	
 				
@@ -138,11 +139,11 @@ public class JMain extends JFrame {
 				String name = JOptionPane.showInputDialog("Digite o nome do jogador 1");
 				
 				if(name != null){
-					game.setPlayerOne(name, "Alpha", Color.Red);
+					game.setPlayerOne(name, "Alpha", GameColor.Red);
 					name = JOptionPane.showInputDialog("Digite o nome do jogador 2");
 					
 					if(name != null){
-						game.setPlayerTwo(name, "Bravo", Color.Blue);
+						game.setPlayerTwo(name, "Bravo", GameColor.Blue);
 						JTeamEditor teamEditor =  new JTeamEditor(game);
 						teamEditor.setVisible(true);
 					}

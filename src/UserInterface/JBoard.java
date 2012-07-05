@@ -12,16 +12,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import BattleBoardExceptions.CharacterCanNotConsumeItemException;
 import BattleBoardExceptions.CharacterFromSameTeamException;
 import BattleBoardExceptions.CharacterNotFoundOnBoardException;
 import BattleBoardExceptions.DeadCharacterException;
 import BattleBoardExceptions.EmptyBoardPositionException;
+import BattleBoardExceptions.ItemNotFoundException;
 import BattleBoardExceptions.OccupiedBoardPositionException;
+import BattleBoardExceptions.OpposingTeamCharacterException;
 import BattleBoardExceptions.OutOfRangeCharacterException;
 import Character.*;
 import Character.Character;
 import Game.Game;
 import Overview.Board;
+import Overview.GameColor;
 import Utilities.Pair;
 
 public class JBoard extends JDialog{
@@ -40,6 +44,7 @@ public class JBoard extends JDialog{
 	private JTextField secondSelection;
 
 	private JLabel logLabel;
+	private JLabel titleLabel;
 	
 	private JButton firstSelectionButton;
 	private JButton secondSelectionButton;
@@ -51,6 +56,8 @@ public class JBoard extends JDialog{
 	private JButton moveDown;
 	private JButton moveLeft;
 	private JButton moveRight;
+	
+	private JButton useConsumableButton;
 	
 	private JTable boardTable;
 	private  DefaultTableModel tableModel;
@@ -75,6 +82,7 @@ public class JBoard extends JDialog{
 			e.printStackTrace();
 		}
 		
+		
 		//Painel principal
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,29 +94,41 @@ public class JBoard extends JDialog{
 		
 		//Tabela com personagens
 		boardTable = new JTable();
-		
 		boardTable.setBounds(80, 60, 650, 160);
 		boardTable.setCellSelectionEnabled(true);
 		
+		//Modelo da tabela
 		tableModel = new DefaultTableModel();
 		tableModel.setRowCount(10);
 		tableModel.setColumnCount(10);
 		boardTable.setModel(tableModel);
 		imagePane.add(boardTable);
 		
+		//Preenche jogadores na tabela visual
 		initTable(game);
-//		Ranger r2 = (Ranger) tableModel.getValueAt(5, 5);
-//		System.out.println(r2);
-		logLabel = new JLabel("Histórico");
-		logLabel.setBounds(350, 330, 100, 20);
+		
+		//Rotulo
+		logLabel = new JLabel("Histórico de eventos");
+		logLabel.setBounds(400, 330, 150, 20);
 		logLabel.setForeground(Color.WHITE);
 		imagePane.add(logLabel);
 		
+		//Rotulo
+		titleLabel = new JLabel ("Tabuleiro");
+		titleLabel.setBounds(360, 25, 100, 20);
+		titleLabel.setForeground(Color.BLACK);
+		imagePane.add(titleLabel);
+		
+		//Modelo da lista de log
 		listModel = new DefaultListModel();
+		
+		//Lista de log
 		logList = new JList(listModel);
-		logList.setBounds(270, 360, 400, 100);
+		logList.setBounds(270, 360, 450, 100);
+		
+		//Scroll do log
 		scrollPane = new JScrollPane(logList);
-		scrollPane.setBounds(270, 360, 400, 100);
+		scrollPane.setBounds(270, 360, 450, 100);
 		scrollPane.setWheelScrollingEnabled(true);
 		imagePane.add(scrollPane);
 		
@@ -116,6 +136,12 @@ public class JBoard extends JDialog{
 		attackButton = new JButton("Atacar!");
 		attackButton.setBounds(80, 350, 120, 20);
 		imagePane.add(attackButton);
+		
+		useConsumableButton = new JButton("Usar consumivel");
+		useConsumableButton.setBounds(80, 400, 140, 20);
+		imagePane.add(useConsumableButton);
+		
+		/**Botoes direcionais*/
 		
 		moveUp = new JButton("Cima");
 		moveUp.setBounds(500, 250, 100, 20);
@@ -133,31 +159,39 @@ public class JBoard extends JDialog{
 		moveRight.setBounds(600, 275, 100, 20);
 		imagePane.add(moveRight);
 		
-		firstSelectionButton = new JButton("Fixar");
+		//Botao de personagem selecionado (atacante)
+		firstSelectionButton = new JButton("Atacante");
 		firstSelectionButton.setBounds(80, 275, 100, 20);
 		imagePane.add(firstSelectionButton);
 		
-		secondSelectionButton = new JButton("Fixar");
+		//Botao de personagem selecionado (defensor)
+		secondSelectionButton = new JButton("Defensor");
 		secondSelectionButton.setBounds(200, 275, 100, 20);
 		imagePane.add(secondSelectionButton);
 		
-		
+		//Atacante selecionado
 		firstSelection = new JTextField();
 		firstSelection.setBounds(80, 250, 100, 20);
 		imagePane.add(firstSelection);
 		
+		//Defensor selecionado
 		secondSelection = new JTextField();
 		secondSelection.setBounds(200, 250, 100, 20);
 		imagePane.add(secondSelection);
 		
+		JOptionPane.showMessageDialog(null, "Para atacar e usar itens, fixe um personagem em Atacante e outro em Defensor");
+		
 		//Move pra cima no tabuleiro
 		moveUp.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
+				
+				//Pega posição atual
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
 				
 				try {
 					
+					//Tenta mover o personagem, se nao conseguir, trata possiveis exceções
 					game.mBoard.moveUp(column, row);
 					tableModel.setValueAt(tableModel.getValueAt(row, column), row-1, column);
 					tableModel.setValueAt(null, row, column);
@@ -180,10 +214,12 @@ public class JBoard extends JDialog{
 		//Move pra baixo
 		moveDown.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
+				//pega posição atual
 				int column = boardTable.getSelectedColumn();
 				int row = boardTable.getSelectedRow();
 								
 				try {
+					//tenta mover personagem, se nao conseguir trata as exceções
 					game.mBoard.moveDown(column, row);
 					tableModel.setValueAt(tableModel.getValueAt(row, column), row+1, column);
 					tableModel.setValueAt(null, row, column);
@@ -274,7 +310,7 @@ public class JBoard extends JDialog{
 					firstSelectionCharacter = game.mBoard.getCharacter(column, row);
 					firstSelection.setText(firstSelectionCharacter.getName());
 				} catch (EmptyBoardPositionException e) {
-					JOptionPane.showMessageDialog(null, "Escolha um personagem para mover!");
+					JOptionPane.showMessageDialog(null, "Escolha uma posição com personagem!");
 					e.printStackTrace();
 				}
 				
@@ -302,23 +338,49 @@ public class JBoard extends JDialog{
 			}
 		});
 		
+		//Botao de ataque
 		attackButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				
 				try {
-					Pair<Integer, Integer> damage = firstSelectionCharacter.attackCharacter(secondSelectionCharacter, game.mBoard.getDistance(firstSelectionCharacter, secondSelectionCharacter));
 					
-					System.out.println("Passei aqui!");
+					//Metodo de ataque retorna um pair, no qual primeiro valor é se foi qualidade do ataque e segundo valor o total de dano causado
+					Pair<Integer, Integer> damage = game.attackCharacter(firstSelectionCharacter, secondSelectionCharacter);
 					
-					listModel.addElement(firstSelectionCharacter.getName() + " atacou " + secondSelectionCharacter.getName() + " e causou " + 
-					damage.getSecond() + "de dano. HP restante: " + secondSelectionCharacter.getHP());
+					//verifica tipo do ataque
+					String attackT = "";
+					int attackType = damage.getFirst();
+					if(attackType == 1){
+						attackT = "MISS! ";
+					}
+					else if(attackType == 2){
+						attackT = "CRITICAL HIT! ";
+					}
 					
+					//Imprime da lista de log
+					listModel.addElement(attackT + firstSelectionCharacter.getName() + " atacou " + secondSelectionCharacter.getName() + " e causou " + 
+					damage.getSecond() + " de dano. HP restante: " + secondSelectionCharacter.getHP());
+					
+					//verifica se o jogador defensor foi morto
+					if(secondSelectionCharacter.isDead()){
+						listModel.addElement(secondSelectionCharacter.getName() + " foi morto em combate!");
+					}
+					
+					//Move barra da log lis
 					SwingUtilities.invokeLater(new Runnable() {  
                         public void run() {  
                             JScrollBar bar = scrollPane.getVerticalScrollBar();  
                             bar.setValue(bar.getMaximum());  
                         }  
                     });  
+					
+					//Se foi um ataque que matou o ultimo pesonagme vivo do outro time
+					if(attackType == 4){
+						JOptionPane.showMessageDialog(null, "Jogador " + firstSelectionCharacter.getColor() + " ganhou!");
+						setVisible(false);
+					}
+					
+					
 						
 				} catch (DeadCharacterException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
@@ -335,6 +397,34 @@ public class JBoard extends JDialog{
 				}
 			}
 		});
+		
+		//Botao do item consumivel
+		useConsumableButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				try {
+					firstSelectionCharacter.useConsumable(secondSelectionCharacter,  game.mBoard.getDistance(firstSelectionCharacter, secondSelectionCharacter));
+				} catch (CharacterCanNotConsumeItemException e1) {
+					JOptionPane.showMessageDialog(null, "Personagem alvo nao pode usar o item");
+					e1.printStackTrace();
+				} catch (DeadCharacterException e1) {
+					JOptionPane.showMessageDialog(null, "Personagem alvo esta morto!");
+					e1.printStackTrace();
+				} catch (OpposingTeamCharacterException e1) {
+					JOptionPane.showMessageDialog(null, "Personagem alvo é de outro time!");
+					e1.printStackTrace();
+				} catch (OutOfRangeCharacterException e1) {
+					JOptionPane.showMessageDialog(null, "Personagem alvo esta fora do alcance");
+					e1.printStackTrace();
+				} catch (CharacterNotFoundOnBoardException e1) {
+					JOptionPane.showMessageDialog(null, "Não ha personagem alvo!");
+					e1.printStackTrace();
+				} catch (ItemNotFoundException e1) {
+					JOptionPane.showMessageDialog(null, "Não ha item para ser usado!");
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 	}
 	
 	public void initTable(Game game){
@@ -350,7 +440,7 @@ public class JBoard extends JDialog{
 			}
 		}
 		for(int i = 0; i < game.mJ2.getTeam().numCharacter(); i++){
-			tableModel.setValueAt(game.mJ1.getTeam().getCharacter(i), i, 9);
+			tableModel.setValueAt(game.mJ2.getTeam().getCharacter(i), i, 9);
 			
 			try {
 				game.mBoard.setCharacterPosition(9, i, game.mJ2.getTeam().getCharacter(i));

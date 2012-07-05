@@ -1,7 +1,9 @@
 package Game;
 
 import java.io.IOException;
-import Item.ItemStore;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import Item.*;
 import Overview.*;
@@ -18,29 +20,29 @@ import Utilities.*;
 
 /**
  * @package Game
- * Classes gerais que ir√£o manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
+ * Classes gerais que ir„o manusear o andamento do jogo. Equivalente ao Controle no paradigma MVC.
  */
 
 /**
- * Esta classe ser√° a principal da parte de Controle do paradigma MVC, gerencia todo o jogo e √© a esta classe que a interface gr√°fica do usu√°rio ir√° acessar os m√©todos.
+ * Esta classe ser· a principal da parte de Controle do paradigma MVC, gerencia todo o jogo e È a esta classe que a interface gr·fica do usu·rio ir· acessar os mÈtodos.
  *
  */
 public class Game {
-	
-	public static final double INITIAL_MONEY = 5000.0; ///< Dinheiro inicial que os jogadores ir√£o come√ßar.
-	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que cont√©m a loja de itens padr√£o do jogo.
-	public static final int BOARD_HEIGHT = 10; ///< Altura padr√£o do tabuleiro.
-	public static final int BOARD_WIDTH = 10; ///< Largura padr√£o do tabuleiro.
-	public static final double CHARACTER_PRICE = 1000.0; ///< Pre√ßo padr√£o de um personagem.	
+
+	public static final double INITIAL_MONEY = 10000.0; ///< Dinheiro inicial que os jogadores ir„o comeÁar.
+	public static final String ITEM_STORE_FILE = "ItemStore.xml"; ////< Nome do arquivo que contÈm a loja de itens padr„o do jogo.
+	public static final int BOARD_HEIGHT = 10; ///< Altura padr„o do tabuleiro.
+	public static final int BOARD_WIDTH = 10; ///< Largura padr„o do tabuleiro.
+	public static final double CHARACTER_PRICE = 1000.0; ///< PreÁo padr„o de um personagem.	
 
 	public Player mJ1; ///< Jogador 1.
 	public Player mJ2; ///< Jogador 2.
 	public Board mBoard; ///< Tabuleiro do jogo.
 	public ItemStore mItemStore; ///< Loja de Items do jogo.
-	
+
 	/**
-	 * Construtor da Classe game, dar√° inicio ao jogo.
-	 * Tenta carregar a loja de itens do jogo e cria o tabuleiro com as dimens√µes padr√µes.
+	 * Construtor da Classe game, dar· inicio ao jogo.
+	 * Tenta carregar a loja de itens do jogo e cria o tabuleiro com as dimensıes padrıes.
 	 */
 	public Game(){
 		//carrega a loja de itens.
@@ -50,22 +52,22 @@ public class Game {
 			//System.out.println(e.getMessage());
 			mItemStore = null;
 		}
-		
+
 		//inicializa board
 		mBoard = new Board(BOARD_WIDTH, BOARD_HEIGHT);
-		
+
 		//jogadores como null
 		mJ1 = null;
 		mJ2 = null;
 	}
-	
+
 	/**
 	 * Cria o jogador 1.
 	 * @param name nome do jogador.
 	 * @param teamName nome do time.
 	 * @param teamColor cor do time.
 	 */
-	public void setPlayerOne(String name, String teamName, Color teamColor){
+	public void setPlayerOne(String name, String teamName, GameColor teamColor){
 		mJ1 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 
@@ -75,16 +77,16 @@ public class Game {
 	 * @param teamName nome do time.
 	 * @param teamColor cor do time.
 	 */
-	public void setPlayerTwo(String name, String teamName, Color teamColor){
+	public void setPlayerTwo(String name, String teamName, GameColor teamColor){
 		mJ2 = new Player(name, INITIAL_MONEY, teamName, teamColor);
 	}
 
 	/**
 	 * Usado para comprar um item da loja de itens.
-	 * Lan√ßa uma exce√ß√£o de dinheiro insuficiente.
-	 * @param p jogador que est√° comprando.
-	 * @param posItem posi√ß√£o do item na loja de itens.
-	 * @param posCharacter posi√ß√£o do personagem no time do jogador.
+	 * LanÁa uma exceÁ„o de dinheiro insuficiente.
+	 * @param p jogador que est· comprando.
+	 * @param posItem posiÁ„o do item na loja de itens.
+	 * @param posCharacter posiÁ„o do personagem no time do jogador.
 	 * @throws NotEnoughMoneyException
 	 * @throws ItemNotFoundException
 	 */
@@ -100,25 +102,29 @@ public class Game {
 		p.subtractMoney(it.getPrice());
 		chr.addItem(it);
 	}
-	
+
+	public void buyCharacter(Player p) throws NotEnoughMoneyException{
+		p.subtractMoney(1000);
+	}
+
 	public void startGame() throws IOException{
 		if(mItemStore == null)
 		{
 			throw new IOException("Item Store not found! Create a store on the main menu.");
 		}
-		
+
 	}
-	
+
 	public static void main(String args[]){
 
 	}
-	
-	/// Op√ß√µes de a√ß√µes dos personagens em cada turno:
+
+	/// OpÁıes de aÁıes dos personagens em cada turno:
 	/**
 	 * Realiza um ataque entre dois personagens.
 	 * @param attacker
 	 * @param victim
-	 * @return Pair de valores, no qual o primeiro √© o tipo de evento do ataque. E o segundo valor √© o dano causado pelo ataque.
+	 * @return Pair de valores, no qual o primeiro È o tipo de evento do ataque. E o segundo valor È o dano causado pelo ataque.
 	 * @throws OutOfRangeCharacterException 
 	 * @throws CharacterFromSameTeamException 
 	 * @throws DeadCharacterException 
@@ -142,11 +148,11 @@ public class Game {
 		}
 		return ret;
 	}
-	
+
 	/**
-	 * Usar um item consum√≠vel entre os personagens.
+	 * Usar um item consumÌvel entre os personagens.
 	 * @param giver Personagem que possui o item a ser consumido.
-	 * @param receiver Personagem que consumir√° o item.
+	 * @param receiver Personagem que consumir· o item.
 	 * @throws CharacterNotFoundOnBoardException
 	 * @throws CharacterCanNotConsumeItemException
 	 * @throws DeadCharacterException
@@ -158,12 +164,12 @@ public class Game {
 		int distance = mBoard.getDistance(giver, receiver);
 		giver.useConsumable(receiver, distance);
 	}
-	
+
 	/**
-	 * Deve ser usado para adicionar itens √† loja de itens.
+	 * Deve ser usado para adicionar itens ‡ loja de itens.
 	 * @param it item a ser adicionado.
 	 * @throws Exception
-	 * @warning N√£o deve usar diretamente o addItem da Item Store, este verifica se a Store foi criada.
+	 * @warning N„o deve usar diretamente o addItem da Item Store, este verifica se a Store foi criada.
 	 */
 	public void addItemToStore(Item it) throws Exception{
 		if(mItemStore == null){
@@ -171,7 +177,7 @@ public class Game {
 		}
 		mItemStore.addItem(it);
 	}
-	
+
 	/**
 	 * Cria a loja de itens do jogo a partir do nome.
 	 * @param storeName nome da loja de itens.
@@ -179,6 +185,6 @@ public class Game {
 	public void createItemStore(String storeName){
 		mItemStore = new ItemStore(storeName);
 	}
-	
-	
+
+
 }

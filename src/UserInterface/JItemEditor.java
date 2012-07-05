@@ -7,15 +7,15 @@ import javax.swing.border.EmptyBorder;
 import Character.Fighter;
 import Item.*;
 
+import Utilities.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
 import javax.swing.border.EtchedBorder;
+
+import com.thoughtworks.xstream.XStreamException;
 
 public class JItemEditor extends JDialog {
 	
@@ -66,33 +66,6 @@ public class JItemEditor extends JDialog {
 		setTitle("Ferreiro");
 		setResizable(false);
 		setModal(true);
-		JOptionPane.showMessageDialog(null, it.getNumItens());
-		
-		if(it.getNumItens() != 0)
-		{
-			Item[] itemArray = it.getItemArray();
-			
-			for(int i = 0; i < it.getNumItens(); i++){
-				
-				if (itemArray[i] instanceof Weapon){
-					Weapon w = (Weapon) itemArray[i];
-					table.addItemTable("Weapon", w.getName(), String.valueOf(w.getAttackpts()), String.valueOf(w.getRange()), "0", "0", String.valueOf(w.getPrice()), "0");
-				}
-				else if(itemArray[i] instanceof Armor){
-					Armor a = (Armor) itemArray[i];
-					table.addItemTable("Armor", a.getName(), "0", "0", String.valueOf(a.getDefensepts()), String.valueOf(a.getFlexibility()), String.valueOf(a.getPrice()), "0");
-				}
-				else if(itemArray[i] instanceof RevivePotion){
-					RevivePotion r = (RevivePotion) itemArray[i];
-					table.addItemTable("Revive Potion", r.getName(), "0", "0", "0", "0", String.valueOf(r.getPrice()), String.valueOf(r.getRevivePoints()));
-				}
-				else if(itemArray[i] instanceof HealthPotion){
-					HealthPotion h = (HealthPotion) itemArray[i];
-					table.addItemTable("HealthPotion", h.getName(), "0", "0", "0", "0", String.valueOf(h.getPrice()), String.valueOf(h.getRestorePoints()));
-				}
-				
-			}
-		}
 		
 		itemStore = it;
 
@@ -233,7 +206,6 @@ public class JItemEditor extends JDialog {
 		pointsTextField.setBounds(655, 152, 86, 20);
 		buttonPane.add(pointsTextField);
 		pointsTextField.setColumns(10);
-		buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{typeComboBox, defenseTextField, attackTextField, nameTextField, flexibilityTextField, rangeTextField, pointsTextField, priceTextField, createButton, eraseButton, returnButton}));
 		
 		/**TABELA DOS ITENS*/
 		
@@ -247,12 +219,50 @@ public class JItemEditor extends JDialog {
 		getContentPane().add(table);
 		table.setLayout(new CardLayout(0, 0));
 		
+		//Recarrega na lista os itens da itemStore que foram armazenados em XML
+		if(it.getNumItens() != 0)
+		{
+			Item[] itemArray = it.getItemArray();
+			System.out.println(itemArray[0].getName());
+			
+			for(int i = 0; i < it.getNumItens(); i++){
+				
+				if (itemArray[i] instanceof Weapon){
+					Weapon w = (Weapon) itemArray[i];
+					table.addItemTable("Weapon", w.getName(), String.valueOf(w.getAttackpts()), String.valueOf(w.getRange()), "0", "0", String.valueOf(w.getPrice()), "0");
+				}
+				else if(itemArray[i] instanceof Armor){
+					Armor a = (Armor) itemArray[i];
+					table.addItemTable("Armor", a.getName(), "0", "0", String.valueOf(a.getDefensepts()), String.valueOf(a.getFlexibility()), String.valueOf(a.getPrice()), "0");
+				}
+				else if(itemArray[i] instanceof RevivePotion){
+					RevivePotion r = (RevivePotion) itemArray[i];
+					table.addItemTable("Revive Potion", r.getName(), "0", "0", "0", "0", String.valueOf(r.getPrice()), String.valueOf(r.getRevivePoints()));
+				}
+				else if(itemArray[i] instanceof HealthPotion){
+					HealthPotion h = (HealthPotion) itemArray[i];
+					table.addItemTable("HealthPotion", h.getName(), "0", "0", "0", "0", String.valueOf(h.getPrice()), String.valueOf(h.getRestorePoints()));
+				}
+				
+			}
+		}
+		
 		/*LISTENERS**/
 		
 		//voltar
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(itemStore);
+				
+				try {
+					XML.toXML(itemStore, "Loja");
+					JOptionPane.showMessageDialog(null, "Lista salva com sucesso!");
+				} catch (XStreamException e) {
+					JOptionPane.showMessageDialog(null, "Erro ao salvar loja");
+					e.printStackTrace();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Erro de entrada/saida");
+					e.printStackTrace();
+				}
 				setVisible(false);
 			}
 		});
@@ -276,7 +286,7 @@ public class JItemEditor extends JDialog {
 				//Usa o indice que foi removido para remover o item da ItemStore (caso removido com sucesso)
 				if(position != -1)
 				{
-					//itemStore.removeItem(position);
+					itemStore.removeItem(position);
 				}
 				
 				
@@ -313,6 +323,7 @@ public class JItemEditor extends JDialog {
 	{	
 		boolean insert = true;
 		
+		//Se item adicionado for arma
 		if(type.equals("Weapon")){	
 			try{
 				Weapon w = new Weapon(name, Double.parseDouble(price), Integer.parseInt(attack), Integer.parseInt(range));
@@ -325,6 +336,7 @@ public class JItemEditor extends JDialog {
 			
 			
 		}
+		//Se item adicionado for armadura
 		else if(type.equals("Armor")){	
 			try{
 				Armor a = new Armor(name, Double.parseDouble(price), Integer.parseInt(defense), Integer.parseInt(flexibility));
@@ -336,8 +348,8 @@ public class JItemEditor extends JDialog {
 			}
 			
 		}
+		//Se item adicionado for poção de cura
 		else if(type.equals("Health Potion")){
-			//String name, double price, int restore)
 			try{
 				HealthPotion h = new HealthPotion(name, Double.parseDouble(price), Integer.parseInt(points));
 				itemStore.addItem(h);
@@ -348,8 +360,8 @@ public class JItemEditor extends JDialog {
 			}
 			
 		}
+		//Se item adicionado for poção de reviver
 		else if(type.equals("Revive Potion")){
-			//String name, double price, int revivepts) {
 			try{
 				RevivePotion r = new RevivePotion(name, Double.parseDouble(price), Integer.parseInt(points));
 				itemStore.addItem(r);
@@ -364,6 +376,7 @@ public class JItemEditor extends JDialog {
 		//adiciona na tabela
 		if(insert == true){
 			table.addItemTable(type, name, attack, range, defense, flexibility, price, points);
+			JOptionPane.showMessageDialog(null, "Item criado com sucesso!");
 		}
 		
 	}
@@ -379,8 +392,11 @@ public class JItemEditor extends JDialog {
         	rangeTextField.setEnabled(true);
         	attackTextField.setEnabled(true);
         	flexibilityTextField.setEnabled(false);
+        	flexibilityTextField.setText("");
         	defenseTextField.setEnabled(false);
+        	defenseTextField.setText("");
         	pointsTextField.setEnabled(false);
+        	pointsTextField.setText("");
 	
         }
         //se escolihdo foi escudo
@@ -388,17 +404,24 @@ public class JItemEditor extends JDialog {
         	flexibilityTextField.setEnabled(true);
         	defenseTextField.setEnabled(true);
         	rangeTextField.setEnabled(false);
+        	rangeTextField.setText("");
         	attackTextField.setEnabled(false);
+        	attackTextField.setText("");
         	pointsTextField.setEnabled(false);
+        	pointsTextField.setText("");
         }
         //se escolhido foi poçao de vida ou poçao de reviver
         else if (string.equals("Health Potion") || string.equals("Revive Potion")){
         	pointsTextField.setEnabled(true);
         	
         	flexibilityTextField.setEnabled(false);
+        	flexibilityTextField.setText("");
         	rangeTextField.setEnabled(false);
+        	rangeTextField.setText("");
         	attackTextField.setEnabled(false);
+        	attackTextField.setText("");
         	defenseTextField.setEnabled(false);
+        	defenseTextField.setText("");
         }
 	}
 

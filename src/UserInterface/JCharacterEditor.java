@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Character.Character;
 import Character.Fighter;
 import Character.Ranger;
 import Overview.Team;
@@ -71,14 +73,14 @@ public class JCharacterEditor extends JDialog {
 	//personagem que sera criado (atual)
 	private int selected = RANGER;
 	
-	private Team allCharacters;
+	private ArrayList<Character> allCharacters;
 	
 	private int skillPointsLeft = 100;
 	/**
 	 * Construtor
-	 * @param t 
+	 * @param allCharacters2 
 	 */
-	public JCharacterEditor(Team t) {
+	public JCharacterEditor(ArrayList<Character> all) {
 		
 		//Inicializacao do frame
 		setSize(new Dimension(700, 580));
@@ -87,7 +89,7 @@ public class JCharacterEditor extends JDialog {
 		setTitle("Criar Novo Personagem");
 		setModal(true);
 		
-		allCharacters = t;
+		allCharacters = all;
 		
 		//String com o caminho até a pasta atual
 		final String path = System.getProperty("user.dir")+"/";
@@ -352,30 +354,25 @@ public class JCharacterEditor extends JDialog {
 			
 			}
 		});
-//		private JTextField strenghtTextField;
-//		private JTextField dexterityTextField;
-//		private JTextField speedTextField;
-//		private JTextField constitutionTextField;
-//		private JTextField powerTextField;
-//		private JTextField accuraryTextField;
-		//Criar personagem
-		
+
+		//Listener do botao de criar personagem
 		createButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event) {
 				//Cria persongaem e adiciona no time generico, fora no JTeameditor o time generico é adicionado a tabela
 				if(selected == FIGHTER){
 					Fighter f = new Fighter(nameTextField.getText(), Integer.parseInt(powerTextField.getText()));
-					allCharacters.addCharacter(f);
+					allCharacters.add(f);
 					
 				}else if(selected == RANGER){
 					Ranger r = new Ranger(nameTextField.getText(), Integer.parseInt(accuraryTextField.getText()));
-					allCharacters.addCharacter(r);
+					allCharacters.add(r);
 				}
 				setVisible(false);
 			}
 		});
 	}
 	
+	//Listener dos botoes de adicionar e remover pontos de atributos do personagem
 	ActionListener plusAndMinusListener = new ActionListener(){
 		public void actionPerformed(ActionEvent event) {
 			

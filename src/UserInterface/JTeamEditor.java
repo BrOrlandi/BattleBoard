@@ -1,13 +1,18 @@
 package UserInterface;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import Character.Fighter;
+import Character.*;
+import Character.Character;
 import Game.Game;
+import Game.NotEnoughMoneyException;
 import Item.ItemStore;
+
+import Overview.GameColor;
 import Overview.Team;
 
 import java.awt.CardLayout;
@@ -47,6 +52,9 @@ public class JTeamEditor extends JDialog {
     private JButton rightAddCharacterButton;
     private JButton rightRemoveCharacterButton;
     
+    private JButton leftEditCharacter;
+    private JButton rightEditCharacter;
+    
     private JButton playButton;
     private JButton returnButton;
     
@@ -65,7 +73,7 @@ public class JTeamEditor extends JDialog {
     private JLabel rightMoneyValueLabel;
     
     
-    private Team allCharacters;
+    private ArrayList<Character> allCharacters;
  
     /**
      * Construtor
@@ -78,7 +86,7 @@ public class JTeamEditor extends JDialog {
 		setLocationRelativeTo(null);
 		setModal(true);
 		
-		allCharacters = new Team("All", Overview.Color.White);
+		allCharacters = new ArrayList<Character>();
 		
 		//Panel
 		contentPane = new JPanel();
@@ -127,7 +135,7 @@ public class JTeamEditor extends JDialog {
 		
 		//Botoes de adicioanar e remover personagem do time 1 (lado esquerdo)
 		leftAddCharacterButton = new JButton("Adicionar");
-		leftAddCharacterButton.setBounds(240, 350, 100, 20);
+		leftAddCharacterButton.setBounds(240, 370, 100, 20);
 		backgroundImagePane.add(leftAddCharacterButton);
 		
 		leftRemoveCharacterButton = new JButton("Remover");
@@ -136,22 +144,29 @@ public class JTeamEditor extends JDialog {
 		
 		//Botoes de adicionar e remover personagens do time 2 (lado direito)
 		rightAddCharacterButton = new JButton("Adicionar");
-		rightAddCharacterButton.setBounds(550, 350, 100, 20);
+		rightAddCharacterButton.setBounds(550, 370, 100, 20);
 		backgroundImagePane.add(rightAddCharacterButton);
 		
 		rightRemoveCharacterButton = new JButton("Remover");
 		rightRemoveCharacterButton.setBounds(550, 400, 100, 20);
 		backgroundImagePane.add(rightRemoveCharacterButton);
 		
+		leftEditCharacter = new JButton("Editar personagem");
+		leftEditCharacter.setBounds(240, 340, 145, 20);
+		backgroundImagePane.add(leftEditCharacter);
+		
+		rightEditCharacter = new JButton("Editar personagem");
+		rightEditCharacter.setBounds(505, 340, 145, 20);
+		backgroundImagePane.add(rightEditCharacter);
 		
 		//Botao jogar no centro da tela
 		playButton = new JButton("Jogar!");
-		playButton.setBounds(400, 350, 100, 60);
+		playButton.setBounds(395, 350, 100, 60);
 		backgroundImagePane.add(playButton);
 		
 		//botao voltar na parte inferior da tela
 		returnButton = new JButton("Voltar");
-		returnButton.setBounds(400, 530, 100, 20);
+		returnButton.setBounds(395, 530, 100, 20);
 		backgroundImagePane.add(returnButton);
 		
 		//botao de criar novo personagem (que ficara disponivel para ser colocado no time)
@@ -165,8 +180,8 @@ public class JTeamEditor extends JDialog {
 		backgroundImagePane.add(removeCharacterTableButton);
 		
 		//Label
-		centerLabel = new JLabel("Personagens Disponíveis");
-		centerLabel.setBounds(370, 15, 200, 20);
+		centerLabel = new JLabel("Personagens Disponíveis - Mil dinheiros cada!");
+		centerLabel.setBounds(330, 15, 280, 20);
 		centerLabel.setForeground(Color.WHITE);
 		backgroundImagePane.add(centerLabel);
 		
@@ -231,7 +246,7 @@ public class JTeamEditor extends JDialog {
 				
 				int pos = characterList.getSelectedIndex();
 				characterModel.remove(pos);
-				allCharacters.removeCharacter(pos);
+				allCharacters.remove(pos);
 				
 			}
 		});
@@ -240,18 +255,35 @@ public class JTeamEditor extends JDialog {
 		leftAddCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				
-				//Pega posicoa na lista de disponiveis
-				int pos = characterList.getSelectedIndex();
+	
+				try {
+					
+					//Pega posicoa na lista de disponiveis
+					int pos = characterList.getSelectedIndex();
+					if (pos != -1){
+						
+						game.buyCharacter(game.mJ1);
+						leftMoneyValueLabel.setText(String.valueOf(game.mJ1.getMoney()));
+						//Adiciona na tabela do time alpha
+						leftModel.addElement(allCharacters.get(pos));
+						
+						//Remove da tabela de disponiveis
+						characterModel.remove(pos);
+						
+						//adiciona ao time alpha
+						
+						game.mJ1.getTeam().addCharacter(allCharacters.get(pos));
+						allCharacters.remove(pos);
+					}else {
+						JOptionPane.showConfirmDialog(null, "Selecione um personagem para comprar");
+					}
+					
+					
+				} catch (NotEnoughMoneyException e) {
+					JOptionPane.showMessageDialog(null, "Voce nao tem dinheiro para comprar o personagem!");
+					e.printStackTrace();
+				}
 				
-				//Adiciona na tabela do time alpha
-				leftModel.addElement(allCharacters.getCharacter(pos));
-				
-				//Remove da tabela de disponiveis
-				characterModel.remove(pos);
-				
-				//adiciona ao time alpha
-				game.mJ1.getTeam().addCharacter(allCharacters.getCharacter(pos));
-				allCharacters.removeCharacter(pos);
 			}
 		});
 		
@@ -268,7 +300,7 @@ public class JTeamEditor extends JDialog {
 				//remove da tabela da esquerda
 				leftModel.remove(pos);
 				
-				allCharacters.addCharacter(game.mJ1.getTeam().getCharacter(pos));
+				allCharacters.add(game.mJ1.getTeam().getCharacter(pos));
 				game.mJ1.getTeam().removeCharacter(pos);
 			}
 		});
@@ -276,19 +308,35 @@ public class JTeamEditor extends JDialog {
 		//Adiciona personagem no time Bravo
 		rightAddCharacterButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
+				
+				try {
 
-				//Pega posicoa na lista de disponiveis
-				int pos = characterList.getSelectedIndex();
-				
-				//Adiciona na tabela do time bravo
-				rightModel.addElement(allCharacters.getCharacter(pos));
-				
-				//Remove da tabela de disponiveis
-				characterModel.remove(pos);
-				
-				//adiciona ai time bravo
-				game.mJ2.getTeam().addCharacter(allCharacters.getCharacter(pos));
-				allCharacters.removeCharacter(pos);		
+					
+					//Pega posicoa na lista de disponiveis
+					int pos = characterList.getSelectedIndex();
+					if(pos != -1){
+						game.buyCharacter(game.mJ2);
+						rightMoneyValueLabel.setText(String.valueOf(game.mJ2.getMoney()));
+						
+						//Adiciona na tabela do time bravo
+						rightModel.addElement(allCharacters.get(pos));
+						
+						//Remove da tabela de disponiveis
+						characterModel.remove(pos);
+						
+						//adiciona ai time bravo
+						
+						game.mJ2.getTeam().addCharacter(allCharacters.get(pos));
+						allCharacters.remove(pos);	
+					}else{
+						JOptionPane.showConfirmDialog(null, "Selecione um personagem para comprar");
+					}
+
+				} catch (NotEnoughMoneyException e) {
+					JOptionPane.showMessageDialog(null, "Voce nao tem dinheiro para comprar o personagem!");
+					e.printStackTrace();
+				}
+	
 			}
 		});
 		
@@ -305,7 +353,7 @@ public class JTeamEditor extends JDialog {
 				//remove da tabela da esquerda
 				rightModel.remove(pos);
 				
-				allCharacters.addCharacter(game.mJ2.getTeam().getCharacter(pos));
+				allCharacters.add(game.mJ2.getTeam().getCharacter(pos));
 				game.mJ2.getTeam().removeCharacter(pos);	}
 		});
 		
@@ -335,27 +383,49 @@ public class JTeamEditor extends JDialog {
 		{
 			public void actionPerformed(ActionEvent event) {
 				if(event.getSource() == leftBuyItem){
-					JAddItem jadd = new JAddItem(game.mJ1.getTeam(), game.mItemStore);
+					JAddItem jadd = new JAddItem(game, game.mJ1);
 					jadd.setVisible(true);
 				}
 				else if (event.getSource() == rightBuyItem){
-					JAddItem jadd = new JAddItem(game.mJ2.getTeam(), game.mItemStore);
+					JAddItem jadd = new JAddItem(game, game.mJ2);
 					jadd.setVisible(true);
 				}
 				
 			}
 		};
-		
+		//Adiciona listeners
 		leftBuyItem.addActionListener(listener);
 		rightBuyItem.addActionListener(listener);
+		
+		//Botao de editar o personagem (seta qual item sera usado)
+		leftEditCharacter.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				int pos = leftList.getSelectedIndex();
+				JEditCharacter jedit = new JEditCharacter(game.mJ1.getTeam().getCharacter(pos));
+				jedit.setVisible(true);
+				
+			}
+		});
+		
+		//Botao de editar o personagem (seta qual item sera usado)
+		rightEditCharacter.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				int pos = rightList.getSelectedIndex();
+				JEditCharacter jedit = new JEditCharacter(game.mJ2.getTeam().getCharacter(pos));
+				jedit.setVisible(true);
+				
+			}
+		});		
 	}
 	
+	
+	
 	//Atualiza item dos personagns disponiveis
-	public void refreshCharacterList(Team allCharacters){
+	public void refreshCharacterList(ArrayList<Character> allCharacters){
 		characterModel.removeAllElements();
 		
-		for(int i = 0; i <allCharacters.numCharacter(); i++){
-				characterModel.addElement(allCharacters.getCharacter(i).fullDescription());		
+		for(int i = 0; i <allCharacters.size(); i++){
+				characterModel.addElement(allCharacters.get(i).fullDescription());		
 		}	
 	}
 	
